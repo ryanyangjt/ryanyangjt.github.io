@@ -1,5 +1,6 @@
 import os
 import re
+import json
 import feedparser
 import google.generativeai as genai
 from bs4 import BeautifulSoup
@@ -13,7 +14,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-pro')
 
 def is_already_processed(title):
-    """檢查 index.html 是否已經有這篇文章，避免重複生成"""
+    """檢查 index.html 是否已經有這篇文章"""
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             content = f.read()
@@ -26,13 +27,10 @@ def get_unprocessed_articles():
     feed = feedparser.parse(SUBSTACK_FEED_URL)
     new_articles = []
     
-    # 遍歷 RSS 裡的文章 (由新到舊)
     for entry in feed.entries:
-        # 如果這篇文章已經在目錄裡，代表更舊的文章也都處理過了，直接中斷迴圈
         if is_already_processed(entry.title):
             break
             
-        # 提取純文字內容
         soup = BeautifulSoup(entry.content[0].value, "html.parser")
         clean_text = soup.get_text(separator='\n', strip=True)
         
@@ -45,44 +43,57 @@ def get_unprocessed_articles():
         
     return new_articles
 
-def generate_html_with_gemini(article):
-    """呼叫 Gemini 生成投資儀表板 HTML"""
+def generate_data_with_gemini(article):
+    """呼叫 Gemini 同時生成 HTML 與 標的清單 (JSON格式)"""
     prompt = f"""
     你現在是一位專業的科技與投資分析師。
-    請閱讀以下來自 Substack 的最新文章內容，並將其重點整理成一個「投資研究儀表板」的單頁 HTML。
+    請閱讀以下文章內容，並將其重點整理成一個「投資研究儀表板」的 HTML。
     
     【文章標題】：{article['title']}
     【文章內容】：
     {article['content'][:15000]}
     
-    【HTML 輸出要求】：
-    1. 必須是完整的 HTML 程式碼（包含 <!DOCTYPE html>, <html>, <head>, <body>）。
-    2. 請模仿我先前的設計風格：
-       - 背景顏色使用 #f4f7f6 或 #f8f9fa。
-       - 使用區塊 (Cards) 來排版不同的重點。
-       - 適度加上顏色標籤 (Tags) 來標示產業或操作建議 (例如: <span class="tag">逢低佈局</span>)。
-    3. 如果文章內容有提到比較、數據或趨勢，請務必使用 Chart.js (CDN: https://cdn.jsdelivr.net/npm/chart.js) 在網頁中畫出一個對應的圖表。
-    4. 內容必須專業、精煉，並保留原本的投資洞見。
-    5. 不要輸出任何 Markdown 語法 (如 ```html )，只輸出純 HTML 字串。
+    【⚠️ 輸出格式嚴格要求】：
+    請務必只輸出合法的 JSON 格式，包含兩個 key：
+    1. "targets": 一個陣列，包含文章中主要提到的投資標的（如股票代號 "NVDA", "QCOM" 或公司名稱）。若無提及具體標的，請給空陣列 []。
+    2. "html": 完整的 HTML 程式碼字串（需包含 <!DOCTYPE html>, <html>, <head>, <body>）。
+       - HTML 設計要求：背景色 #f4f7f6，使用 Cards 排版，適度加上顏色標籤。
+       - 若有數據，請用 Chart.js 畫圖。
+       
+    請不要輸出任何 Markdown 標記 (例如 ```json )，只輸出純 JSON 字串。
     """
     
     response = model.generate_content(prompt)
-    raw_html = response.text
+    raw_text = response.text
     
-    raw_html = re.sub(r"^
-```html\n", "", raw_html, flags=re.MULTILINE)
-    raw_html = re.sub(r"```$", "", raw_html, flags=re.MULTILINE)
+    # 清理可能殘留的 Markdown 標記
+    raw_text = re.sub(r"^
+```(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
+    raw_text = re.sub(r"```$", "", raw_text, flags=re.MULTILINE)
     
-    return raw_html.strip()
+    try:
+        data = json.loads(raw_text.strip())
+        return data.get("html", ""), data.get("targets", [])
+    except json.JSONDecodeError as e:
+        print(f"JSON 解析失敗: {e}")
+        # 如果發生例外，回傳純文字與空陣列作為保底
+        return raw_text, []
 
-def update_index_html(file_name, title):
-    """在 index.html 中自動插入新文章的連結"""
+def update_index_html(file_name, title, targets):
+    """在 index.html 中自動插入新文章的連結與標的標籤"""
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             html = f.read()
             
+        # 組合標的標籤的 HTML (帶有行內 CSS 樣式)
+        tags_html = ""
+        if targets:
+            tags_list = "".join([f'<span style="display:inline-block; background-color:#e74c3c; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;">{t}</span>' for t in targets])
+            tags_html = f'<div style="margin-top: 5px;">{tags_list}</div>'
+            
         insert_point = html.find("<ul>") + 4
-        new_list_item = f'\n        <li><a href="{file_name}">🆕 {datetime.today().strftime("%Y%m%d")} - {title}</a></li>'
+        # 將標的標籤放在 <a> 連結的區塊內
+        new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {datetime.today().strftime("%Y%m%d")} - {title}{tags_html}</a>\n        </li>'
         
         new_html = html[:insert_point] + new_list_item + html[insert_point:]
         
@@ -102,8 +113,6 @@ def main():
         
     print(f"總共發現 {len(articles)} 篇新文章，開始依序處理...")
     
-    # 使用 reversed() 讓處理順序變成「從舊到新」
-    # 這樣在寫入 index.html 目錄時，最新的一篇才會被堆疊在最上面
     for article in reversed(articles):
         print(f"\n👉 正在處理: {article['title']}")
         
@@ -111,13 +120,15 @@ def main():
         safe_title = re.sub(r'[\\/*?:"<>|]', "", article['title']).replace(" ", "_")
         file_name = f"{date_str}_{safe_title}.html"
         
-        html_content = generate_html_with_gemini(article)
+        # 接收 Gemini 回傳的 HTML 與 標的清單
+        html_content, targets = generate_data_with_gemini(article)
         
         with open(file_name, "w", encoding="utf-8") as f:
             f.write(html_content)
         print(f"✅ 已生成 HTML 檔案: {file_name}")
+        print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
         
-        update_index_html(file_name, article['title'])
+        update_index_html(file_name, article['title'], targets)
         print(f"✅ 目錄 index.html 更新完成！")
 
 if __name__ == "__main__":
