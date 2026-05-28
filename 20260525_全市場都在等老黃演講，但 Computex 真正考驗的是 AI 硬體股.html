@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computex AI 硬體股重點整理</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        .highlight-box {
+            background: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        .highlight-box h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #3498db;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+            font-size: 1.1em;
+        }
+        .tag {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        .tag.purple { background: #8e44ad; }
+        .tag.green { background: #27ae60; }
+        .tag.orange { background: #d35400; }
+        .tag.yellow { background: #f39c12; }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            padding: 20px 0;
+        }
+        .step {
+            padding: 10px 20px;
+            background: #fdfefe;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .step.active {
+            border-color: #e67e22;
+            background: #fcf3cf;
+        }
+        .step.active::after {
+            content: "📍 目前市場位置";
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #d35400;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .strategy {
+            background: #fef9e7;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed #f1c40f;
+            margin-top: 40px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Computex 壓力測試：AI 硬體股投資邏輯大解析</h1>
+    <p class="subtitle">這不是單純的科技秀，而是檢驗資金是否願意追價的「預期差」考驗</p>
+
+    <div class="highlight-box">
+        <h3>💡 核心主軸：從「訓練」轉向「推論」</h3>
+        <p>AI 硬體的主戰場正在改變。過去市場交易單一 GPU 的訓練算力，未來投資重點將轉向：<strong>推論成本 (TCO)、每瓦效能、邊緣 AI</strong>，以及整體系統效率的「硬體重分配」。</p>
+    </div>
+
+    <h2>🏢 五大關鍵企業與市場預期</h2>
+    <div class="grid-container">
+        <div class="card">
+            <h3>NVDA (輝達)</h3>
+            <span class="tag">Vera Rubin</span>
+            <p><strong>重點：</strong> Rubin 出貨倒數與 Physical AI (實體/機器人 AI) 生態系。</p>
+            <p><strong>影響：</strong> 帶動整櫃 AI 製造供應鏈 (液冷、電力、光通訊) 重新定價。</p>
+        </div>
+        <div class="card">
+            <h3>QCOM (高通)</h3>
+            <span class="tag">推論與邊緣 AI</span>
+            <p><strong>重點：</strong> 從手機跨入資料中心推論 (AI200/250) 與工業邊緣 AI。</p>
+            <p><strong>影響：</strong> 若宣布新客戶訂單，將是股價跳升的極大催化劑。</p>
+        </div>
+        <div class="card">
+            <h3>INTC (英特爾)</h3>
+            <span class="tag">CPU + 先進封裝</span>
+            <p><strong>重點：</strong> Panther Lake (PC)、Xeon 6+ 伺服器晶片與 Foundry 代工進展。</p>
+            <p><strong>影響：</strong> 若能公布 hyperscaler 雲端大廠客戶名單，將帶動重新定價。</p>
+        </div>
+        <div class="card">
+            <h3>MRVL & DELL</h3>
+            <span class="tag">財報檢驗</span>
+            <p><strong>MRVL：</strong> 光通訊與 ASIC 指標，提防市場期待過高。<br>
+            <strong>DELL/HPE：</strong> OEM 品牌商，率先反映 Rubin 的整機櫃 Backlog 訂單。</p>
+        </div>
+    </div>
+
+    <h2>🔄 Vera Rubin 供應鏈的五階段股價反應</h2>
+    <p>市場正在反應 Rubin 出貨預期，不同階段受惠者不同：</p>
+    <div class="timeline">
+        <div class="step">
+            <strong>1. 下單階段：</strong> NVDA 接單 (12個月前，已反映)。
+        </div>
+        <div class="step">
+            <strong>2. 備料階段：</strong> 記憶體、光通訊、晶圓 TSM 先漲 (6-9個月前，已反映差不多)。
+        </div>
+        <div class="step active">
+            <strong>3. 組裝階段：</strong> 美股 OEM (DELL, HPE) 與 EMS (SANM, JBL) 接單與拉貨。<br>
+            <em>*OEM 優先反映能見度，EMS 緊跟其後受惠於液冷與系統整合的高毛利。</em>
+        </div>
+        <div class="step">
+            <strong>4. 出貨階段：</strong> NVDA 實際營收與毛利提升 (預計 7-9 月，尚待啟動)。
+        </div>
+        <div class="step">
+            <strong>5. 部署階段：</strong> 雲端大廠應用爆發與後端基建 (9 月之後)。
+        </div>
+    </div>
+
+    <h2>🚀 潛在受惠類股與核心個股清單</h2>
+    <p>根據資金流向與產業鏈位置，作者點名了以下重點關注名單：</p>
+    <div class="grid-container">
+        <div class="card">
+            <h3>🏭 OEM 與 EMS 板塊</h3>
+            <span class="tag purple">Rubin 外溢核心受惠</span>
+            <ul>
+                <li><strong>OEM (品牌商)：</strong> DELL, HPE (主權 AI/高毛利), SMCI</li>
+                <li><strong>EMS (高階代工)：</strong> SANM (繼承 ZT 訂單), JBL (液冷/電力整合), CLS</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>🧠 推論與邊緣 AI</h3>
+            <span class="tag green">下半年主軸</span>
+            <ul>
+                <li><strong>推論加速器：</strong> QCOM (AI200/250)</li>
+                <li><strong>底層架構：</strong> ARM</li>
+                <li><strong>CPU/先進封裝：</strong> INTC</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>🤖 實體 AI 與工業</h3>
+            <span class="tag orange">第二層資金擴散</span>
+            <ul>
+                <li><strong>工業自動化：</strong> HON (Honeywell)</li>
+                <li><strong>邊緣 AI 轉型：</strong> ROK (Rockwell)</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>🔌 基礎設施與其他</h3>
+            <span class="tag yellow">零組件與事件交易</span>
+            <ul>
+                <li><strong>光通訊/被動：</strong> MRVL, TSM, MU, VSH</li>
+                <li><strong>太空事件交易：</strong> ASTS (留意利多實現前逢高減碼)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="strategy">
+        <h3>🎯 總結與操作策略提醒</h3>
+        <ul>
+            <li><strong>尋找預期差：</strong> 不要看到 AI 就 FOMO 追高。重點在於尋找尚未完全定價的標的（如 QCOM 的推論、美股 EMS 的組裝高值化）。</li>
+            <li><strong>提防利多出盡：</strong> 滿手 AI 股、新聞狂吹時，應分辨誰會趁利多出貨。漲多、噴出、放煙火的個股建議逢高適度調節減碼。</li>
+            <li><strong>關注重點轉換：</strong> 投資目光應從「零組件」轉移到「OEM (品牌)」與「EMS (高階製造代工)」，因為 Rubin 單櫃價格翻倍，且需要高度複雜的液冷與系統整合。</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

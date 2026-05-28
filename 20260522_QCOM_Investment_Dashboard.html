@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCOM (高通) 投資分析儀表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #005eb8;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #005eb8;
+            padding-bottom: 10px;
+        }
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #005eb8;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>QCOM 投資價值可視化分析</h1>
+        <p>從「手機週期股」邁向「邊緣 AI 與多引擎平台」</p>
+    </div>
+
+    <div class="grid">
+        <!-- 估值指標卡片 -->
+        <div class="card">
+            <h2>SOTP 分部加總估值法 (目標價: $245)</h2>
+            <canvas id="valuationChart"></canvas>
+            <p style="font-size: 0.9em; margin-top: 15px; color: #666;">
+                市場目前以單一手機晶片本益比定價(約17-22倍)，低估了車用與資料中心業務。合理目標價為 <span class="highlight">$245</span> (保守) 至 $350 (樂觀)。
+            </p>
+        </div>
+
+        <!-- 營收成長卡片 -->
+        <div class="card">
+            <h2>近期營收表現 (26財年Q2)</h2>
+            <canvas id="revenueChart"></canvas>
+            <p style="font-size: 0.9em; margin-top: 15px; color: #666;">
+                車用晶片營收創季度新高( YoY 38% )，已成為抵銷手機週期波動的核心成長引擎。
+            </p>
+        </div>
+
+        <!-- 催化劑時間軸 -->
+        <div class="card">
+            <h2>下半年關鍵催化劑 (投資進場參考)</h2>
+            <div class="timeline-item">
+                <div class="timeline-date">6/24 - Investor Day</div>
+                <div>公布 Data Center 戰略細節、Hyperscaler 客戶名單。可能觸發估值重塑 (Re-rating)。</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">8/5 - Q3 財報公布</div>
+                <div>觀察手機業務是否如預期觸底。財報後的拉回可能是低成本進場點。</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">12月 - 基本面轉折點</div>
+                <div>Hyperscaler 首批客製化矽晶片出貨，資料中心敘事轉化為實質營收貢獻。</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2027 Q1 - AI200 放量</div>
+                <div>資料中心全面開始貢獻營收，AI 硬體股定位確立。</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 估值倍數圖表
+    const valCtx = document.getElementById('valuationChart').getContext('2d');
+    new Chart(valCtx, {
+        type: 'bar',
+        data: {
+            labels: ['手機 (EV/EBITDA)', '車用 (EV/Sales)', 'IoT/邊緣AI (EV/Sales)', '資料中心 (EV/Sales)'],
+            datasets: [{
+                label: '給予的估值倍數',
+                data: [8, 8, 4, 12],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: '估值倍數 (倍)' } }
+            }
+        }
+    });
+
+    // 營收成長圖表
+    const revCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revCtx, {
+        type: 'bar',
+        data: {
+            labels: ['車用晶片', 'IoT 業務', '手機業務'],
+            datasets: [{
+                label: 'YoY 成長率 (%)',
+                data: [38, 9, -13],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 99, 132, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: { beginAtZero: true, title: { display: true, text: 'YoY (%)' } }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

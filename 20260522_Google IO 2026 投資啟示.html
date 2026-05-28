@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google I/O 2026 投資啟示儀表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a73e8, #8ab4f8);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+        }
+        .header p {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid #1a73e8;
+        }
+        .card h2 {
+            color: #202124;
+            font-size: 1.3rem;
+            margin-top: 0;
+            border-bottom: 2px solid #e8eaed;
+            padding-bottom: 10px;
+        }
+        .list-group {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .list-group li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #e8eaed;
+            line-height: 1.5;
+        }
+        .list-group li:last-child {
+            border-bottom: none;
+        }
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .tag-core { background-color: #fce8e6; color: #d93025; }
+        .tag-edge { background-color: #e6f4ea; color: #1e8e3e; }
+        .tag-power { background-color: #fef7e0; color: #f9ab00; }
+        .tag-wait { background-color: #f1f3f4; color: #5f6368; }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Google I/O 2026 投資啟示</h1>
+        <p>AI 投資主線已翻頁：從「模型訓練」走向「推論規模化與物理瓶頸」</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>短線資金偏好與操作順序</h2>
+            <div class="chart-container">
+                <canvas id="strategyChart"></canvas>
+            </div>
+            <p style="font-size: 0.9em; color: #5f6368; margin-top: 15px; text-align: center;">
+                目前資金更青睞推論基建與電力瓶頸，軟體板塊仍在築底。
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>三大青睞板塊與受惠股清單</h2>
+            <ul class="list-group">
+                <li>
+                    <span class="tag tag-edge">邊緣推論 Edge AI</span><br>
+                    <strong>邏輯：</strong>AI 運算下放終端，節省雲端成本與延遲。<br>
+                    <strong>關注股：</strong><br>
+                    • <b>QCOM</b> (非雲端 AI 核心供應商、手機/車用/XR)<br>
+                    • <b>ARM</b> (純軟體授權收租者)
+                </li>
+                <li>
+                    <span class="tag tag-power">電力 2.0 (剛性主線)</span><br>
+                    <strong>邏輯：</strong>推論全天候運轉，AI 最大的瓶頸從晶片轉為電力。<br>
+                    <strong>關注股：</strong>BE、NBIS、FCEL (尋找具備 Alpha 的電力基建股)
+                </li>
+                <li>
+                    <span class="tag tag-core">智慧眼鏡與物理 AI</span><br>
+                    <strong>邏輯：</strong>AI 交互入口從手機轉向眼鏡，目前為題材初升段動能交易。<br>
+                    <strong>關注股：</strong>VUZI、HIMX、OUST (買零組件與平台，不買終端品牌)
+                </li>
+                <li>
+                    <span class="tag tag-wait">軟體股 (等待築底)</span><br>
+                    <strong>邏輯：</strong>API 成本大降 1/3，受惠者為用 LLM 賣服務的 SaaS。<br>
+                    <strong>關注股：</strong>MDB (向量資料庫)、TWLO (AI 客服中台)
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('strategyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: [
+                '多模態推論基建 (拉回買)', 
+                '電力 2.0 (波段剛性主線)', 
+                '邊緣AI/智慧眼鏡 (短線題材)', 
+                'GOOG 本身 (長線定期定額)', 
+                '軟體 API 受惠股 (等待築底)'
+            ],
+            datasets: [{
+                label: '市場資金青睞度',
+                data: [90, 85, 75, 70, 40],
+                backgroundColor: [
+                    'rgba(26, 115, 232, 0.6)',   // Blue
+                    'rgba(249, 171, 0, 0.6)',    // Yellow
+                    'rgba(52, 168, 83, 0.6)',    // Green
+                    'rgba(234, 67, 53, 0.6)',    // Red
+                    'rgba(154, 160, 166, 0.6)'   // Grey
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    min: 0,
+                    max: 100,
+                    ticks: { display: false }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
