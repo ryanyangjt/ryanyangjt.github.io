@@ -1,0 +1,47 @@
+name: Auto Generate Investment Dashboard
+
+on:
+  schedule:
+    # 每天早上 8 點執行 (UTC 時間 00:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch: 
+    # 允許你隨時手動點擊執行按鈕
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 允許機器人修改你的 Repository
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Auto Generation Script
+        env:
+          # 將存放在 Secret 的 API Key 傳遞給 Python
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python auto_generate.py
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          
+          # 檢查是否有檔案變動，有才 commit
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "Auto-generated new investment dashboard"
+            git push
+          else
+            echo "沒有新文章，無需更新。"
+          fi
