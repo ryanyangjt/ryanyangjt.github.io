@@ -23,8 +23,9 @@ def get_targets_from_gemini(text_content):
     請不要輸出任何 Markdown 標記，只輸出純 JSON 字串。
     """
     
+    # 🌟 這裡已經換成支援最新 API 版本的模型代號
     response = client.models.generate_content(
-        model='gemini-1.5-pro',
+        model='gemini-2.5-flash',
         contents=prompt,
     )
     raw_text = response.text
