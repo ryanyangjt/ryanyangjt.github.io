@@ -1,2 +1,2 @@
-feedparser
-curl_cffi
+google-genai
+beautifulsoup4
