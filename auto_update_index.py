@@ -51,10 +51,10 @@ def get_targets_from_gemini(text_content):
         return []
 
 def create_tags_html(targets):
-    """將標的陣列轉換成彩色 CSS 標籤的 HTML"""
+    """將標的陣列轉換成彩色 CSS 標籤的 HTML，並加入 data-symbol 屬性供 JS 讀取"""
     if not targets:
         return ""
-    tags_list = "".join([f'<span style="display:inline-block; background-color:{get_color_for_tag(t)}; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;" class="stock-tag">{t}</span>' for t in targets])
+    tags_list = "".join([f'<span data-symbol="{t}" class="stock-tag" style="display:inline-block; background-color:{get_color_for_tag(t)}; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: all 0.3s ease;">{t} <span class="price-placeholder">...</span></span>' for t in targets])
     return f'<div style="margin-top: 5px;" class="stock-tags-container">{tags_list}</div>'
 
 def main():
