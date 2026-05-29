@@ -2,9 +2,10 @@ import os
 import re
 import glob
 import json
-import time  # 👈 新增：用來控制時間暫停
+import time
 from bs4 import BeautifulSoup
 from google import genai
+from google.genai import errors # 👈 新增：用來捕捉伺服器錯誤
 
 # 1. 設定與初始化
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -21,7 +22,7 @@ def get_color_for_tag(tag):
     return colors[color_index]
 
 def get_targets_from_gemini(text_content):
-    """呼叫 Gemini 閱讀純文字內容，只萃取投資標的"""
+    """呼叫 Gemini 閱讀純文字內容，只萃取投資標的，並包含自動重試機制"""
     prompt = f"""
     你是一位專業的投資分析師。請閱讀以下文章內容，萃取出文章中主要討論的「投資標的」（例如股票代號或公司簡稱，如 NVDA, QCOM, 台積電 等）。
     
@@ -34,21 +35,36 @@ def get_targets_from_gemini(text_content):
     請不要輸出任何 Markdown 標記，只輸出純 JSON 字串。
     """
     
-    response = client.models.generate_content(
-        model='gemini-2.5-flash',
-        contents=prompt,
-    )
-    raw_text = response.text
+    max_retries = 3 # 設定最多重試 3 次
     
-    raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
-    raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
-    
-    try:
-        data = json.loads(raw_text.strip())
-        return data.get("targets", [])
-    except json.JSONDecodeError as e:
-        print(f"JSON 解析失敗: {e}")
-        return []
+    for attempt in range(max_retries):
+        try:
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt,
+            )
+            raw_text = response.text
+            
+            raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
+            raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
+            
+            data = json.loads(raw_text.strip())
+            return data.get("targets", [])
+            
+        except errors.ServerError as e:
+            # 如果是 503 伺服器忙碌
+            if "503" in str(e) or "UNAVAILABLE" in str(e):
+                print(f"⚠️ 伺服器大塞車中 (503 錯誤)，等待 30 秒後進行第 {attempt + 1}/{max_retries} 次重試...")
+                time.sleep(30)
+            else:
+                print(f"伺服器發生其他錯誤: {e}")
+                return []
+        except Exception as e:
+            print(f"解析或呼叫失敗: {e}")
+            return []
+            
+    print("❌ 伺服器持續忙碌，重試次數已達上限，跳過此篇文章。")
+    return []
 
 def create_tags_html(targets):
     """將標的陣列轉換成彩色 CSS 標籤的 HTML，並加入 data-symbol 屬性供 JS 讀取"""
@@ -97,7 +113,6 @@ def main():
                 index_html = index_html.replace(match.group(0), new_a_tag)
                 updated = True
                 
-            # 👈 新增：強制休息 15 秒，保護 API 免費額度
             print("⏳ 避免觸發 API 頻率限制，暫停 15 秒...")
             time.sleep(15)
                 
@@ -127,7 +142,6 @@ def main():
             index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
             updated = True
             
-            # 👈 新增：強制休息 15 秒，保護 API 免費額度
             print("⏳ 避免觸發 API 頻率限制，暫停 15 秒...")
             time.sleep(15)
 
