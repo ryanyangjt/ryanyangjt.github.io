@@ -9,6 +9,25 @@ from google import genai
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
+# 2. 定義標籤的調色盤
+def get_color_for_tag(tag):
+    """根據標的名稱的字元產生固定的顏色，讓同一個標的永遠是同一個顏色"""
+    colors = [
+        "#e74c3c", # 紅色
+        "#3498db", # 藍色
+        "#2ecc71", # 綠色
+        "#f39c12", # 橘黃色
+        "#9b59b6", # 紫色
+        "#1abc9c", # 藍綠色
+        "#34495e", # 深鐵灰
+        "#e67e22", # 橙色
+        "#27ae60", # 深綠色
+        "#2980b9"  # 深藍色
+    ]
+    # 利用 ASCII 碼加總來決定顏色索引
+    color_index = sum(ord(c) for c in tag) % len(colors)
+    return colors[color_index]
+
 def get_targets_from_gemini(text_content):
     """呼叫 Gemini 閱讀純文字內容，只萃取投資標的"""
     prompt = f"""
@@ -23,14 +42,13 @@ def get_targets_from_gemini(text_content):
     請不要輸出任何 Markdown 標記，只輸出純 JSON 字串。
     """
     
-    # 🌟 這裡已經換成支援最新 API 版本的模型代號
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-2.5-flash', # 使用最新且速度最快的模型
         contents=prompt,
     )
     raw_text = response.text
     
-    # 清理殘留的 Markdown 標記，避免 SyntaxError
+    # 清理殘留的 Markdown 標記
     raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
     raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
     
@@ -41,10 +59,16 @@ def get_targets_from_gemini(text_content):
         print(f"JSON 解析失敗: {e}")
         return []
 
+def create_tags_html(targets):
+    """將標的陣列轉換成彩色 CSS 標籤的 HTML"""
+    if not targets:
+        return ""
+    tags_list = "".join([f'<span style="display:inline-block; background-color:{get_color_for_tag(t)}; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;" class="stock-tag">{t}</span>' for t in targets])
+    return f'<div style="margin-top: 5px;" class="stock-tags-container">{tags_list}</div>'
+
 def main():
     print("正在掃描本地端的 HTML 檔案...")
     
-    # 讀取現有目錄
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             index_html = f.read()
@@ -52,62 +76,74 @@ def main():
         print("找不到 index.html 大門！")
         return
 
-    # 找出所有 .html 檔案，並排除 index.html 本身
     html_files = [f for f in glob.glob("*.html") if f != "index.html"]
-    # 按照檔名排序 (假設檔名是 20260528_xxx.html，這樣能確保由新到舊排)
     html_files.sort(reverse=True)
 
     updated = False
 
     for file_name in html_files:
-        # 如果檔案名稱已經存在於 index.html 中，代表處理過了，跳過
-        if file_name in index_html:
-            continue
-            
-        print(f"\n👉 發現新文章: {file_name}")
+        # 1. 使用正規表達式尋找 index.html 裡面是否已經有這篇文章的 <a> 標籤
+        pattern = rf'(<a href="{re.escape(file_name)}">)(.*?)(</a>)'
+        match = re.search(pattern, index_html, flags=re.DOTALL)
         
-        # 讀取新文章內容
-        with open(file_name, "r", encoding="utf-8") as f:
-            content = f.read()
-            
-        # 拔除 HTML 標籤，只留純文字給 Gemini 分析以節省 Token
-        soup = BeautifulSoup(content, "html.parser")
-        text_content = soup.get_text(separator='\n', strip=True)
-        
-        # 嘗試從檔名拆解出「日期」與「標題」 (格式: YYYYMMDD_標題.html)
-        match = re.match(r"^(\d{8})_(.*)\.html$", file_name)
         if match:
-            date_str, title = match.groups()
-            title = title.replace("_", " ") # 替換掉可能存在的底線
+            a_start, inner_html, a_end = match.groups()
+            
+            # 檢查這行裡面是不是已經有標籤了 (避免重複生成)
+            if 'class="stock-tag"' in inner_html or 'margin-top: 5px;' in inner_html:
+                print(f"⏩ {file_name} 已有標籤，跳過。")
+                continue
+                
+            # 【回溯補齊邏輯】：文章在目錄裡，但還沒有標籤
+            print(f"\n👉 發現舊文章缺標籤，準備補齊: {file_name}")
+            with open(file_name, "r", encoding="utf-8") as f:
+                content = f.read()
+            soup = BeautifulSoup(content, "html.parser")
+            text_content = soup.get_text(separator='\n', strip=True)
+            
+            targets = get_targets_from_gemini(text_content)
+            print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
+            
+            if targets:
+                tags_html = create_tags_html(targets)
+                # 將新標籤安插進原本的 <a> 裡面
+                new_a_tag = f'{a_start}{inner_html}{tags_html}{a_end}'
+                index_html = index_html.replace(match.group(0), new_a_tag)
+                updated = True
+                
         else:
-            date_str = "最新"
-            title = file_name.replace(".html", "")
+            # 【新文章邏輯】：文章根本不在目錄裡
+            print(f"\n👉 發現全新文章: {file_name}")
+            with open(file_name, "r", encoding="utf-8") as f:
+                content = f.read()
+            soup = BeautifulSoup(content, "html.parser")
+            text_content = soup.get_text(separator='\n', strip=True)
             
-        # 呼叫 AI 萃取標的
-        print("🧠 正在請 Gemini 萃取標的...")
-        targets = get_targets_from_gemini(text_content)
-        print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
-        
-        # 製作標籤的 CSS UI
-        tags_html = ""
-        if targets:
-            tags_list = "".join([f'<span style="display:inline-block; background-color:#e74c3c; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;">{t}</span>' for t in targets])
-            tags_html = f'<div style="margin-top: 5px;">{tags_list}</div>'
+            match_date = re.match(r"^(\d{8})_(.*)\.html$", file_name)
+            if match_date:
+                date_str, title = match_date.groups()
+                title = title.replace("_", " ")
+            else:
+                date_str = "最新"
+                title = file_name.replace(".html", "")
+                
+            targets = get_targets_from_gemini(text_content)
+            print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
             
-        # 插入到 index.html
-        insert_point = index_html.find("<ul>") + 4
-        new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {date_str} - {title}{tags_html}</a>\n        </li>'
-        
-        index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
-        updated = True
+            tags_html = create_tags_html(targets)
+            
+            insert_point = index_html.find("<ul>") + 4
+            new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {date_str} - {title}{tags_html}</a>\n        </li>'
+            
+            index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
+            updated = True
 
-    # 如果有更新，就覆寫回 index.html
     if updated:
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(index_html)
         print("\n✅ 目錄 index.html 更新完成！")
     else:
-        print("\n沒有發現新文章，目錄無需更新。")
+        print("\n沒有發現需要更新的文章。")
 
 if __name__ == "__main__":
     main()
