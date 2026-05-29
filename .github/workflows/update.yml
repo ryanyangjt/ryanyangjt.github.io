@@ -1,17 +1,17 @@
-name: Auto Generate Investment Dashboard
+name: Auto Update Index with Tags
 
 on:
-  schedule:
-    # 每天 UTC 08:00 與 22:00 執行 (對應台灣下午 4 點與早上 6 點)
-    - cron: '0 8,22 * * *'
+  push:
+    paths:
+      - '**.html'
+      - '!index.html' # 排除首頁，避免機器人自己更新首頁後又觸發自己，造成無限迴圈
   workflow_dispatch: 
-    # 允許你隨時手動點擊執行按鈕
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 允許機器人修改你的 Repository
+      contents: write
 
     steps:
       - name: Checkout Repository
@@ -28,20 +28,18 @@ jobs:
 
       - name: Run Auto Generation Script
         env:
-          # 將存放在 Secret 的 API Key 傳遞給 Python
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python auto_generate.py
+        run: python auto_update_index.py
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
+          git add index.html
           
-          # 檢查是否有檔案變動，有才 commit
           if ! git diff-index --quiet HEAD; then
-            git commit -m "Auto-generated new investment dashboard"
+            git commit -m "Auto-update index with new article and tags"
             git push
           else
-            echo "沒有新文章，無需更新。"
+            echo "目錄無變動。"
           fi
