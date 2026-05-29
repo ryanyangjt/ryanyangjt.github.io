@@ -1,6 +1,8 @@
 import os
 import re
+import requests
 import feedparser
+from bs4 import BeautifulSoup
 from datetime import datetime
 
 # 1. 設定與初始化
@@ -16,10 +18,25 @@ def is_already_processed(title):
         return False
 
 def get_unprocessed_articles():
-    """獲取所有尚未處理的 Substack 新文章列表"""
-    feed = feedparser.parse(SUBSTACK_FEED_URL)
-    new_articles = []
+    """獲取所有尚未處理的 Substack 新文章列表 (加入反爬蟲偽裝)"""
+    # 偽裝成一般 Windows 電腦的 Chrome 瀏覽器
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
     
+    print("正在發送偽裝請求獲取 RSS...")
+    try:
+        # 1. 先用 requests 帶上 headers 抓取網頁內容，繞過防火牆
+        response = requests.get(SUBSTACK_FEED_URL, headers=headers, timeout=10)
+        response.raise_for_status() # 如果被擋會拋出錯誤
+        
+        # 2. 把抓下來的純文字 XML 交給 feedparser 解析
+        feed = feedparser.parse(response.content)
+    except Exception as e:
+        print(f"抓取 RSS 失敗，可能是被防火牆阻擋: {e}")
+        return []
+
+    new_articles = []
     for entry in feed.entries:
         if is_already_processed(entry.title):
             break
@@ -72,8 +89,6 @@ def update_index_html(file_name, title):
             html = f.read()
             
         insert_point = html.find("<ul>") + 4
-        
-        # 加上 📝 圖示與 (待編輯) 字樣提醒自己
         new_list_item = f'\n        <li>\n            <a href="{file_name}">📝 {datetime.today().strftime("%Y%m%d")} - {title} <span style="color: #e67e22; font-size: 0.85em;">(待編輯)</span></a>\n        </li>'
         
         new_html = html[:insert_point] + new_list_item + html[insert_point:]
@@ -97,7 +112,12 @@ def main():
     for article in reversed(articles):
         print(f"\n👉 正在建檔: {article['title']}")
         
-        date_str = datetime(*article['published'][:6]).strftime("%Y%m%d")
+        # 容錯處理：如果 RSS 沒有提供發布時間，則使用當下時間
+        if article['published']:
+            date_str = datetime(*article['published'][:6]).strftime("%Y%m%d")
+        else:
+            date_str = datetime.today().strftime("%Y%m%d")
+            
         safe_title = re.sub(r'[\\/*?:"<>|]', "", article['title']).replace(" ", "_")
         file_name = f"{date_str}_{safe_title}.html"
         
