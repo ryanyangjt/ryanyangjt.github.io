@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 # 1. 設定與初始化
-SUBSTACK_FEED_URL = "https://mimivsjames2.substack.com/feed"
+SUBSTACK_FEED_URL = "[https://mimivsjames2.substack.com/feed](https://mimivsjames2.substack.com/feed)"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 genai.configure(api_key=GEMINI_API_KEY)
@@ -66,17 +66,15 @@ def generate_data_with_gemini(article):
     response = model.generate_content(prompt)
     raw_text = response.text
     
-    # 清理可能殘留的 Markdown 標記
-    raw_text = re.sub(r"^
-```(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
-    raw_text = re.sub(r"```$", "", raw_text, flags=re.MULTILINE)
+    # 使用 \x60 替代三個反單引號，防止複製貼上時引發 SyntaxError
+    raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
+    raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
     
     try:
         data = json.loads(raw_text.strip())
         return data.get("html", ""), data.get("targets", [])
     except json.JSONDecodeError as e:
         print(f"JSON 解析失敗: {e}")
-        # 如果發生例外，回傳純文字與空陣列作為保底
         return raw_text, []
 
 def update_index_html(file_name, title, targets):
@@ -85,14 +83,12 @@ def update_index_html(file_name, title, targets):
         with open("index.html", "r", encoding="utf-8") as f:
             html = f.read()
             
-        # 組合標的標籤的 HTML (帶有行內 CSS 樣式)
         tags_html = ""
         if targets:
             tags_list = "".join([f'<span style="display:inline-block; background-color:#e74c3c; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;">{t}</span>' for t in targets])
             tags_html = f'<div style="margin-top: 5px;">{tags_list}</div>'
             
         insert_point = html.find("<ul>") + 4
-        # 將標的標籤放在 <a> 連結的區塊內
         new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {datetime.today().strftime("%Y%m%d")} - {title}{tags_html}</a>\n        </li>'
         
         new_html = html[:insert_point] + new_list_item + html[insert_point:]
@@ -120,7 +116,6 @@ def main():
         safe_title = re.sub(r'[\\/*?:"<>|]', "", article['title']).replace(" ", "_")
         file_name = f"{date_str}_{safe_title}.html"
         
-        # 接收 Gemini 回傳的 HTML 與 標的清單
         html_content, targets = generate_data_with_gemini(article)
         
         with open(file_name, "w", encoding="utf-8") as f:
