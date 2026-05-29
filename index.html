@@ -3,49 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>咪咪詹姆酥投資研究室</title>
+    <title>咪咪詹姆酥美股投資研究整理</title>
     <style>
-        :root { --primary: #3498db; --bg: #f4f7f6; --text: #333; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 20px; max-width: 800px; margin: auto; }
-        h1 { color: #2c3e50; border-bottom: 3px solid var(--primary); padding-bottom: 10px; text-align: center; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 15px; }
-        a { text-decoration: none; color: #2c3e50; font-weight: bold; display: block; padding: 15px 20px; background: white; border-radius: 8px; border-left: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.2s; }
-        a:hover { background: #e8f4f8; transform: translateX(5px); }
-        
-        /* 股價標籤樣式 */
-        .stock-tags-container { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-        .stock-tag { display: inline-block; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            padding: 20px; 
+            max-width: 800px; 
+            margin: auto; 
+        }
+        h1 { 
+            color: #2c3e50; 
+            border-bottom: 3px solid #3498db; 
+            padding-bottom: 10px; 
+            text-align: center;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        li { 
+            margin-bottom: 15px; 
+        }
+        a { 
+            text-decoration: none; 
+            color: #2c3e50; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            display: block; 
+            padding: 15px 20px; 
+            background: white; 
+            border-radius: 8px; 
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            transition: all 0.2s ease; 
+        }
+        a:hover { 
+            background: #e8f4f8; 
+            transform: translateX(5px); 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+            border-left-color: #e74c3c;
+        }
     </style>
 </head>
 <body>
-
-    <h1>📊 咪咪詹姆酥美股投資研究</h1>
+    <h1>📊 咪咪詹姆酥美股投資研究整理 </h1>
+    <p class="subtitle">點擊下方按鈕，瀏覽各篇分析報告：</p>
     
     <ul>
         <li>
-            <a href="20260522_Google IO 2026 投資啟示.html">🆕 20260522 - Google IO 2026 投資啟示</a>
+            <a href="20260529_加密貨幣局勢與黑馬股深研.html">🆕 20260529 - 加密貨幣局勢與黑馬股深研</a>
         </li>
         <li>
-            <a href="20260522_QCOM_Investment_Dashboard.html">🆕 20260522 - QCOM Investment Dashboard<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#9b59b6; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: all 0.3s ease;">QCOM <span class="price-placeholder">...</span></span></div></a>
+            <a href="20260528_AI無人機.html">🚀 20260528 - AI 無人機板塊分析</a>
         </li>
         <li>
-            <a href="20260523_ASTS_2026事件.html">🆕 20260523 - ASTS 2026事件</a>
+            <a href="20260528_AI伺服器「用電戰爭」.html">⚡ 20260528 - AI 伺服器「用電戰爭」</a>
         </li>
         <li>
-            <a href="20260525_全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股.html">🆕 20260525 - 全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股</a>
+            <a href="20260526_AI 晶片的下一個戰場.html">🧠 20260526 - AI 晶片的下一個戰場 (QUIK)</a>
         </li>
-        <li><a href="20260529_加密貨幣局勢與黑馬股深研.html">🆕 20260529 - 加密貨幣局勢與黑馬股深研</a></li>
-        <li><a href="20260528_AI無人機.html">🚀 20260528 - AI 無人機板塊分析</a></li>
-        <li><a href="20260528_AI伺服器「用電戰爭」.html">⚡ 20260528 - AI 伺服器「用電戰爭」</a></li>
-        <li><a href="20260526_AI 晶片的下一個戰場.html">🧠 20260526 - AI 晶片的下一個戰場 (QUIK)</a></li>
-        <li><a href="20260525_Computex_AI.html">💻 20260525 - Computex AI 硬體股投資邏輯</a></li>
-        <li><a href="20260523_ASTS_2026.html">🛰️ 20260523 - ASTS 2026年關鍵事件時間軸</a></li>
-        <li><a href="20260522_QCOM_Dashboard.html">📱 20260522 - QCOM 投資價值可視化</a></li>
-        <li><a href="20260522_GoogleIO_2026.html">🌐 20260522 - Google I/O 2026 投資啟示</a></li>
+        <li>
+            <a href="20260525_全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股.html">💻 20260525 - Computex AI 硬體股投資邏輯</a>
+        </li>
+        <li>
+            <a href="20260523_ASTS_2026事件.html">🛰️ 20260523 - ASTS 2026年關鍵事件時間軸</a>
+        </li>
+        <li>
+            <a href="20260522_QCOM_Investment_Dashboard.html">📱 20260522 - QCOM 投資價值可視化分析</a>
+        </li>
+        <li>
+            <a href="20260522_Google IO 2026 投資啟示.html">🌐 20260522 - Google I/O 2026 投資啟示</a>
+        </li>
     </ul>
 
-    <script>
+<script>
         document.addEventListener("DOMContentLoaded", async function() {
             const API_KEY = "d8cos1hr01qt0j1ho5k0d8cos1hr01qt0j1ho5kg";
             const tags = document.querySelectorAll('span[data-symbol]');
