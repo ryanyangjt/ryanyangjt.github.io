@@ -2,6 +2,7 @@ import os
 import re
 import glob
 import json
+import time  # 👈 新增：用來控制時間暫停
 from bs4 import BeautifulSoup
 from google import genai
 
@@ -11,20 +12,11 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 
 # 2. 定義標籤的調色盤
 def get_color_for_tag(tag):
-    """根據標的名稱的字元產生固定的顏色，讓同一個標的永遠是同一個顏色"""
+    """根據標的名稱的字元產生固定的顏色"""
     colors = [
-        "#e74c3c", # 紅色
-        "#3498db", # 藍色
-        "#2ecc71", # 綠色
-        "#f39c12", # 橘黃色
-        "#9b59b6", # 紫色
-        "#1abc9c", # 藍綠色
-        "#34495e", # 深鐵灰
-        "#e67e22", # 橙色
-        "#27ae60", # 深綠色
-        "#2980b9"  # 深藍色
+        "#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6", 
+        "#1abc9c", "#34495e", "#e67e22", "#27ae60", "#2980b9"
     ]
-    # 利用 ASCII 碼加總來決定顏色索引
     color_index = sum(ord(c) for c in tag) % len(colors)
     return colors[color_index]
 
@@ -43,12 +35,11 @@ def get_targets_from_gemini(text_content):
     """
     
     response = client.models.generate_content(
-        model='gemini-2.5-flash', # 使用最新且速度最快的模型
+        model='gemini-2.5-flash',
         contents=prompt,
     )
     raw_text = response.text
     
-    # 清理殘留的 Markdown 標記
     raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
     raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
     
@@ -82,19 +73,15 @@ def main():
     updated = False
 
     for file_name in html_files:
-        # 1. 使用正規表達式尋找 index.html 裡面是否已經有這篇文章的 <a> 標籤
         pattern = rf'(<a href="{re.escape(file_name)}">)(.*?)(</a>)'
         match = re.search(pattern, index_html, flags=re.DOTALL)
         
         if match:
             a_start, inner_html, a_end = match.groups()
             
-            # 檢查這行裡面是不是已經有標籤了 (避免重複生成)
             if 'class="stock-tag"' in inner_html or 'margin-top: 5px;' in inner_html:
-                print(f"⏩ {file_name} 已有標籤，跳過。")
                 continue
                 
-            # 【回溯補齊邏輯】：文章在目錄裡，但還沒有標籤
             print(f"\n👉 發現舊文章缺標籤，準備補齊: {file_name}")
             with open(file_name, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -106,13 +93,15 @@ def main():
             
             if targets:
                 tags_html = create_tags_html(targets)
-                # 將新標籤安插進原本的 <a> 裡面
                 new_a_tag = f'{a_start}{inner_html}{tags_html}{a_end}'
                 index_html = index_html.replace(match.group(0), new_a_tag)
                 updated = True
                 
+            # 👈 新增：強制休息 15 秒，保護 API 免費額度
+            print("⏳ 避免觸發 API 頻率限制，暫停 15 秒...")
+            time.sleep(15)
+                
         else:
-            # 【新文章邏輯】：文章根本不在目錄裡
             print(f"\n👉 發現全新文章: {file_name}")
             with open(file_name, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -137,6 +126,10 @@ def main():
             
             index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
             updated = True
+            
+            # 👈 新增：強制休息 15 秒，保護 API 免費額度
+            print("⏳ 避免觸發 API 頻率限制，暫停 15 秒...")
+            time.sleep(15)
 
     if updated:
         with open("index.html", "w", encoding="utf-8") as f:
