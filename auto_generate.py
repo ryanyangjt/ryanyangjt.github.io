@@ -2,16 +2,16 @@ import os
 import re
 import json
 import feedparser
-import google.generativeai as genai
+from google import genai
 from bs4 import BeautifulSoup
 from datetime import datetime
 
 # 1. 設定與初始化
-SUBSTACK_FEED_URL = "[https://mimivsjames2.substack.com/feed](https://mimivsjames2.substack.com/feed)"
+SUBSTACK_FEED_URL = "https://mimivsjames2.substack.com/feed"
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-pro')
+# 使用 Google 全新世代的 SDK 初始化寫法
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def is_already_processed(title):
     """檢查 index.html 是否已經有這篇文章"""
@@ -44,7 +44,7 @@ def get_unprocessed_articles():
     return new_articles
 
 def generate_data_with_gemini(article):
-    """呼叫 Gemini 同時生成 HTML 與 標的清單 (JSON格式)"""
+    """呼叫 Gemini 同時生成 HTML 與標的清單"""
     prompt = f"""
     你現在是一位專業的科技與投資分析師。
     請閱讀以下文章內容，並將其重點整理成一個「投資研究儀表板」的 HTML。
@@ -55,7 +55,7 @@ def generate_data_with_gemini(article):
     
     【⚠️ 輸出格式嚴格要求】：
     請務必只輸出合法的 JSON 格式，包含兩個 key：
-    1. "targets": 一個陣列，包含文章中主要提到的投資標的（如股票代號 "NVDA", "QCOM" 或公司名稱）。若無提及具體標的，請給空陣列 []。
+    1. "targets": 一個陣列，包含文章中主要提到的投資標的（如股票代號 "NVDA" 或公司名稱）。若無提及具體標的，請給空陣列 []。
     2. "html": 完整的 HTML 程式碼字串（需包含 <!DOCTYPE html>, <html>, <head>, <body>）。
        - HTML 設計要求：背景色 #f4f7f6，使用 Cards 排版，適度加上顏色標籤。
        - 若有數據，請用 Chart.js 畫圖。
@@ -63,10 +63,13 @@ def generate_data_with_gemini(article):
     請不要輸出任何 Markdown 標記 (例如 ```json )，只輸出純 JSON 字串。
     """
     
-    response = model.generate_content(prompt)
+    # 新版 SDK 的呼叫語法
+    response = client.models.generate_content(
+        model='gemini-1.5-pro',
+        contents=prompt,
+    )
     raw_text = response.text
     
-    # 使用 \x60 替代三個反單引號，防止複製貼上時引發 SyntaxError
     raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
     raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
     
