@@ -1,17 +1,10 @@
 import os
 import re
-import json
 import feedparser
-from google import genai
-from bs4 import BeautifulSoup
 from datetime import datetime
 
 # 1. 設定與初始化
 SUBSTACK_FEED_URL = "https://mimivsjames2.substack.com/feed"
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-
-# 使用 Google 全新世代的 SDK 初始化寫法
-client = genai.Client(api_key=GEMINI_API_KEY)
 
 def is_already_processed(title):
     """檢查 index.html 是否已經有這篇文章"""
@@ -31,68 +24,57 @@ def get_unprocessed_articles():
         if is_already_processed(entry.title):
             break
             
-        soup = BeautifulSoup(entry.content[0].value, "html.parser")
-        clean_text = soup.get_text(separator='\n', strip=True)
-        
         new_articles.append({
             "title": entry.title,
             "link": entry.link,
-            "published": entry.published_parsed,
-            "content": clean_text
+            "published": entry.published_parsed
         })
         
     return new_articles
 
-def generate_data_with_gemini(article):
-    """呼叫 Gemini 同時生成 HTML 與標的清單"""
-    prompt = f"""
-    你現在是一位專業的科技與投資分析師。
-    請閱讀以下文章內容，並將其重點整理成一個「投資研究儀表板」的 HTML。
-    
-    【文章標題】：{article['title']}
-    【文章內容】：
-    {article['content'][:15000]}
-    
-    【⚠️ 輸出格式嚴格要求】：
-    請務必只輸出合法的 JSON 格式，包含兩個 key：
-    1. "targets": 一個陣列，包含文章中主要提到的投資標的（如股票代號 "NVDA" 或公司名稱）。若無提及具體標的，請給空陣列 []。
-    2. "html": 完整的 HTML 程式碼字串（需包含 <!DOCTYPE html>, <html>, <head>, <body>）。
-       - HTML 設計要求：背景色 #f4f7f6，使用 Cards 排版，適度加上顏色標籤。
-       - 若有數據，請用 Chart.js 畫圖。
-       
-    請不要輸出任何 Markdown 標記 (例如 ```json )，只輸出純 JSON 字串。
-    """
-    
-    # 新版 SDK 的呼叫語法
-    response = client.models.generate_content(
-        model='gemini-1.5-pro',
-        contents=prompt,
-    )
-    raw_text = response.text
-    
-    raw_text = re.sub(r"^\x60\x60\x60(json|html)?\n", "", raw_text, flags=re.MULTILINE|re.IGNORECASE)
-    raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
-    
-    try:
-        data = json.loads(raw_text.strip())
-        return data.get("html", ""), data.get("targets", [])
-    except json.JSONDecodeError as e:
-        print(f"JSON 解析失敗: {e}")
-        return raw_text, []
+def generate_placeholder_html(title, link):
+    """生成一個暫時的網頁佔位符"""
+    html = f"""<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} - 待處理</title>
+    <style>
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; padding: 40px; text-align: center; }}
+        .container {{ background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 600px; margin: auto; border-top: 5px solid #f39c12; }}
+        h1 {{ color: #e67e22; }}
+        a {{ color: #3498db; text-decoration: none; font-weight: bold; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚧 內容待補</h1>
+        <p>系統已自動偵測到新文章：</p>
+        <h2>{title}</h2>
+        <p><a href="{link}" target="_blank">👉 點此前往 Substack 閱讀原文</a></p>
+        <hr style="margin: 30px 0; border: 0; border-top: 1px dashed #ccc;">
+        <p style="color: #7f8c8d; font-size: 0.9em; line-height: 1.6;">
+            <strong>管理員請注意：</strong><br>
+            請手動將原文複製給 AI 生成儀表板程式碼，<br>
+            然後在 GitHub 上打開此檔案 (✏️Edit)，<br>
+            <strong>將本檔案所有內容刪除，貼上新的 HTML 並儲存。</strong>
+        </p>
+    </div>
+</body>
+</html>"""
+    return html
 
-def update_index_html(file_name, title, targets):
-    """在 index.html 中自動插入新文章的連結與標的標籤"""
+def update_index_html(file_name, title):
+    """在 index.html 中自動插入新文章的連結 (標示待編輯)"""
     try:
         with open("index.html", "r", encoding="utf-8") as f:
             html = f.read()
             
-        tags_html = ""
-        if targets:
-            tags_list = "".join([f'<span style="display:inline-block; background-color:#e74c3c; color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px;">{t}</span>' for t in targets])
-            tags_html = f'<div style="margin-top: 5px;">{tags_list}</div>'
-            
         insert_point = html.find("<ul>") + 4
-        new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {datetime.today().strftime("%Y%m%d")} - {title}{tags_html}</a>\n        </li>'
+        
+        # 加上 📝 圖示與 (待編輯) 字樣提醒自己
+        new_list_item = f'\n        <li>\n            <a href="{file_name}">📝 {datetime.today().strftime("%Y%m%d")} - {title} <span style="color: #e67e22; font-size: 0.85em;">(待編輯)</span></a>\n        </li>'
         
         new_html = html[:insert_point] + new_list_item + html[insert_point:]
         
@@ -110,23 +92,23 @@ def main():
         print("目前沒有新文章。")
         return
         
-    print(f"總共發現 {len(articles)} 篇新文章，開始依序處理...")
+    print(f"總共發現 {len(articles)} 篇新文章，開始建立待編輯檔案...")
     
     for article in reversed(articles):
-        print(f"\n👉 正在處理: {article['title']}")
+        print(f"\n👉 正在建檔: {article['title']}")
         
         date_str = datetime(*article['published'][:6]).strftime("%Y%m%d")
         safe_title = re.sub(r'[\\/*?:"<>|]', "", article['title']).replace(" ", "_")
         file_name = f"{date_str}_{safe_title}.html"
         
-        html_content, targets = generate_data_with_gemini(article)
-        
+        # 寫入佔位符 HTML
+        html_content = generate_placeholder_html(article['title'], article['link'])
         with open(file_name, "w", encoding="utf-8") as f:
             f.write(html_content)
-        print(f"✅ 已生成 HTML 檔案: {file_name}")
-        print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
+        print(f"✅ 已建立檔案: {file_name}")
         
-        update_index_html(file_name, article['title'], targets)
+        # 更新目錄
+        update_index_html(file_name, article['title'])
         print(f"✅ 目錄 index.html 更新完成！")
 
 if __name__ == "__main__":
