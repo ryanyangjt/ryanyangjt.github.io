@@ -41,7 +41,7 @@ def get_targets_from_gemini(text_content):
         try:
             # 🌟 關鍵修改點：換上高免費額度、最穩定的 2.0-flash
             response = client.models.generate_content(
-                model='gemini-2.0-flash', 
+                model='gemini-2.5-flash', 
                 contents=prompt,
             )
             raw_text = response.text
