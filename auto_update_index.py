@@ -37,8 +37,9 @@ def get_targets_from_gemini(text_content):
     
     for attempt in range(max_retries):
         try:
+            # 🌟 換回唯一能正常運作的最新引擎
             response = client.models.generate_content(
-                model='gemini-1.5-flash-8b', 
+                model='gemini-2.5-flash', 
                 contents=prompt,
             )
             raw_text = response.text
@@ -47,19 +48,18 @@ def get_targets_from_gemini(text_content):
             raw_text = re.sub(r"\x60\x60\x60$", "", raw_text, flags=re.MULTILINE)
             
             data = json.loads(raw_text.strip())
-            return data.get("targets", []) # 成功！即使是 [] 也是成功
+            return data.get("targets", []) 
             
         except Exception as e:
-            # 同時捕捉 503(塞車) 與 429(額度耗盡) 等錯誤
             if "503" in str(e) or "UNAVAILABLE" in str(e) or "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
                 print(f"⚠️ API 忙碌或額度限制，等待 30 秒後進行第 {attempt + 1}/{max_retries} 次重試... ({e})")
                 time.sleep(30)
             else:
                 print(f"❌ 發生未預期的解析或呼叫錯誤: {e}")
-                return None # 失敗回傳 None
+                return None 
             
     print("❌ 伺服器持續忙碌或額度耗盡，重試次數已達上限。")
-    return None # 徹底失敗回傳 None
+    return None 
 
 def create_tags_html(targets):
     if not targets:
@@ -100,7 +100,6 @@ def main():
             
             targets = get_targets_from_gemini(text_content)
             
-            # 🌟 核心防護：如果是 None，代表 API 壞掉，直接跳過這篇，不貼已讀標記！
             if targets is None:
                 print(f"⏩ 由於 API 錯誤，文章 {file_name} 將保留至下次掃描。")
                 continue
@@ -134,7 +133,6 @@ def main():
                 
             targets = get_targets_from_gemini(text_content)
             
-            # 🌟 核心防護：如果是全新文章且 API 壞掉，不要把它加入 index.html，下次它依然是「全新文章」！
             if targets is None:
                 print(f"⏩ 由於 API 錯誤，全新文章 {file_name} 暫時不加入目錄，保留至下次掃描。")
                 continue
