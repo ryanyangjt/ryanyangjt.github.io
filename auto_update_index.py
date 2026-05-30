@@ -5,7 +5,7 @@ import json
 import time
 from bs4 import BeautifulSoup
 from google import genai
-from google.genai import errors # 👈 新增：用來捕捉伺服器錯誤
+from google.genai import errors
 
 # 1. 設定與初始化
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
@@ -35,12 +35,13 @@ def get_targets_from_gemini(text_content):
     請不要輸出任何 Markdown 標記，只輸出純 JSON 字串。
     """
     
-    max_retries = 3 # 設定最多重試 3 次
+    max_retries = 3 
     
     for attempt in range(max_retries):
         try:
+            # 🌟 關鍵修改點：換上高免費額度、最穩定的 2.0-flash
             response = client.models.generate_content(
-                model='gemini-1.5-flash',
+                model='gemini-2.0-flash', 
                 contents=prompt,
             )
             raw_text = response.text
@@ -52,7 +53,7 @@ def get_targets_from_gemini(text_content):
             return data.get("targets", [])
             
         except errors.ServerError as e:
-            # 如果是 503 伺服器忙碌
+            # 如果是 503 伺服器忙碌，會自動在這裡等 30 秒再試一次
             if "503" in str(e) or "UNAVAILABLE" in str(e):
                 print(f"⚠️ 伺服器大塞車中 (503 錯誤)，等待 30 秒後進行第 {attempt + 1}/{max_retries} 次重試...")
                 time.sleep(30)
@@ -95,6 +96,7 @@ def main():
         if match:
             a_start, inner_html, a_end = match.groups()
             
+            # 如果已經有標籤了，就跳過
             if 'class="stock-tag"' in inner_html or 'margin-top: 5px;' in inner_html:
                 continue
                 
