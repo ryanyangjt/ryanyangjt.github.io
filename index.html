@@ -5,33 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>咪咪詹姆酥美股投資研究整理</title>
     <style>
+        :root { 
+            --primary: #3498db; 
+            --bg: #f4f7f6; 
+            --text: #333; 
+        }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f6; 
-            color: #333; 
+            background: var(--bg); 
+            color: var(--text); 
             padding: 20px; 
-            max-width: 800px; 
+            max-width: 900px; 
             margin: auto; 
         }
         h1 { 
             color: #2c3e50; 
-            border-bottom: 3px solid #3498db; 
+            border-bottom: 3px solid var(--primary); 
             padding-bottom: 10px; 
             text-align: center;
+            margin-top: 10px;
         }
         p.subtitle {
             text-align: center;
             color: #666;
+            margin-bottom: 20px;
+        }
+        
+        /* 搜尋列設計 */
+        .search-container {
             margin-bottom: 30px;
+            text-align: center;
         }
-        ul { 
-            list-style-type: none; 
-            padding: 0; 
+        #searchInput {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        li { 
-            margin-bottom: 15px; 
+        #searchInput:focus {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
         }
-        a { 
+
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 15px; }
+        a.article-link { 
             text-decoration: none; 
             color: #2c3e50; 
             font-size: 1.1em; 
@@ -40,63 +63,130 @@
             padding: 15px 20px; 
             background: white; 
             border-radius: 8px; 
-            border-left: 5px solid #3498db;
+            border-left: 5px solid var(--primary);
             box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
             transition: all 0.2s ease; 
         }
-        a:hover { 
+        a.article-link:hover { 
             background: #e8f4f8; 
             transform: translateX(5px); 
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
             border-left-color: #e74c3c;
         }
+        
+        /* 股價標籤樣式 - 加入 hover 效果提示可點擊 */
+        .stock-tags-container { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .stock-tag { 
+            display: inline-block; 
+            color: white; 
+            padding: 4px 10px; 
+            border-radius: 12px; 
+            font-size: 0.8em; 
+            font-weight: bold; 
+            transition: all 0.3s ease;
+            cursor: pointer; /* 滑鼠變成手指 */
+        }
+        .stock-tag:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
-    <h1>📊 咪咪詹姆酥美股投資研究整理</h1>
-    <p class="subtitle">點擊下方按鈕，瀏覽各篇分析報告：</p>
+    <div class="tradingview-widget-container" style="margin-bottom: 20px;">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+      "symbols": [
+        { "proName": "SP:SPX", "title": "S&P 500" },
+        { "proName": "NASDAQ:IXIC", "title": "Nasdaq" },
+        { "proName": "TVC:SOX", "title": "費城半導體" },
+        { "proName": "NASDAQ:NVDA", "title": "NVIDIA" },
+        { "proName": "NYSE:TSM", "title": "台積電 ADR" }
+      ],
+      "showSymbolLogo": true,
+      "isTransparent": true,
+      "displayMode": "adaptive",
+      "colorTheme": "light",
+      "locale": "zh_TW"
+    }
+      </script>
+    </div>
+
+    <h1>📊 咪咪詹姆酥美股投資研究</h1>
+    <p class="subtitle">點擊標籤可直接開啟 TradingView 技術線圖</p>
     
-    <ul>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 輸入股票代號 (如 NVDA) 或關鍵字過濾文章...">
+    </div>
+    
+    <ul id="articleList">
         <li>
             <a href="20260530_深度會員：三爺親友團又動了？川友友概念股第二波來了？財富密碼就在這裡.html" data-scanned="true">🆕 20260530 - 深度會員：三爺親友團又動了？川友友概念股第二波來了？財富密碼就在這裡<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="ADBE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ADBE <span class="price-placeholder">...</span></span><span data-symbol="BE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BE <span class="price-placeholder">...</span></span><span data-symbol="BNY" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BNY <span class="price-placeholder">...</span></span><span data-symbol="C" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">C <span class="price-placeholder">...</span></span><span data-symbol="CRWD" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">CRWD <span class="price-placeholder">...</span></span><span data-symbol="DJT" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">DJT <span class="price-placeholder">...</span></span><span data-symbol="INTU" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">INTU <span class="price-placeholder">...</span></span><span data-symbol="NOW" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NOW <span class="price-placeholder">...</span></span><span data-symbol="NVDA" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVDA <span class="price-placeholder">...</span></span><span data-symbol="OPEN" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">OPEN <span class="price-placeholder">...</span></span><span data-symbol="ORCL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ORCL <span class="price-placeholder">...</span></span><span data-symbol="PANW" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">PANW <span class="price-placeholder">...</span></span><span data-symbol="PHM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">PHM <span class="price-placeholder">...</span></span><span data-symbol="UMAC" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">UMAC <span class="price-placeholder">...</span></span><span data-symbol="WDAY" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">WDAY <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260529_加密貨幣局勢與黑馬股深研.html" data-scanned="true">🆕 20260529 - 加密貨幣局勢與黑馬股深研<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="BB" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BB <span class="price-placeholder">...</span></span><span data-symbol="GLXY" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">GLXY <span class="price-placeholder">...</span></span><span data-symbol="COIN" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">COIN <span class="price-placeholder">...</span></span><span data-symbol="IBM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">IBM <span class="price-placeholder">...</span></span><span data-symbol="NVDA" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVDA <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260529_加密貨幣局勢與黑馬股深研.html" data-scanned="true">🆕 20260529 - 加密貨幣局勢與黑馬股深研<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="BB" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BB <span class="price-placeholder">...</span></span><span data-symbol="GLXY" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">GLXY <span class="price-placeholder">...</span></span><span data-symbol="COIN" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">COIN <span class="price-placeholder">...</span></span><span data-symbol="IBM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">IBM <span class="price-placeholder">...</span></span><span data-symbol="NVDA" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVDA <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260528_AI無人機.html" data-scanned="true">🆕 20260528 - AI無人機<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="LTRX" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">LTRX <span class="price-placeholder">...</span></span><span data-symbol="PDYN" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">PDYN <span class="price-placeholder">...</span></span><span data-symbol="UMAC" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">UMAC <span class="price-placeholder">...</span></span><span data-symbol="ONDS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ONDS <span class="price-placeholder">...</span></span><span data-symbol="AVAV" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">AVAV <span class="price-placeholder">...</span></span><span data-symbol="KTOS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">KTOS <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260528_AI無人機.html" data-scanned="true">🆕 20260528 - AI無人機<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="LTRX" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">LTRX <span class="price-placeholder">...</span></span><span data-symbol="PDYN" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">PDYN <span class="price-placeholder">...</span></span><span data-symbol="UMAC" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">UMAC <span class="price-placeholder">...</span></span><span data-symbol="ONDS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ONDS <span class="price-placeholder">...</span></span><span data-symbol="AVAV" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">AVAV <span class="price-placeholder">...</span></span><span data-symbol="KTOS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">KTOS <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260528_AI伺服器「用電戰爭」.html" data-scanned="true">🆕 20260528 - AI伺服器「用電戰爭」<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="ALGM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ALGM <span class="price-placeholder">...</span></span><span data-symbol="NVTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVTS <span class="price-placeholder">...</span></span><span data-symbol="VICR" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VICR <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260528_AI伺服器「用電戰爭」.html" data-scanned="true">🆕 20260528 - AI伺服器「用電戰爭」<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="ALGM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ALGM <span class="price-placeholder">...</span></span><span data-symbol="NVTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVTS <span class="price-placeholder">...</span></span><span data-symbol="VICR" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VICR <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260526_AI 晶片的下一個戰場.html" data-scanned="true">🆕 20260526 - AI 晶片的下一個戰場<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QUIK" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QUIK <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260526_AI 晶片的下一個戰場.html" data-scanned="true">🆕 20260526 - AI 晶片的下一個戰場<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QUIK" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QUIK <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260525_全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股.html" data-scanned="true">🆕 20260525 - 全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="NVDA" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVDA <span class="price-placeholder">...</span></span><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span><span data-symbol="INTC" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">INTC <span class="price-placeholder">...</span></span><span data-symbol="MRVL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MRVL <span class="price-placeholder">...</span></span><span data-symbol="DELL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">DELL <span class="price-placeholder">...</span></span><span data-symbol="HPE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HPE <span class="price-placeholder">...</span></span><span data-symbol="TSM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">TSM <span class="price-placeholder">...</span></span><span data-symbol="SANM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">SANM <span class="price-placeholder">...</span></span><span data-symbol="JBL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">JBL <span class="price-placeholder">...</span></span><span data-symbol="CLS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">CLS <span class="price-placeholder">...</span></span><span data-symbol="SMCI" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">SMCI <span class="price-placeholder">...</span></span><span data-symbol="ARM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ARM <span class="price-placeholder">...</span></span><span data-symbol="HON" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HON <span class="price-placeholder">...</span></span><span data-symbol="ROK" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ROK <span class="price-placeholder">...</span></span><span data-symbol="MU" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MU <span class="price-placeholder">...</span></span><span data-symbol="VSH" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VSH <span class="price-placeholder">...</span></span><span data-symbol="ASTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ASTS <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260525_全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股.html" data-scanned="true">🆕 20260525 - 全市場都在等老黃演講，但 Computex 真正考驗的是 AI 硬體股<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="NVDA" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NVDA <span class="price-placeholder">...</span></span><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span><span data-symbol="INTC" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">INTC <span class="price-placeholder">...</span></span><span data-symbol="MRVL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MRVL <span class="price-placeholder">...</span></span><span data-symbol="DELL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">DELL <span class="price-placeholder">...</span></span><span data-symbol="HPE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HPE <span class="price-placeholder">...</span></span><span data-symbol="TSM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">TSM <span class="price-placeholder">...</span></span><span data-symbol="SANM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">SANM <span class="price-placeholder">...</span></span><span data-symbol="JBL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">JBL <span class="price-placeholder">...</span></span><span data-symbol="CLS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">CLS <span class="price-placeholder">...</span></span><span data-symbol="SMCI" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">SMCI <span class="price-placeholder">...</span></span><span data-symbol="ARM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ARM <span class="price-placeholder">...</span></span><span data-symbol="HON" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HON <span class="price-placeholder">...</span></span><span data-symbol="ROK" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ROK <span class="price-placeholder">...</span></span><span data-symbol="MU" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MU <span class="price-placeholder">...</span></span><span data-symbol="VSH" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VSH <span class="price-placeholder">...</span></span><span data-symbol="ASTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ASTS <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260523_ASTS_2026事件.html" data-scanned="true">🆕 20260523 - ASTS 2026事件<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="ASTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ASTS <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260523_ASTS_2026事件.html" data-scanned="true">🆕 20260523 - ASTS 2026事件<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="ASTS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ASTS <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260522_QCOM_Investment_Dashboard.html" data-scanned="true">🆕 20260522 - QCOM Investment Dashboard<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260522_QCOM_Investment_Dashboard.html" data-scanned="true">🆕 20260522 - QCOM Investment Dashboard<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span></div></a>
         </li>
         <li>
-            <a href="20260522_Google IO 2026 投資啟示.html" data-scanned="true">🆕 20260522 - Google IO 2026 投資啟示<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span><span data-symbol="ARM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ARM <span class="price-placeholder">...</span></span><span data-symbol="BE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BE <span class="price-placeholder">...</span></span><span data-symbol="NBIS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NBIS <span class="price-placeholder">...</span></span><span data-symbol="FCEL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">FCEL <span class="price-placeholder">...</span></span><span data-symbol="VUZI" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VUZI <span class="price-placeholder">...</span></span><span data-symbol="HIMX" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HIMX <span class="price-placeholder">...</span></span><span data-symbol="OUST" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">OUST <span class="price-placeholder">...</span></span><span data-symbol="MDB" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MDB <span class="price-placeholder">...</span></span><span data-symbol="TWLO" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">TWLO <span class="price-placeholder">...</span></span></div></a>
+            <a class="article-link" href="20260522_Google IO 2026 投資啟示.html" data-scanned="true">🆕 20260522 - Google IO 2026 投資啟示<div style="margin-top: 5px;" class="stock-tags-container"><span data-symbol="QCOM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">QCOM <span class="price-placeholder">...</span></span><span data-symbol="ARM" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">ARM <span class="price-placeholder">...</span></span><span data-symbol="BE" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">BE <span class="price-placeholder">...</span></span><span data-symbol="NBIS" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">NBIS <span class="price-placeholder">...</span></span><span data-symbol="FCEL" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">FCEL <span class="price-placeholder">...</span></span><span data-symbol="VUZI" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">VUZI <span class="price-placeholder">...</span></span><span data-symbol="HIMX" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">HIMX <span class="price-placeholder">...</span></span><span data-symbol="OUST" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">OUST <span class="price-placeholder">...</span></span><span data-symbol="MDB" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">MDB <span class="price-placeholder">...</span></span><span data-symbol="TWLO" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">TWLO <span class="price-placeholder">...</span></span></div></a>
         </li>
     </ul>
 
 <script>
 document.addEventListener("DOMContentLoaded", async function() {
-    const API_KEY = "d8cos1hr01qt0j1ho5k0d8cos1hr01qt0j1ho5kg"; 
-    
-    // 找出所有帶有 data-symbol 的標籤
+    // 💡 實作：動態過濾器 (Search Bar)
+    const searchInput = document.getElementById("searchInput");
+    const articleList = document.getElementById("articleList").getElementsByTagName("li");
+
+    searchInput.addEventListener("keyup", function() {
+        const filter = searchInput.value.toUpperCase();
+        for (let i = 0; i < articleList.length; i++) {
+            const articleText = articleList[i].textContent || articleList[i].innerText;
+            if (articleText.toUpperCase().indexOf(filter) > -1) {
+                articleList[i].style.display = "";
+            } else {
+                articleList[i].style.display = "none";
+            }
+        }
+    });
+
+    // 💡 實作：標籤點擊跳轉 TradingView (防止觸發原本的文章連結)
     const tags = document.querySelectorAll('span[data-symbol]');
+    tags.forEach(tag => {
+        tag.addEventListener('click', function(e) {
+            e.preventDefault(); // 阻止前往文章頁面
+            e.stopPropagation(); // 阻止事件向上傳遞給 <a> 標籤
+            const symbol = this.getAttribute('data-symbol');
+            // 另開分頁前往 TradingView
+            window.open(`https://www.tradingview.com/chart/?symbol=${symbol}`, '_blank');
+        });
+    });
+
+    // 💡 實作：抓取即時報價與 Tooltip (High/Low/Open)
+    const API_KEY = "d8cos1hr01qt0j1ho5k0d8cos1hr01qt0j1ho5kg"; 
     const symbols = [...new Set(Array.from(tags).map(t => t.dataset.symbol.toUpperCase()))];
     
     if (!symbols.length) return;
 
-    // 並行抓取所有股價
     const results = await Promise.all(symbols.map(s => 
         fetch(`https://finnhub.io/api/v1/quote?symbol=${s}&token=${API_KEY}`)
         .then(res => res.json())
@@ -104,35 +194,34 @@ document.addEventListener("DOMContentLoaded", async function() {
         .catch(err => ({s, data: null}))
     ));
 
-    // 根據漲跌動態更新 UI 顏色與價格
     results.forEach(({s, data}) => {
         if (data && typeof data.c !== 'undefined') {
             const price = data.c.toFixed(2);
-            const dp = data.dp; // 漲跌幅百分比
+            const dp = data.dp; 
             
-            // 決定顏色與箭頭 (台股習慣：紅漲、綠跌、橘平盤)
             let diffArrow = "-";
-            let bgColor = "#f39c12"; // 平盤橘黃色
+            let bgColor = "#f39c12"; 
             
             if (dp > 0) {
                 diffArrow = "▲";
-                bgColor = "#e74c3c"; // 漲紅色
+                bgColor = "#e74c3c"; 
             } else if (dp < 0) {
                 diffArrow = "▼";
-                bgColor = "#2ecc71"; // 跌綠色
+                bgColor = "#2ecc71"; 
             }
 
-            // 更新畫面上該標的的所有標籤
             document.querySelectorAll(`span[data-symbol="${s}"]`).forEach(el => {
-                el.style.backgroundColor = bgColor; // 動態上色
+                el.style.backgroundColor = bgColor; 
+                
+                // 寫入原生 Tooltip 屬性，游標移過去就會浮現當日高低區間
+                el.setAttribute('title', `開盤: $${data.o.toFixed(2)} \n最高: $${data.h.toFixed(2)} \n最低: $${data.l.toFixed(2)}`);
+
                 const placeholder = el.querySelector('.price-placeholder');
                 if (placeholder) {
-                    // Math.abs(dp) 用來把負號拿掉，因為前面已經有 ▼ 箭頭了
                     placeholder.innerText = `$${price} (${diffArrow}${Math.abs(dp).toFixed(2)}%)`;
                 }
             });
         } else {
-            // 如果抓不到股價 (可能是非美股代號)，就把 ... 拿掉，保持灰色
             document.querySelectorAll(`span[data-symbol="${s}"]`).forEach(el => {
                 const placeholder = el.querySelector('.price-placeholder');
                 if(placeholder) placeholder.innerText = "";
