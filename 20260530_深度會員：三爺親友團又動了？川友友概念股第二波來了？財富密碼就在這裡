@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投資研究儀表板 - 2026-05-30</title>
+<style>
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+background-color: #f4f7f6;
+color: #2c3e50;
+margin: 0;
+padding: 20px;
+line-height: 1.6;
+}
+.container {
+max-width: 1200px;
+margin: 0 auto;
+}
+h1 {
+color: #1a252f;
+text-align: center;
+border-bottom: 2px solid #3498db;
+padding-bottom: 10px;
+margin-bottom: 30px;
+}
+.card {
+background-color: #ffffff;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+padding: 25px;
+margin-bottom: 25px;
+border-top: 4px solid transparent;
+}
+.card.logic { border-top-color: #9b59b6; }
+.card.charts { border-top-color: #34495e; }
+.card.risk { border-top-color: #e74c3c; }
+
+```
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #34495e;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .grid-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+    }
+    .stock-card {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        transition: transform 0.2s;
+    }
+    .stock-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    }
+    .stock-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .stock-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+    
+    /* Tags inline styles via classes for reusability */
+    .tag {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+    .tag-buy { background-color: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+    .tag-hold { background-color: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
+    .tag-swing { background-color: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+    .tag-watch { background-color: #f3e5f5; color: #7b1fa2; border: 1px solid #e1bee7; }
+    .tag-ticker { background-color: #e9ecef; color: #495057; border: 1px solid #ced4da; }
+    
+    /* Bar Chart Styles */
+    .chart-row {
+        margin-bottom: 18px;
+    }
+    .chart-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #495057;
+    }
+    .bar-bg {
+        width: 100%;
+        background-color: #e9ecef;
+        border-radius: 6px;
+        height: 22px;
+        overflow: hidden;
+        position: relative;
+    }
+    .bar-fill {
+        height: 100%;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    .text-highlight {
+        font-weight: bold;
+        color: #d35400;
+    }
+    ul { margin-top: 0; padding-left: 20px; }
+    li { margin-bottom: 8px; }
+</style>
+
+```
+
+</head>
+<body>
+
+<div class="container">
+<h1>川友友概念股第二波：投資研究儀表板 (2026-05-30)</h1>
+
+```
+<div class="card logic">
+    <h2 class="section-title">📊 核心宏觀與產業趨勢邏輯</h2>
+    <ul>
+        <li><strong>資金輪動特徵：</strong> 「川友友概念股」進入第二波啟動期，機構籌碼乾淨。資金自科技三巨頭 (AMZN, META, MSFT) 撤出，轉向政府特許或預算加持的標的。</li>
+        <li><strong>AI 基礎設施 2.0：</strong> 白宮主導的 5000 億「星門計畫」，將算力資源導向主權雲端。電力配套開闢特快通道，特定的「電力2.0」與氫能/燃料電池成為新寵。</li>
+        <li><strong>Fintech 與加密貨幣轉型：</strong> 避開國會聽證會阻力，撤回加密貨幣 ETF 申請，改道發行免佣金的零售財富管理 App，社交平台就此轉型為具政治外衣的 Fintech 零售券商。</li>
+        <li><strong>降息預期操作：</strong> 無論實質是否降息，華爾街將利用傳聞炒作「降息預期」，藉此拉抬房地產與周邊板塊進行一波收割。</li>
+        <li><strong>原油控盤策略：</strong> 油價目標控管在 80-85 美元區間，確保油商利潤同時不引爆高通膨，7月將是庫存耗盡的測試點。</li>
+    </ul>
+</div>
+
+<div class="card charts">
+    <h2 class="section-title">📈 關鍵財務與市場指標對比</h2>
+    
+    <div class="chart-row">
+        <div class="chart-labels">
+            <span>ORCL (甲骨文) 目標價預測</span>
+            <span>潛在上行空間</span>
+        </div>
+        <div class="bar-bg">
+            <div class="bar-fill" style="width: 100%; background-color: #27ae60;">華爾街大機構上調目標價: $235+</div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-labels">
+            <span>WTI 原油價格區間</span>
+            <span>目前價格 $87 vs 甜蜜點 $80-85</span>
+        </div>
+        <div class="bar-bg">
+            <div class="bar-fill" style="width: 87%; background-color: #f39c12; justify-content: flex-start; padding-left: 10px;">目前: $87</div>
+            <div style="position: absolute; left: 80%; width: 5%; height: 100%; top: 0; border: 2px dashed #c0392b; background: rgba(192,57,43,0.3);">目標區間</div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-labels">
+            <span>DJT (TMTG) Q1 虧損 vs 近期閒置資本注資額度</span>
+            <span>(單位：億美元)</span>
+        </div>
+        <div class="bar-bg" style="height: 30px; display: flex;">
+            <div class="bar-fill" style="width: 65%; background-color: #e74c3c; border-radius: 6px 0 0 6px;">Q1 虧損: 3.87 億</div>
+            <div class="bar-fill" style="width: 35%; background-color: #3498db; border-radius: 0 6px 6px 0;">合約注資: 2.05 億</div>
+        </div>
+    </div>
+</div>
+
+<div class="card grid-layout">
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title"><span class="tag tag-ticker">ORCL</span> 甲骨文</div>
+            <span class="tag tag-buy">長線重倉買進</span>
+        </div>
+        <p><strong>邏輯：</strong>政府直接入股概念。「星門計畫」核心，主導中東算力託管與主權雲。大舉受惠於「特快通道」批准的AI資料中心供電計畫。</p>
+        <p><strong>操作點位：</strong>機構目標價看至 <span class="text-highlight">$235</span> 甚至更高。</p>
+    </div>
+
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title"><span class="tag tag-ticker">DJT</span> 川普媒體科技</div>
+            <span class="tag tag-swing">搶反彈/波段買進</span>
+        </div>
+        <p><strong>邏輯：</strong>底部罕見四連陽，籌碼異常乾淨。撤回 ETF 轉向發布「Trump Accounts App」，轉型 Fintech 券商。背後有 BNY 與 HOOD 技術及資金 (注資 2.05 億) 支持。</p>
+        <p><strong>操作點位：</strong>近期底部支撐約 <span class="text-highlight">$7.86</span>，現為搶反彈絕佳時機。</p>
+    </div>
+
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title">
+                <span class="tag tag-ticker">NOW</span>
+                <span class="tag tag-ticker">ADBE</span>
+                <span class="tag tag-ticker">WDAY</span>
+            </div>
+            <span class="tag tag-buy">逢低買進/持有</span>
+        </div>
+        <p><strong>邏輯：</strong>第一季 SaaS 殺估值時獲高層逆向建倉。NOW 獨吃國土安全部大規模重組的數字化管理合約；WDAY 亦有政府訂單預期。</p>
+        <p><strong>操作策略：</strong>板塊最壞時間已過，具備政府預算基本面護航。</p>
+    </div>
+
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title">
+                <span class="tag tag-ticker">PHM</span>
+                <span class="tag tag-ticker">OPEN</span>
+            </div>
+            <span class="tag tag-swing">波段做多</span>
+        </div>
+        <p><strong>邏輯：</strong>炒作未來華爾街洗腦式的「降息預期」。PHM 創波段新低但 MACD 出現底背離；OPEN 長期打底。</p>
+        <p><strong>操作點位：</strong>OPEN 站上 <span class="text-highlight">半年線</span> 且放量後將正式轉強。</p>
+    </div>
+
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title">
+                <span class="tag tag-ticker">PANW</span>
+                <span class="tag tag-ticker">CRWD</span>
+            </div>
+            <span class="tag tag-swing">財報前波段操作</span>
+        </div>
+        <p><strong>邏輯：</strong>受惠於特定政治人物（阿姨）建倉效應。軟體股圈地畫地盤的核心標的。</p>
+        <p><strong>操作策略：</strong>把握財報日前行情 (PANW 6/2, CRWD 6/3)。</p>
+    </div>
+
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title">
+                <span class="tag tag-ticker">BNY</span>
+                <span class="tag tag-ticker">C</span>
+                <span class="tag tag-ticker">BE</span>
+            </div>
+            <span class="tag tag-hold">長線持有 / 觀望</span>
+        </div>
+        <p><strong>邏輯：</strong>BNY 為 DJT App 底層託管，走勢呈長線大多頭。C 長線優於 BAC/WFC。BE (Bloom Energy) 獲得 Oracle 高達 2.45 GW 的燃料電池大單。</p>
+        <p><strong>操作點位：</strong>BNY 支撐強勁，未跌破 <span class="text-highlight">半年線及年線</span>。</p>
+    </div>
+    
+    <div class="stock-card">
+        <div class="stock-header">
+            <div class="stock-title">
+                <span class="tag tag-ticker">NVDA</span>
+                <span class="tag tag-ticker">UMAC</span>
+                <span class="tag tag-ticker">INTU</span>
+            </div>
+            <span class="tag tag-watch">重點關注</span>
+        </div>
+        <p><strong>邏輯：</strong>NVDA 晶片出口中東獲放行，具內線佈局特徵。UMAC 屬無人機政府陪榜概念股。INTU 跌深過度，關注潛在建倉買盤。</p>
+    </div>
+</div>
+
+<div class="card risk">
+    <h2 class="section-title">⚠️ 操作風險與注意事項</h2>
+    <ul>
+        <li><strong>政策面風險：</strong>標的高度依賴特定政治人物(三爺)當選與政策落實，若選舉選情生變，相關政府預算與特許訂單可能重估。</li>
+        <li><strong>炒作與實質脫鉤：</strong>房地產板塊(PHM, OPEN)目前純屬「預期心理」炒作，實際基本面可能根本不會降息，資金隨時可能獲利了結，切勿戀戰。</li>
+        <li><strong>資金輪動極快：</strong>期中大選前為「添香油錢」階段，板塊輪動從科技 -> 銀行 -> 石油 -> 房地產，需嚴格遵守波段操作紀律，留意油價 7 月庫存測試點對通膨預期的反撲。</li>
+    </ul>
+</div>
+
+```
+
+</div>
+
+</body>
+</html>
