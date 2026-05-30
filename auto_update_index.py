@@ -11,16 +11,6 @@ from google.genai import errors
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
-# 2. 定義標籤的調色盤
-def get_color_for_tag(tag):
-    """根據標的名稱的字元產生固定的顏色"""
-    colors = [
-        "#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#9b59b6", 
-        "#1abc9c", "#34495e", "#e67e22", "#27ae60", "#2980b9"
-    ]
-    color_index = sum(ord(c) for c in tag) % len(colors)
-    return colors[color_index]
-
 def get_targets_from_gemini(text_content):
     """呼叫 Gemini 閱讀純文字內容，只萃取投資標的，並包含自動重試機制"""
     prompt = f"""
@@ -39,9 +29,8 @@ def get_targets_from_gemini(text_content):
     
     for attempt in range(max_retries):
         try:
-            # 🌟 關鍵修改點：換上高免費額度、最穩定的 2.0-flash
             response = client.models.generate_content(
-                model='gemini-2.5-flash', 
+                model='gemini-2.0-flash', 
                 contents=prompt,
             )
             raw_text = response.text
@@ -53,7 +42,6 @@ def get_targets_from_gemini(text_content):
             return data.get("targets", [])
             
         except errors.ServerError as e:
-            # 如果是 503 伺服器忙碌，會自動在這裡等 30 秒再試一次
             if "503" in str(e) or "UNAVAILABLE" in str(e):
                 print(f"⚠️ 伺服器大塞車中 (503 錯誤)，等待 30 秒後進行第 {attempt + 1}/{max_retries} 次重試...")
                 time.sleep(30)
@@ -68,10 +56,11 @@ def get_targets_from_gemini(text_content):
     return []
 
 def create_tags_html(targets):
-    """將標的陣列轉換成彩色 CSS 標籤的 HTML，並加入 data-symbol 屬性供 JS 讀取"""
+    """將標的轉換成預設灰色的 CSS 標籤，等待 JS 載入後動態上色"""
     if not targets:
         return ""
-    tags_list = "".join([f'<span data-symbol="{t}" class="stock-tag" style="display:inline-block; background-color:{get_color_for_tag(t)}; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: all 0.3s ease;">{t} <span class="price-placeholder">...</span></span>' for t in targets])
+    # background-color 統一改為 #7f8c8d (深灰色)
+    tags_list = "".join([f'<span data-symbol="{t}" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">{t} <span class="price-placeholder">...</span></span>' for t in targets])
     return f'<div style="margin-top: 5px;" class="stock-tags-container">{tags_list}</div>'
 
 def main():
@@ -96,7 +85,6 @@ def main():
         if match:
             a_start, inner_html, a_end = match.groups()
             
-            # 如果已經有標籤了，就跳過
             if 'class="stock-tag"' in inner_html or 'margin-top: 5px;' in inner_html:
                 continue
                 
@@ -127,11 +115,11 @@ def main():
             
             match_date = re.match(r"^(\d{8})_(.*)\.html$", file_name)
             if match_date:
-                date_str, title = match_date.groups()
-                title = title.replace("_", " ")
+                date_str, match_title = match_date.groups()
+                match_title = match_title.replace("_", " ")
             else:
                 date_str = "最新"
-                title = file_name.replace(".html", "")
+                match_title = file_name.replace(".html", "")
                 
             targets = get_targets_from_gemini(text_content)
             print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
@@ -139,7 +127,7 @@ def main():
             tags_html = create_tags_html(targets)
             
             insert_point = index_html.find("<ul>") + 4
-            new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {date_str} - {title}{tags_html}</a>\n        </li>'
+            new_list_item = f'\n        <li>\n            <a href="{file_name}">🆕 {date_str} - {match_title}{tags_html}</a>\n        </li>'
             
             index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
             updated = True
