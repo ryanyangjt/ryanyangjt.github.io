@@ -141,7 +141,12 @@ def main():
             
             tags_html = create_tags_html(targets)
             
-            insert_point = index_html.find("<ul>") + 4
+            # 改用正規表達式，不管 ul 長怎樣都能精準找到結尾的 > 符號
+            match_ul = re.search(r'<ul[^>]*>', index_html)
+            if match_ul:
+                insert_point = match_ul.end()
+            else:
+                insert_point = index_html.find("<body>") + 6 # 萬一找不到的備用方案
             new_list_item = f'\n        <li>\n            <a href="{file_name}" data-scanned="true">🆕 {date_str} - {match_title}{tags_html}</a>\n        </li>'
             
             index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
