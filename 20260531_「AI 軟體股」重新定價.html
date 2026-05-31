@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 軟體股投資研究儀表板 - 2026-05-31</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary: #34495e;
+            --accent: #3498db;
+            --buy: #2ecc71;
+            --watch: #f39c12;
+            --risk: #e74c3c;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            border-top: 4px solid var(--accent);
+        }
+
+        .card.logic { border-top-color: var(--primary); }
+        .card.strategy { border-top-color: var(--buy); }
+        .card.data { border-top-color: var(--accent); }
+        .card.risk { border-top-color: var(--risk); }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .stock-item {
+            border: 1px solid #eee;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            background: #fafafa;
+        }
+
+        .stock-item h3 {
+            margin: 0 0 8px 0;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Pure HTML/CSS Bar Chart Styles */
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .chart-label {
+            width: 90px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .chart-bar-container {
+            flex-grow: 1;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 24px;
+            margin: 0 10px;
+            position: relative;
+        }
+        .chart-bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header>
+        <h1>AI 軟體股投資研究儀表板</h1>
+        <div class="date-badge">2026-05-31</div>
+    </header>
+
+    <div class="grid-container">
+        
+        <div class="card logic">
+            <h2>🧠 核心總經觀點與產業趨勢</h2>
+            <p><strong>AI 週期進入下半場：從「賣鏟子」到「挖金礦」</strong></p>
+            <ul style="padding-left: 20px; font-size: 14px; color: #444;">
+                <li><strong>估值重塑：</strong> 市場過去無差別拋售軟體股，現已進入「財報驗證期」。依賴企業人數擴張的傳統 SaaS 模式面臨 AI 壓縮定價權的挑戰。</li>
+                <li><strong>篩選標準：</strong> 長線資金（1至3年）專注於能藉由 AI 實質提升 <b>收入、利潤率、自由現金流 (FCF) 與 EPS</b> 的公司。</li>
+                <li><strong>板塊輪動：</strong> 資金不再單純集中於 AI 硬體/算力，開始外溢至被錯殺的軟體股、政策受惠股（川普概念）、國安科技與金融科技。</li>
+            </ul>
+        </div>
+
+        <div class="card strategy">
+            <h2>🎯 個股操作策略與評級</h2>
+            
+            <div class="stock-item">
+                <h3><span>Okta (OKTA)</span> <span style="background: #2ecc71;" class="tag">抄底佈局</span></h3>
+                <div style="font-size: 13px; margin-bottom: 5px;">
+                    <span style="background: #34495e;" class="tag">長線持有</span>
+                    <span style="background: #9b59b6;" class="tag">資安基礎設施</span>
+                </div>
+                <p style="font-size: 13px; margin: 0; color: #555;"><strong>邏輯：</strong> 暴漲30%展現強勢底氣，作為 AI 時代身分驗證基礎設施，具備高客戶黏著度。建議沿強勢支撐位分批建倉。</p>
+            </div>
+
+            <div class="stock-item">
+                <h3><span>ServiceNow (NOW)</span> <span style="background: #2ecc71;" class="tag">波段/長線買進</span></h3>
+                <div style="font-size: 13px; margin-bottom: 5px;">
+                    <span style="background: #3498db;" class="tag">AI 變現領頭羊</span>
+                </div>
+                <p style="font-size: 13px; margin: 0; color: #555;"><strong>邏輯：</strong> 單日漲幅達17.7%，成功將 AI 應用轉化為實質收入上修，證明其護城河未被 AI 反噬。</p>
+            </div>
+
+            <div class="stock-item">
+                <h3><span>Snowflake (SNOW)</span> <span style="background: #f39c12;" class="tag">逢回關注</span></h3>
+                <div style="font-size: 13px; margin-bottom: 5px;">
+                    <span style="background: #e67e22;" class="tag">高彈性</span>
+                    <span style="background: #16a085;" class="tag">營收增長 >30%</span>
+                </div>
+                <p style="font-size: 13px; margin: 0; color: #555;"><strong>邏輯：</strong> 前期單日暴漲40%，具備強大基本面（>30%營收增長）支撐。波動大，適合作為波段操作的「彩蛋」。</p>
+            </div>
+
+            <div class="stock-item">
+                <h3><span>Adobe (ADBE)</span> <span style="background: #2ecc71;" class="tag">穩健佈局</span></h3>
+                <p style="font-size: 13px; margin: 0; color: #555;"><strong>邏輯：</strong> 穩健反彈7.8%，現金流與回購能力強，正將 AI 工具變現。</p>
+            </div>
+
+            <div class="stock-item">
+                <h3><span>AVGO & CRWD</span> <span style="background: #f39c12;" class="tag">財報前觀望</span></h3>
+                <p style="font-size: 13px; margin: 0; color: #555;"><strong>邏輯：</strong> 本週重點觀察財報，留意資本支出指引與資安模組整合情況。</p>
+            </div>
+        </div>
+
+        <div class="card data">
+            <h2>📊 近期焦點軟體股單日反彈幅度</h2>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px;">資料來源：盤面近期表現 (基於財報或錯殺回補)</p>
+            
+            <div class="chart-row">
+                <div class="chart-label">SNOW</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 100%; background-color: #27ae60;">+40.0%</div>
+                </div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-label">OKTA</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 75%; background-color: #2ecc71;">+30.0%</div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label">NOW</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 44.25%; background-color: #f1c40f; color: #333;">+17.7%</div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label">ADBE</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 19.5%; background-color: #e67e22;">+7.8%</div>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 25px;">📈 關鍵基本面指標支撐</h2>
+            <div class="chart-row">
+                <div class="chart-label" style="width: 120px;">SNOW 營收成長</div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 75%; background-color: #3498db;">> 30%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card risk">
+            <h2>⚠️ 風險提示與配置角色</h2>
+            <div style="background: #fff5f5; border-left: 4px solid var(--risk); padding: 12px; font-size: 14px;">
+                <p style="margin-top: 0;"><strong>長線配置 vs 題材波段：</strong></p>
+                <ul style="padding-left: 20px; margin-bottom: 0;">
+                    <li><strong>避免「假 AI」軟體：</strong> 若公司僅有 AI 故事與口號，而無法改善利潤率與自由現金流，長線風險極高，隨時可能被 AI 淘汰或壓縮定價權。</li>
+                    <li><strong>大盤位階風險：</strong> 標普 500 (SPY) 已面臨連續九週上漲，技術面 consolidation (盤整) 的需求正在上升。建倉應避免單次重注，採分批策略。</li>
+                    <li><strong>配置建議：</strong> 將具備強現金流、高 EPS 轉換率的軟體基礎設施列為「核心資產 (長線 1-3 年)」。僅具備題材彈性的中小型軟體股，應嚴格設好停損作為「波段彩蛋」。</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
