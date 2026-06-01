@@ -37,7 +37,6 @@ def get_targets_from_gemini(text_content):
     
     for attempt in range(max_retries):
         try:
-            # 🌟 換回唯一能正常運作的最新引擎
             response = client.models.generate_content(
                 model='gemini-2.5-flash', 
                 contents=prompt,
@@ -64,7 +63,7 @@ def get_targets_from_gemini(text_content):
 def create_tags_html(targets):
     if not targets:
         return ""
-    tags_list = "".join([f'<span data-symbol="{t}" class="stock-tag" style="display:inline-block; background-color:#7f8c8d; color:white; padding:4px 8px; border-radius:12px; font-size:0.75em; margin-right:6px; margin-top:8px; font-weight:bold; transition: background-color 0.4s ease;">{t} <span class="price-placeholder">...</span></span>' for t in targets])
+    tags_list = "".join([f'<span data-symbol="{t}" class="stock-tag" style="display:inline-block; background-color:#7f8c8d;">{t} <span class="price-placeholder">...</span></span>' for t in targets])
     return f'<div style="margin-top: 5px;" class="stock-tags-container">{tags_list}</div>'
 
 def main():
@@ -107,7 +106,7 @@ def main():
             print(f"🎯 擷取到標的: {', '.join(targets) if targets else '無'}")
             
             tags_html = create_tags_html(targets)
-            new_a_start = f'<a href="{file_name}" data-scanned="true">'
+            new_a_start = f'<a class="article-link" href="{file_name}" data-scanned="true">'
             new_a_tag = f'{new_a_start}{inner_html}{tags_html}{a_end}'
             
             index_html = index_html.replace(match.group(0), new_a_tag)
@@ -141,13 +140,14 @@ def main():
             
             tags_html = create_tags_html(targets)
             
-            # 改用正規表達式，不管 ul 長怎樣都能精準找到結尾的 > 符號
+            # 🌟 修復關鍵點：改用正規表達式尋找 ul，確保不管有沒有 id 都不會切錯位置！
             match_ul = re.search(r'<ul[^>]*>', index_html)
             if match_ul:
                 insert_point = match_ul.end()
             else:
-                insert_point = index_html.find("<body>") + 6 # 萬一找不到的備用方案
-            new_list_item = f'\n        <li>\n            <a href="{file_name}" data-scanned="true">🆕 {date_str} - {match_title}{tags_html}</a>\n        </li>'
+                insert_point = index_html.find("<body>") + 6 # 備用防呆方案
+                
+            new_list_item = f'\n        <li>\n            <a class="article-link" href="{file_name}" data-scanned="true">🆕 {date_str} - {match_title}{tags_html}</a>\n        </li>'
             
             index_html = index_html[:insert_point] + new_list_item + index_html[insert_point:]
             updated = True
