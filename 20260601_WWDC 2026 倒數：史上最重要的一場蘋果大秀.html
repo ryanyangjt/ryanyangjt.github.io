@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-01</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --primary: #2563eb;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --info: #0891b2;
+            --border-radius: 12px;
+        }
+        
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 30px 20px; 
+            line-height: 1.6; 
+        }
+        
+        .container { 
+            max-width: 1280px; 
+            margin: 0 auto; 
+        }
+        
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end; 
+            border-bottom: 3px solid var(--primary); 
+            padding-bottom: 15px; 
+            margin-bottom: 30px; 
+        }
+        
+        h1 { margin: 0; color: #111827; font-size: 2.2rem; font-weight: 800; letter-spacing: -0.05rem; }
+        .date-badge { background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 1rem; }
+        
+        .section-title { font-size: 1.5rem; color: #374151; margin: 30px 0 15px 0; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+            gap: 24px; 
+        }
+        
+        .card { 
+            background: var(--card-bg); 
+            border-radius: var(--border-radius); 
+            padding: 24px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
+            border-top: 4px solid var(--primary);
+            transition: transform 0.2s ease;
+        }
+        .card:hover { transform: translateY(-3px); }
+        .card.risk { border-top-color: var(--warning); }
+        .card.opportunity { border-top-color: var(--success); }
+        
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .card-title { margin: 0; font-size: 1.3rem; color: #111827; font-weight: 700; }
+        
+        .tag-group { margin-bottom: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.02rem; }
+        .tag.ticker { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .tag.sell { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+        .tag.buy { background-color: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+        .tag.hold { background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+        .tag.watch { background-color: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
+
+        .price-levels { background: #f8fafc; border-radius: 8px; padding: 12px; margin: 15px 0; border-left: 4px solid var(--primary); }
+        .price-levels p { margin: 4px 0; font-size: 0.95rem; }
+        .highlight-price { font-weight: 800; color: var(--danger); font-size: 1.05rem; }
+        
+        .content-list { margin: 0; padding-left: 20px; color: #4b5563; font-size: 0.95rem; }
+        .content-list li { margin-bottom: 8px; }
+
+        /* Pure HTML/CSS Bar Chart Styling */
+        .chart-container { margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; }
+        .chart-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 15px; color: #374151; }
+        .bar-row { display: flex; align-items: center; margin-bottom: 12px; }
+        .bar-label { width: 140px; font-size: 0.85rem; text-align: right; padding-right: 12px; color: #4b5563; font-weight: 600; line-height: 1.2; }
+        .bar-track { flex: 1; background: #e5e7eb; height: 22px; border-radius: 4px; overflow: hidden; position: relative; }
+        .bar-fill { height: 100%; display: flex; align-items: center; padding: 0 8px; font-size: 0.75rem; font-weight: 700; }
+        .bar-fill.pos { background-color: var(--success); color: white; justify-content: flex-end; }
+        .bar-fill.neg { background-color: var(--danger); color: white; justify-content: flex-start; }
+        .bar-fill.neutral { background-color: var(--info); color: white; justify-content: flex-end; }
+
+        @media (max-width: 768px) {
+            .bar-row { flex-direction: column; align-items: flex-start; }
+            .bar-label { width: 100%; text-align: left; padding-bottom: 4px; }
+            .bar-track { width: 100%; }
+            h1 { font-size: 1.8rem; }
+            header { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>投資研究儀表板</h1>
+        <div class="date-badge">2026-06-01</div>
+    </header>
+
+    <div class="section-title">📊 核心總經與產業趨勢邏輯</div>
+    <div class="grid" style="grid-template-columns: 1fr;">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">本週市場主軸：WWDC 2026 與 重點大科技財報</h2>
+            </div>
+            <ul class="content-list">
+                <li><strong>板塊輪動關鍵：</strong> 本週將決定 AI 資金是繼續停留在硬體，還是輪動至 <strong>AI 軟體板塊、量子電腦、太空板塊</strong>。</li>
+                <li><strong>Siri 2.0 戰略意義：</strong> Apple 放棄自研核心，轉向 <strong>資本支出外包</strong>，將進階雲端任務接入 Google Gemini (1.2兆參數混合 MoE 架構)，每年支付 10 億美元。</li>
+                <li><strong>算力流向重估：</strong> iPhone 流量的算力帳單跑在 Apple 私有雲 (自家伺服器/台積電代工)，<strong>而非 Google TPU 訂單</strong>。</li>
+                <li><strong>總經數據催化：</strong> 若 6/5 非農就業數據轉弱，降息預期升溫，將點燃長天期成長股、軟體股與小型股的新一輪輪動機會。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-title">🎯 個股操作策略與關鍵點位</div>
+    <div class="grid">
+        <div class="card opportunity">
+            <div class="card-header">
+                <h2 class="card-title">蘋果 Apple</h2>
+            </div>
+            <div class="tag-group">
+                <span class="tag ticker">AAPL</span>
+                <span class="tag sell">短線分批停利</span>
+                <span class="tag hold">長線續抱</span>
+            </div>
+            <div class="price-levels">
+                <p>📍 波段漲幅：$243 ➔ <span class="highlight-price">$312 (歷史新高)</span></p>
+                <p>📍 停利防守：跌破 <span class="highlight-price">10MA</span> 砍半，跌破 <span class="highlight-price">20MA</span> 全清</p>
+            </div>
+            <ul class="content-list">
+                <li><strong>短線邏輯：</strong> 股價已大幅反應 Siri 2.0 預期，且情報提前洩漏無驚喜。防範典型「買消息、賣事實」風險，強烈建議 WWDC 前主動獲利了結。</li>
+                <li><strong>長線邏輯：</strong> AI 生態系統與現金流敘事剛開始，長線投資者可承受 10% 回檔者續抱。</li>
+            </ul>
+            
+            <div class="chart-container">
+                <div class="chart-title">AAPL 歷年重大發表會前後股價反應歷史數據</div>
+                <div class="bar-row">
+                    <div class="bar-label">發表會「前」一個月</div>
+                    <div class="bar-track"><div class="bar-fill pos" style="width: 50%;">+5.2%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">WWDC 當週平均</div>
+                    <div class="bar-track" style="display: flex; flex-direction: row-reverse;"><div class="bar-fill neg" style="width: 54%;">-5.4%</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">跨年度 (屆至屆) 漲幅</div>
+                    <div class="bar-track"><div class="bar-fill pos" style="width: 100%;">勝率極高達 +56.8%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card risk">
+            <div class="card-header">
+                <h2 class="card-title">博通 Broadcom</h2>
+            </div>
+            <div class="tag-group">
+                <span class="tag ticker">AVGO</span>
+                <span class="tag sell">財報前賣出減碼</span>
+                <span class="tag hold">長線看好</span>
+            </div>
+            <div class="price-levels">
+                <p>📍 目前股價：$446</p>
+                <p>📍 風險支撐：高檔整理平台，跌破 <span class="highlight-price">$400</span> 較為危險</p>
+            </div>
+            <ul class="content-list">
+                <li><strong>短線隱憂：</strong> 好消息已充分定價。供給端受限於台積電先進製程與封裝，恐出現「財報好但不漲」的賣事實風險。</li>
+                <li><strong>競爭風險：</strong> 推論晶片 (TPU 8i) 訂單可能被聯發科 (MediaTek) 分食。</li>
+                <li><strong>財報看點：</strong> 6/3 盤後觀察是否給出超預期的 2027 指引及新客戶訂單。</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">AVGO 最新財報季度預估規模 (單位: 億美元)</div>
+                <div class="bar-row">
+                    <div class="bar-label">AI 半導體營收</div>
+                    <div class="bar-track"><div class="bar-fill neutral" style="width: 15%;">107 億</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">總營收財測</div>
+                    <div class="bar-track"><div class="bar-fill neutral" style="width: 30%;">220 億</div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">在手未交訂單 (Backlog)</div>
+                    <div class="bar-track"><div class="bar-fill info" style="width: 100%; background-color:#0369a1;">730 億 (受限台積電產能)</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card risk">
+            <div class="card-header">
+                <h2 class="card-title">資安雙雄</h2>
+            </div>
+            <div class="tag-group">
+                <span class="tag ticker">PANW</span>
+                <span class="tag ticker">CRWD</span>
+                <span class="tag sell">財報前至少獲利了結一半</span>
+            </div>
+            <ul class="content-list">
+                <li><strong>操作邏輯：</strong> 財報前因預期與隱含波動率 (IV) 墊高已上漲一波。財報後修正機率大（尤其是 PANW）。</li>
+                <li><strong>板塊影響：</strong> 兩者皆為 IGV (軟體 ETF) 前十大成份股，若財報後下跌，將引發軟體板塊分化與短線整理。</li>
+                <li><strong>趨勢觀點：</strong> 兩者屬於 AI 變現層中「贏的一半」（具備平台化定價權），驗證 AI 應用層是否帶來實質營收轉換。</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">AI 硬體驗證指標</h2>
+            </div>
+            <div class="tag-group">
+                <span class="tag ticker">NVDA</span>
+                <span class="tag ticker">HPE</span>
+                <span class="tag watch">觀望輪動指標</span>
+            </div>
+            <ul class="content-list">
+                <li><strong>NVDA：</strong> 5/20 開出營收 816 億美元 (年增 85%) 且超預期，但高達 30 倍預估本益比導致「財報大好卻不漲」。暗示純 AI 硬體催化劑短線已近尾聲。</li>
+                <li><strong>HPE：</strong> 財報將作為 Rubin 出貨狀況的「加強驗證」，觀察能否延續 DELL 之前的大漲動能。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
