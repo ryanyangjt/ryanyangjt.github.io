@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街科技投資研究儀表板 | 2026-06-02</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #6c757d;
+            --primary: #004085;
+            --secondary: #383d41;
+            --border: #e2e8f0;
+            --bar-bg: #e9ecef;
+            --bar-fill-1: #4e73df;
+            --bar-fill-2: #1cc88a;
+            --bar-fill-3: #f6c23e;
+            --bar-fill-4: #e74a3b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .dashboard-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        .dashboard-header .date {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+        }
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+        
+        @media (max-width: 992px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--primary);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .tag-ticker { background-color: #e2e8f0; color: #1e293b; border: 1px solid #cbd5e1; }
+        .tag-buy { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .tag-hold { background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .tag-options { background-color: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+        
+        /* Bar Charts */
+        .chart-row {
+            margin-bottom: 18px;
+        }
+        .chart-label-container {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--secondary);
+        }
+        .chart-bar-bg {
+            background-color: var(--bar-bg);
+            border-radius: 6px;
+            height: 24px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .chart-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .stock-row {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            background-color: #fafbfc;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .stock-details {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .stock-details strong {
+            color: var(--text-main);
+        }
+        .key-price {
+            background-color: #f8f9fa;
+            border-left: 3px solid #6c757d;
+            padding: 8px 12px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .alert-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>投資研究儀表板 | AI 電力革命與半導體新主線</h1>
+        <div class="date">Report Date: 2026-06-02</div>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card col-span-12">
+            <h2 class="card-title">總經觀點與產業趨勢邏輯 (Macro & Industry Thesis)</h2>
+            <p><strong>核心論述：</strong>AI 投資主軸正從「算力瓶頸」轉移至「電力瓶頸」。資料中心硬體升級使得單一機櫃功耗呈指數級成長，整個電源架構變得更加複雜（開關、轉壓、穩壓、降低損耗）。</p>
+            <p><strong>剛需受惠者：</strong>所有與 AI 電力、電源相關的供應鏈將迎來結構性成長，包含 <strong>MOSFET、GaN、SiC、電源管理 IC (PMIC)、功率模組</strong>。這不僅是顆數的增加，更是價值量（單價、規格、耐壓、轉換效率）的全面升級。</p>
+        </div>
+
+        <div class="card col-span-6">
+            <h2 class="card-title">資料中心機櫃功耗演進比較 (Power Density)</h2>
+            <div class="chart-row">
+                <div class="chart-label-container">
+                    <span>傳統 CPU 機櫃</span>
+                    <span>10 kW</span>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar-fill" style="width: 8.3%; background-color: var(--bar-fill-1);">8.3%</div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label-container">
+                    <span>H100 氣冷機櫃</span>
+                    <span>40 kW</span>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar-fill" style="width: 33.3%; background-color: var(--bar-fill-3);">33.3%</div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label-container">
+                    <span>GB200 NVL72 AI 機櫃 (12倍激增)</span>
+                    <span>120 kW</span>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar-fill" style="width: 100%; background-color: var(--bar-fill-4);">100%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-6">
+            <h2 class="card-title">全球資料中心功率半導體市場規模預測</h2>
+            <div class="chart-row">
+                <div class="chart-label-container">
+                    <span>2025年 預估市場規模</span>
+                    <span>20.3 億美元</span>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar-fill" style="width: 47.3%; background-color: var(--bar-fill-1);">47.3%</div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label-container">
+                    <span>2032年 預估市場規模 (成長 2.11 倍)</span>
+                    <span>42.9 億美元</span>
+                </div>
+                <div class="chart-bar-bg">
+                    <div class="chart-bar-fill" style="width: 100%; background-color: var(--bar-fill-2);">100%</div>
+                </div>
+            </div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-top: 15px;">
+                * 涵蓋 MOSFET, SiC, GaN, PMIC 等元件。未來十年市場規模將比 2026 年成長達 433% - 700%，屬長線結構性需求。
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2 class="card-title">個股操作策略 (Stock Strategies)</h2>
+            
+            <div class="grid-container" style="gap: 15px;">
+                
+                <div class="col-span-6">
+                    <div class="stock-row">
+                        <div class="stock-header">
+                            <div>
+                                <span class="tag tag-ticker">AOSL</span>
+                                <span class="tag tag-buy">等待突破做多</span>
+                            </div>
+                        </div>
+                        <div class="stock-details">
+                            <p><strong>基本面：</strong>美股純度最高的功率 MOSFET 廠。成功將主力從 PC/手機轉向 AI 資料中心電源（先進運算與中壓 MOSFET）。財報顯示先進運算營收單季倍增 (YoY +40%)，資產負債表強健。</p>
+                            <p><strong>操作策略：</strong>目前股價拉回整理。需等待一根 K 線陽線突破後進場較穩妥。</p>
+                        </div>
+                        <div class="key-price">
+                            <strong>技術支撐位：</strong> 觀察 <strong>20MA (月線)</strong> 能否有效守穩。若未守住則繼續觀望。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-6">
+                    <div class="stock-row">
+                        <div class="stock-header">
+                            <div>
+                                <span class="tag tag-ticker">MX</span>
+                                <span class="tag tag-buy">逢低分批上車</span>
+                            </div>
+                        </div>
+                        <div class="stock-details">
+                            <p><strong>基本面：</strong>小型轉機股。轉型主打中壓 MOSFET 切入 AI 伺服器電源供應器。手機電池保護 MOSFET 已拿下一線大廠 Design-win 並量產。</p>
+                            <p><strong>催化劑 (Catalyst)：</strong>6/9-6/11 將於德國 PCIM 展出專為 AI 伺服器設計之產品線；6/11 召開股東會。題材集中度高，易帶動資金買氣。</p>
+                            <p><strong>操作策略：</strong>股價相對強勢，趁今日拉回，可以小倉位進場佈局。</p>
+                        </div>
+                        <div class="key-price">
+                            <strong>技術切入點：</strong> 於 <strong>5MA (周線)</strong> 或是 <strong>10MA</strong> 強行上車，務必設置<strong>停損點</strong>。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-4">
+                    <div class="stock-row">
+                        <div class="stock-header">
+                            <div>
+                                <span class="tag tag-ticker">AVGO</span>
+                                <span class="tag tag-options">Sell Put 收權利金</span>
+                            </div>
+                        </div>
+                        <div class="stock-details">
+                            <p><strong>狀態：</strong>即將公布財報，目前隱含波動率 (IV) 偏高。</p>
+                            <p><strong>操作策略：</strong>適合賣出賣權 (Sell Put) 來低接正股，若未跌破履約價則可穩賺高昂權利金。(本週四檔財報股中唯一建議以此策略操作之標的)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-4">
+                    <div class="stock-row">
+                        <div class="stock-header">
+                            <div>
+                                <span class="tag tag-ticker">VSH</span>
+                                <span class="tag tag-hold">不建議追高</span>
+                            </div>
+                        </div>
+                        <div class="stock-details">
+                            <p><strong>狀態：</strong>全球功率 MOSFET 與被動元件龍頭大廠。近期因不同品類輪番漲價，短線動能強勁且漲幅已大。</p>
+                            <p><strong>操作策略：</strong>估值偏高，先前已建議部分獲利了結。除非進行動能追高交易，否則現階段<strong>不建議追高</strong>買進。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-4">
+                    <div class="stock-row">
+                        <div class="stock-header">
+                            <div>
+                                <span class="tag tag-ticker">NVDA</span>
+                                <span class="tag tag-hold">長線續抱 / 觀察</span>
+                            </div>
+                        </div>
+                        <div class="stock-details">
+                            <p><strong>狀態：</strong>Computex 執行長演講後迎來起色，本次演講主軸帶動「AI PC」概念股表現。</p>
+                            <p><strong>操作策略：</strong>表面為軟體與 Computex 題材帶動，相關 AI PC 供應鏈值得後續深挖。作為 AI 核心不需因短線震盪 FOMO。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="alert-box">
+                <strong>⚠️ 風險提示：</strong> 近期除 VSH 外，功率半導體族群多處於拉回整理階段。操作中小型轉機股 (如 MX) 存在較高財務與營運波動風險，強烈建議嚴格執行資金控管與停損紀律。
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
