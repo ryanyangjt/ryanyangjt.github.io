@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街科技投資研究儀表板 | 2026-06-02</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent-blue: #3498db;
+            --accent-green: #2ecc71;
+            --accent-orange: #f39c12;
+            --accent-red: #e74c3c;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+            --border-color: #ecf0f1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 40px;
+            line-height: 1.6;
+        }
+
+        header {
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .date-badge {
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--accent-blue);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        /* 標籤系統 */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        /* 純 HTML/CSS 長條圖 */
+        .chart-container {
+            margin-bottom: 20px;
+        }
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        .chart-track {
+            background-color: #e9ecef;
+            border-radius: 6px;
+            height: 24px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .chart-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+
+        .stock-item {
+            border-left: 4px solid var(--border-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stock-header {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .stock-desc {
+            font-size: 14px;
+            color: #555;
+            margin: 0 0 5px 0;
+        }
+
+        .level-box {
+            background-color: #fdfaf0;
+            border: 1px solid #f9e29c;
+            color: #b58105;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        @media (max-width: 1024px) {
+            .col-4, .col-6 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>投資研究儀表板：AI PC 典範轉移與供應鏈重估</h1>
+        <div class="date-badge">2026-06-02</div>
+    </header>
+
+    <div class="dashboard-grid">
+        
+        <div class="card col-12">
+            <h2 class="card-title">核心投資邏輯與產業趨勢 (Macro & Industry Thesis)</h2>
+            <ul style="margin: 0; padding-left: 20px; font-size: 15px; color: #444;">
+                <li><strong>AI PC 定義被徹底改寫：</strong> 過去依賴小算力 NPU (40-80 TOPS) 處理輕量任務；NVDA 推出 RTX Spark，將桌機級 GPU、Arm 架構與 128GB 統一記憶體整合，實現 <strong>「本機離線運行 1200億參數大語言模型」</strong>。</li>
+                <li><strong>資料中心商業模式下放：</strong> NVDA 將其壟斷性的 CUDA 生態系直接搬到 PC 端，不僅是硬體升級，而是「平台級」的改朝換代，連軟體巨頭 (Microsoft, Adobe) 皆全面配合優化。</li>
+                <li><strong>換機潮與獲利結構改變：</strong> 換機動能將從「被迫更換」轉為「主動升級 (Agentic AI 助理)」。初期由創作者與企業端帶動。即便整體 PC 出貨量未大增，<strong>單機內含價值 (記憶體、散熱、電源) 大幅提升</strong>，推升供應鏈毛利與營收重估 (Re-rating)。</li>
+            </ul>
+        </div>
+
+        <div class="card col-6">
+            <h2 class="card-title">硬體規格與算力躍升比較</h2>
+            
+            <div class="chart-container">
+                <div class="chart-label">
+                    <span>AI 算力引擎 (TOPS)</span>
+                    <span>1000 TOPS</span>
+                </div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 8%; background-color: var(--text-muted); color: transparent;" title="傳統 NPU"></div>
+                </div>
+                <div class="chart-label" style="font-size: 12px; color: var(--text-muted); margin-top: -8px; margin-bottom: 10px;">↑ 傳統 NPU (INTC/AMD/QCOM): 40-80 TOPS</div>
+                
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 100%; background-color: var(--accent-blue);">NVDA Tensor Core (1000 TOPS)</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label">
+                    <span>單機記憶體搭載量 (GB)</span>
+                    <span>128 GB (8倍成長)</span>
+                </div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 12.5%; background-color: var(--text-muted); color: transparent;" title="傳統筆電"></div>
+                </div>
+                <div class="chart-label" style="font-size: 12px; color: var(--text-muted); margin-top: -8px; margin-bottom: 10px;">↑ 傳統一般筆電: 16GB</div>
+                
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 100%; background-color: var(--accent-green);">NVDA RTX Spark 統一記憶體 (128GB LPDDR5X)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-6">
+            <h2 class="card-title">趨勢變化與市佔率預估</h2>
+            
+            <div class="chart-container" style="margin-top: 30px;">
+                <div class="chart-label">
+                    <span>Arm 架構 PC 佔整體市場份額預估</span>
+                    <span>30%</span>
+                </div>
+                <div class="chart-track" style="height: 30px;">
+                    <div class="chart-fill" style="width: 33%; background-color: var(--text-muted);">目前約 10%</div>
+                </div>
+                <div class="chart-track" style="height: 30px;">
+                    <div class="chart-fill" style="width: 100%; background-color: var(--accent-orange);">2026年底預估: 30%</div>
+                </div>
+                <p style="font-size: 13px; color: #666; margin-top: 5px;">* 隨著 NVDA 加入戰局，Arm 架構從輕薄文書機一路打進高階 AI 工作站，市場天花板被大幅抬高。</p>
+            </div>
+        </div>
+
+        <div class="card col-12">
+            <h2 class="card-title">個股操作策略與評級 (Actionable Strategies)</h2>
+            
+            <div class="dashboard-grid">
+                
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: var(--accent-blue);">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">NVDA 輝達</span>
+                            <span class="tag" style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">長線確定主線</span>
+                        </div>
+                        <p class="stock-desc">創造全新平台生態系，吃下高階 PC 藍海市場，軟硬體通吃。</p>
+                    </div>
+
+                    <div class="stock-item" style="border-left-color: var(--accent-orange);">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">ARM 安謀</span>
+                            <span class="tag" style="background: #fff3cd; color: #856404; border: 1px solid #ffeeba;">觀望 / 勿追高</span>
+                        </div>
+                        <p class="stock-desc">架構戰唯一「兩邊收錢」贏家。但短線單日暴漲 15%，估值溢價過高。</p>
+                        <div class="level-box">⚠️ 乖離過大，極易回吐，不適合大漲後追價進場。</div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: var(--accent-green);">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">MU 美光</span>
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">2344 華邦電</span>
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">2408 南亞科</span>
+                            <span class="tag" style="background: #cce5ff; color: #004085; border: 1px solid #b8daff;">逢低分批低接</span>
+                        </div>
+                        <p class="stock-desc">最確定的受惠鏈。HBM、DDR5 與 LPDDR5X (16G跳升128G) 三線搶產能，週期頂點將向後延長。</p>
+                    </div>
+
+                    <div class="stock-item" style="border-left-color: var(--accent-green);">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">2454 聯發科</span>
+                            <span class="tag" style="background: #d4edda; color: #155724; border: 1px solid #c3e6cb;">直接受惠</span>
+                        </div>
+                        <p class="stock-desc">與 NVDA 共同設計 RTX Spark 的 Arm 處理器，每賣一台皆有實質營收貢獻。</p>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: var(--accent-blue);">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">DELL</span>
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">HPQ</span>
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">2357 華碩</span>
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">2353 宏碁</span>
+                            <span class="tag" style="background: #cce5ff; color: #004085; border: 1px solid #b8daff;">分批佈局</span>
+                        </div>
+                        <p class="stock-desc">將故事最快變現的一線。無論上游哪顆晶片勝出皆吃得到換機潮。現階段反映「預期」，秋季出貨驗證營收。</p>
+                        <div style="margin-top:5px;">
+                            <span class="tag" style="background: #f8f9fa; color: #6c757d; border: 1px dashed #ccc; font-size: 11px;">同族群受惠: 2324 仁寶, 2382 廣達, 3231 緯創</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card col-12" style="border-top: 4px solid var(--accent-red);">
+            <h2 class="card-title" style="color: var(--accent-red);">短期受害陣營與技術面壓力 (Squeezed Competitors)</h2>
+            
+            <div class="dashboard-grid">
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: var(--accent-red); margin-bottom: 0;">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">QCOM 高通</span>
+                            <span class="tag" style="background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">等待止跌</span>
+                        </div>
+                        <p class="stock-desc">失去 Windows on Arm 獨佔地位，面臨 NVDA 正面競爭與潛在的 ARM 授權取消利空。</p>
+                        <div class="level-box" style="background:#fff5f5; border-color:#ffc9c9; color:#c92a2a;">操作建議：等待技術面出現明確「止跌」訊號再來考慮。</div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: var(--accent-red); margin-bottom: 0;">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">INTC 英特爾</span>
+                            <span class="tag" style="background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">觀望壓力區</span>
+                        </div>
+                        <p class="stock-desc">x86 獨佔高階市場的議價能力遭削弱。雖有企業客群護城河，但短期需重新定價。</p>
+                        <div class="level-box" style="background:#fff5f5; border-color:#ffc9c9; color:#c92a2a;">關鍵壓力位：120元以上 (面臨沉重出貨賣壓)</div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="stock-item" style="border-left-color: #6c757d; margin-bottom: 0;">
+                        <div class="stock-header">
+                            <span class="tag" style="background: #eef2f5; color: #2c3e50; border: 1px solid #cbd5e1;">AMD 超微</span>
+                            <span class="tag" style="background: #e2e3e5; color: #383d41; border: 1px solid #d6d8db;">受傷較輕</span>
+                        </div>
+                        <p class="stock-desc">其 Strix Halo (大內顯 + 高達128GB共用記憶體) 是 x86 陣營中架構最接近 NVDA 的產品，故股價跌幅較小。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
