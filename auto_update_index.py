@@ -20,7 +20,6 @@ def get_color_for_tag(tag):
     return colors[color_index]
 
 def get_targets_from_gemini(text_content):
-    """呼叫 Gemini 閱讀內容。成功回傳 list (含 [])，API 失敗回傳 None"""
     prompt = f"""
     你是一位專業的投資分析師。請閱讀以下文章內容，萃取出文章中主要討論的「投資標的」（例如股票代號或公司簡稱，如 NVDA, QCOM, 台積電 等）。
     
@@ -82,7 +81,8 @@ def main():
     updated = False
 
     for file_name in html_files:
-        pattern = rf'(<a href="{re.escape(file_name)}"[^>]*>)(.*?)(</a>)'
+        # 🌟 修復關鍵：在 <a 跟 href 之間加入 [^>]* 容許存在 class 或其他屬性！
+        pattern = rf'(<a[^>]*href="{re.escape(file_name)}"[^>]*>)(.*?)(</a>)'
         match = re.search(pattern, index_html, flags=re.DOTALL)
         
         if match:
@@ -140,12 +140,11 @@ def main():
             
             tags_html = create_tags_html(targets)
             
-            # 🌟 修復關鍵點：改用正規表達式尋找 ul，確保不管有沒有 id 都不會切錯位置！
             match_ul = re.search(r'<ul[^>]*>', index_html)
             if match_ul:
                 insert_point = match_ul.end()
             else:
-                insert_point = index_html.find("<body>") + 6 # 備用防呆方案
+                insert_point = index_html.find("<body>") + 6 
                 
             new_list_item = f'\n        <li>\n            <a class="article-link" href="{file_name}" data-scanned="true">🆕 {date_str} - {match_title}{tags_html}</a>\n        </li>'
             
