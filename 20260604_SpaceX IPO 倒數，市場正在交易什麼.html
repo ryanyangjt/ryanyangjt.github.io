@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-05</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e1e8ed;
+            --primary: #2980b9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+        h1 {
+            font-size: 2rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .date-badge {
+            font-size: 1rem;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+        .list-group {
+            list-style: none;
+        }
+        .list-group li {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .list-group li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        /* Chart Styles */
+        .chart-container {
+            margin-top: 1rem;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+        .bar-label {
+            width: 80px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .bar-track {
+            flex-grow: 1;
+            height: 18px;
+            background-color: #edf2f7;
+            border-radius: 9px;
+            margin: 0 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 5px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .bar-value {
+            width: 50px;
+            text-align: right;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>華爾街投資研究儀表板 <span class="date-badge">2026-06-05</span></h1>
+    </header>
+
+    <div class="dashboard-grid">
+        
+        <div class="card">
+            <h2>大盤盤勢與總經邏輯</h2>
+            <ul class="list-group">
+                <li>
+                    <strong>趨勢指標：</strong> 
+                    <span style="background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">多頭格局</span>
+                    <span style="background-color: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">日線高9訊號 (QQQ, DIA)</span>
+                </li>
+                <li>
+                    <strong>支撐與風險：</strong> 
+                    VIX 低檔 (16)，10年期美債殖利率維持 4.5% 以下 (受壓於20MA)。大盤回檔機率增高，但屬正常輪動。
+                </li>
+                <li>
+                    <strong>操作策略：</strong> 
+                    <span style="background-color: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">持股續抱</span>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">切勿追高</span>
+                    短期恐慌拉回反而是買點；波段操作者以 <strong>20MA</strong> 為最終防守線。
+                </li>
+                <li>
+                    <strong>資金輪動：</strong> CNN貪婪指數仍處中性，過熱集中於半導體/AI硬體。
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>重點科技股/半導體操作建議</h2>
+            <ul class="list-group">
+                <li>
+                    <strong>財報行情策略：</strong><br>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">逢高獲利了結 CRWD</span>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">逢高獲利了結 PANW</span>
+                    (財報前必須賣出)
+                </li>
+                <li>
+                    <strong>盤後大跌策略：</strong><br>
+                    <span style="background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">分批接刀/逢低買進 AVGO</span>
+                    <span style="background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">分批接刀/逢低買進 CRWD</span>
+                    (待明日市場情緒消化後)
+                </li>
+                <li>
+                    <strong>動能股警示：</strong><br>
+                    <span style="background-color: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">觀望 / 嚴設停損 MRVL</span> (市場極熱，追高需嚴控倉位)
+                </li>
+                <li>
+                    <strong>賣飛換股策略：</strong><br>
+                    若賣飛 <span style="background-color: #f3e5f5; color: #6a1b9a; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">VSH</span>，建議轉進上下游供應鏈同行，漲幅較慢但具備安全邊際。
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>SpaceX (SPCX) IPO 核心資訊</h2>
+            <ul class="list-group">
+                <li>
+                    <strong>上市時程：</strong> 2026-06-11 定價，<strong>2026-06-12 掛牌 (Nasdaq)</strong>
+                </li>
+                <li>
+                    <strong>估值與定價：</strong> 目標價 <strong style="color: #c62828;">$135</strong> / 估值區間 1.5 ~ 1.77 兆美元 (募資 750億美元)。
+                </li>
+                <li>
+                    <strong>基本面狀況：</strong> 2025年合併營收 186.7億 (+33%)，但受 xAI 併購拖累，轉為淨虧損 49.4億。Starlink ARPU 下滑 (降至$66) 但 5 月已調漲。
+                </li>
+            </ul>
+
+            <div class="chart-container">
+                <h3 style="font-size: 1rem; color: var(--text-muted); margin-bottom: 10px;">2025年 SpaceX 營收結構預測</h3>
+                <div class="bar-row">
+                    <div class="bar-label">Starlink</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 61%; background-color: #3498db;">61%</div></div>
+                    <div class="bar-value">$114億</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">發射業務</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 22%; background-color: #95a5a6;">22%</div></div>
+                    <div class="bar-value">$41億</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">太空+AI</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 17%; background-color: #9b59b6;">17%</div></div>
+                    <div class="bar-value">$32億</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>歷史 IPO 股價營收比 (P/S) 對比</h2>
+            <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">SpaceX 以 1.77兆估值計算，P/S 高達 94 倍，遠超歷史科技巨頭，充滿「集團敘事溢價」。</p>
+            
+            <div class="chart-container">
+                <div class="bar-row">
+                    <div class="bar-label" style="color: #c62828;">SpaceX</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 94%; background-color: #e74c3c;"></div></div>
+                    <div class="bar-value" style="color: #c62828;">94x</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">META</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 28%; background-color: #34495e;"></div></div>
+                    <div class="bar-value">28x</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">Google</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 10%; background-color: #34495e;"></div></div>
+                    <div class="bar-value">10x</div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">沙烏地阿美</div>
+                    <div class="bar-track"><div class="bar-fill" style="width: 5%; background-color: #34495e;"></div></div>
+                    <div class="bar-value">5x</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>SpaceX 上市資金排擠效應 (Squeeze)</h2>
+            <ul class="list-group">
+                <li>
+                    <strong>大型科技股 (被動資金提款機)：</strong><br>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">潛在賣壓 NVDA</span>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">潛在賣壓 AAPL</span>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">潛在賣壓 MSFT</span>
+                    <span style="background-color: #ffebee; color: #c62828; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">潛在賣壓 GOOGL</span>
+                    (基金囤現金騰出權重空間)
+                </li>
+                <li>
+                    <strong>太空概念股 (主題ETF賣舊買新)：</strong><br>
+                    <span style="background-color: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">換倉風險 RKLB</span>
+                    <span style="background-color: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">換倉風險 ASTS</span>
+                    (短期可能隨情緒齊漲，但事件過後將遭拋售)
+                </li>
+                <li>
+                    <strong>競爭對手與加密貨幣：</strong><br>
+                    <span style="background-color: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">競爭者 AMZN</span> (Kuiper計畫) <br>
+                    <span style="background-color: #fff3e0; color: #ef6c00; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">潛在倒貨 MSTR</span> (比特幣大跌可能與 SpaceX 準備倒貨有關)
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>SpaceX (SPCX) 操作策略總結</h2>
+            <ul class="list-group">
+                <li>
+                    <strong>短期 (IPO後兩週內)：</strong><br>
+                    <span style="background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">短線動能買進</span>
+                    掛牌前一週半切勿開新倉。掛牌後觀察2-3天，<strong>逢收黑低點下方佈局並嚴設停損</strong>。預期將隨新聞頭條劇烈洗盤。
+                </li>
+                <li>
+                    <strong>波段操作：</strong><br>
+                    <span style="background-color: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">觀望冷卻</span>
+                    等待掛牌至少一個月後，籌碼沉澱且技術型態確立後再做決定。
+                </li>
+                <li>
+                    <strong>長線投資：</strong><br>
+                    <span style="background-color: #e8f5e9; color: #2e7d32; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">長線替代買進 TSLA</span>
+                    若無法承受 SPCX 燒錢風險，長線可轉買同樣由馬斯克主導且持有 SpaceX 股份的特斯拉。
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
