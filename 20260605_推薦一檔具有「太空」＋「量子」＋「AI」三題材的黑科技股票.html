@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-05</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e2e8f0;
+            --primary-color: #1a365d;
+            
+            /* Action Tag Colors */
+            --tag-buy-bg: #e6fffa;
+            --tag-buy-text: #00a3c4;
+            --tag-swing-bg: #ebf8ff;
+            --tag-swing-text: #2b6cb0;
+            --tag-watch-bg: #fffaf0;
+            --tag-watch-text: #dd6b20;
+            --tag-risk-bg: #fff5f5;
+            --tag-risk-text: #e53e3e;
+            --tag-hold-bg: #f0fff4;
+            --tag-hold-text: #38a169;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 24px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .date-badge {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-4 { grid-column: span 4; }
+
+        @media (max-width: 1024px) {
+            .col-8, .col-4 { grid-column: span 12; }
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Inline Tag Classes */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        /* Typography & Lists */
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #1a202c;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f7fafc;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f8fafc;
+        }
+
+        /* Pure HTML/CSS Native Visualization Bar Chart */
+        .chart-section {
+            margin-top: 16px;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .bar-container {
+            margin-bottom: 12px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .bar-bg {
+            background-color: #edf2f7;
+            width: 100%;
+            height: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-05</div>
+    </header>
+
+    <div class="dashboard-grid">
+        
+        <div class="card col-8">
+            <h2>核心總經觀點與產業趨勢邏輯</h2>
+            <ul>
+                <li><strong>低軌衛星海與國防剛需：</strong>美國太空軍 PWSA 數據網及現代化防禦計畫（如「金穹」飛彈防禦計畫）預計往低軌道發射數千顆衛星。全球低軌衛星群與軍用無人機、飛彈導航在高度對抗環境下，面臨極嚴重的 <strong>GPS 信號干擾與欺騙</strong> 風險。</li>
+                <li><strong>抗干擾自主定位（PNT）崛起：</strong>「不依賴 GPS 也能精準定位」成為現代國防與衛星通訊的最核心剛需。市場規模預估將迎來爆發性成長。</li>
+                <li><strong>基礎設施零件先行：</strong>相較於高燒錢、高風險的火箭發射系統商，市場尚未完全看清「剛需硬體關鍵零件商」的穩定性與超高技術護城河複利價值。</li>
+            </ul>
+        </div>
+
+        <div class="card col-4">
+            <h2>產業數據與財務預測變化</h2>
+            
+            <div class="chart-section">
+                <div class="chart-title">全球抗干擾定位導航市場規模預測 (2025-2035)</div>
+                
+                <div class="bar-container">
+                    <div class="bar-label"><span>2025 年基準</span> <strong>8.5 億美元</strong></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 10.1%; background-color: #4a5568;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-container">
+                    <div class="bar-label"><span>2034 年預估 (年增率近 28%)</span> <strong>84 億美元</strong></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 100%; background-color: #2b6cb0;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section" style="margin-top: 24px;">
+                <div class="chart-title">抗干擾定位導航市場格局市佔率</div>
+                
+                <div class="bar-container">
+                    <div class="bar-label"><span>前五大系統大包商 (LMT, RTX, NOC 等)</span> <strong>46%</strong></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 46%; background-color: #4a5568;"></div>
+                    </div>
+                </div>
+
+                <div class="bar-container">
+                    <div class="bar-label"><span>利基市場與其餘供應商</span> <strong>54%</strong></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 54%; background-color: #319795;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-12">
+            <h2>投資標的操作策略一覽表</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">投資標的 / 代號</th>
+                        <th style="width: 18%;">核心題材</th>
+                        <th style="width: 15%;">操作建議</th>
+                        <th style="width: 18%;">關鍵價位 / 支撐位</th>
+                        <th style="width: 34%;">分析與核心邏輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>FEIM</strong><br><span style="font-size:12px; color:var(--text-muted);">Frequency Electronics</span></td>
+                        <td>太空核心本業 + 量子感測 + 太空邊緣 AI</td>
+                        <td><span class="tag" style="background-color: var(--tag-swing-bg); color: var(--tag-swing-text);">適合波段持有</span><br><span class="tag" style="background-color: var(--tag-buy-bg); color: var(--tag-buy-text);">低檔建立觀察倉</span></td>
+                        <td><strong>支撐位：20MA 核心防守線</strong> (目前拉回未破)</td>
+                        <td>全球極稀缺的「太空級銣原子鐘（300萬年差1秒）」製造商。具備60年無出包「飛行履歷」與軍方高門檻認證硬技術。非純量子電腦或純 AI 股，而是三者共用的原子級計時「剛需基礎設施零件」，風來極易噴發。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AEHR</strong><br><span style="font-size:12px; color:var(--text-muted);">Aehr Test Systems</span></td>
+                        <td>半導體測試設備</td>
+                        <td><span class="tag" style="background-color: var(--tag-hold-bg); color: var(--tag-hold-text);">信心續抱</span></td>
+                        <td>--</td>
+                        <td>具備高度核心價值的標的，近期隨資金輪動再度轉強，具備中長線剛需支撐。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SITM</strong><br><span style="font-size:12px; color:var(--text-muted);">SiTime</span></td>
+                        <td>商用資料中心計時元件</td>
+                        <td><span class="tag" style="background-color: var(--tag-watch-bg); color: var(--tag-watch-text);">建議關注 / 延伸研究</span></td>
+                        <td>--</td>
+                        <td>FEIM 本業延伸標的，主要聚焦於商業資料中心市場的計時供應鏈。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MCHP</strong><br><span style="font-size:12px; color:var(--text-muted);">Microchip</span></td>
+                        <td>太空級原子鐘同行</td>
+                        <td><span class="tag" style="background-color: var(--tag-watch-bg); color: var(--tag-watch-text);">關注同業輪動</span></td>
+                        <td>--</td>
+                        <td>全球少數能做太空級原子鐘的同業之一（同業另有法國 Safran），但 FEIM 業務純度相對更高。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QNT</strong><br><span style="font-size:12px; color:var(--text-muted);">新掛牌 IPO</span></td>
+                        <td>量子運算新股</td>
+                        <td><span class="tag" style="background-color: var(--tag-risk-bg); color: var(--tag-risk-text);">觀望 / 短期題材炒作</span></td>
+                        <td>--</td>
+                        <td>量子運算目前仍處極早期，機器糾錯商用仍需數年，當前多屬炒作，風險高於量子「感測」。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TSLA</strong><br><span style="font-size:12px; color:var(--text-muted);">Tesla</span></td>
+                        <td>馬斯克集團敘事</td>
+                        <td><span class="tag" style="background-color: var(--tag-hold-bg); color: var(--tag-hold-text);">長線替代配置</span></td>
+                        <td>--</td>
+                        <td>若對太空板塊有興趣但無法承受小市值個股燒錢風險的長線投資人，可轉配置持有大量 SpaceX 股份的 TSLA。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LMT / RTX / NOC</strong><br><span style="font-size:12px; color:var(--text-muted);">國防承包大巨頭</span></td>
+                        <td>抗干擾定位導航承包商</td>
+                        <td><span class="tag" style="background-color: var(--tag-watch-bg); color: var(--tag-watch-text);">大型被動配置</span></td>
+                        <td>--</td>
+                        <td>前五大系統承包商吃掉抗干擾導航市場 46% 市佔。但由於公司業務過於龐雜，該板塊爆發對其總營收貢獻比重極小，不如純度高的小市值股（如 FEIM）具價格彈性。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RKLB</strong><br><span style="font-size:12px; color:var(--text-muted);">Rocket Lab</span></td>
+                        <td>太空軍系統商</td>
+                        <td><span class="tag" style="background-color: var(--tag-watch-bg); color: var(--tag-watch-text);">追蹤大型訂單動向</span></td>
+                        <td>已搶下太空軍 <strong>8 億美元</strong> 追蹤層大單</td>
+                        <td>屬於拿大單的系統端大包商，潛在市場隨太空軍預算擴大，需注意 Space X IPO 後的板塊題材換倉波動風險。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card col-12" style="border-left: 4px solid var(--tag-risk-text);">
+            <h2 style="color: var(--tag-risk-text);">風險提示與估值拐點分析</h2>
+            <ul>
+                <li><strong>政府訂單營收認列時點不規律：</strong>FEIM 雖在手訂單狀況極佳（突破 <strong>1 億美元</strong>，含近期 4,500 萬美元及月球計畫 700 萬美元等數張訂單），但受到政府預算卡關、計畫暫停或延遲等外部政治/國防政策臉色影響，營收認列時間點極難精準抓取。</li>
+                <li><strong>財報連續 Miss 的震盪：</strong>上述認列時點問題導致 FEIM 已<strong>連續三季財報 miss</strong>，造成短期股價劇烈波動。投資核心在於等待在手訂單準時轉化為營收的「財報拐點」。</li>
+                <li><strong>本益比與流動性：</strong>目前本益比估值偏高，且屬於較低調、冷門、少人吹捧的利基小市值標的（市值約 7 億美元），適合耐心波段布局，切忌短線盲目追高。</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
