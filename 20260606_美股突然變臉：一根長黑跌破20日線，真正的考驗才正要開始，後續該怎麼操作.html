@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-06</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --card-bg: #ffffff;
+            --primary: #0984e3;
+            --border-color: #dfe6e9;
+            --buy-color: #00b894;
+            --buy-bg: #e8f8f5;
+            --wait-color: #e17055;
+            --wait-bg: #fdf2e9;
+            --sell-color: #d63031;
+            --sell-bg: #fdedec;
+            --hedge-color: #6c5ce7;
+            --hedge-bg: #f4f0ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 10px 0 0 0;
+            color: #dfe6e9;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .tag-buy { background-color: var(--buy-bg); color: var(--buy-color); border: 1px solid #a3e4d7; }
+        .tag-wait { background-color: var(--wait-bg); color: var(--wait-color); border: 1px solid #f5cba7; }
+        .tag-sell { background-color: var(--sell-bg); color: var(--sell-color); border: 1px solid #f5b7b1; }
+        .tag-hedge { background-color: var(--hedge-bg); color: var(--hedge-color); border: 1px solid #dcd6f7; }
+        .tag-symbol { background-color: #f1f2f6; color: #2f3542; border: 1px solid #ced6e0; font-family: monospace; font-size: 14px;}
+
+        ul { margin: 0; padding-left: 20px; }
+        li { margin-bottom: 12px; color: #444; }
+
+        .stock-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .stock-item:last-child { border-bottom: none; }
+
+        /* CSS Bar Chart Styles */
+        .chart-container {
+            margin-top: 20px;
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .chart-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #555;
+            text-align: center;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .bar-label {
+            width: 110px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        .bar-track {
+            flex-grow: 1;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            height: 24px;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            transition: width 0.5s ease-in-out;
+        }
+        .val-peak { background-color: #636e72; width: 100%; }
+        .val-plat { background-color: #0984e3; width: 93.58%; } /* 700/748 */
+        .val-w10 { background-color: #f39c12; width: 90.37%; } /* 676/748 */
+        .val-qtr { background-color: #d63031; width: 89.17%; } /* 667/748 */
+
+        .strategy-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .bar-row { flex-direction: column; align-items: flex-start; }
+            .bar-label { margin-bottom: 5px; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <div class="header">
+        <h1>投資研究儀表板</h1>
+        <p>Data Updated: 2026-06-06 | 美股長黑跌破20日線策略分析</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h2 class="card-title">📊 核心大盤邏輯與技術點位</h2>
+            <ul>
+                <li><strong>短線籌碼鬆散：</strong> 一根長黑跌破 20MA，因過去一路上攻籌碼未明確換手，導致回檔時缺乏支撐力道。</li>
+                <li><strong>非農數據解讀：</strong> 數據超預期引發「升息預期」增溫，成為漲多回檔的藉口，但長線趨勢因經濟基本面良好而尚未反轉。</li>
+                <li><strong>均值回歸修正：</strong> 週線 5MA 與 10MA 乖離率過大，技術面有向週線 10MA 收斂的壓力。</li>
+            </ul>
+            
+            <div class="chart-container">
+                <div class="chart-title">QQQ 壓力與支撐位距離分析 (基準: 波段高點 748)</div>
+                
+                <div class="bar-row">
+                    <div class="bar-label">波段高點</div>
+                    <div class="bar-track">
+                        <div class="bar-fill val-peak">748</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">平台整理關卡</div>
+                    <div class="bar-track">
+                        <div class="bar-fill val-plat">700 (跌破點)</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">週線 10MA 支撐</div>
+                    <div class="bar-track">
+                        <div class="bar-fill val-w10">675 - 676</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">季線支撐 (共振區)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill val-qtr">667 (約回檔 10%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">⚖️ 兩手操作策略指導</h2>
+            
+            <div class="strategy-block" style="border-left-color: var(--hedge-color);">
+                <strong>策略一：大方向資產保護 (對沖)</strong><br>
+                <span class="tag tag-hedge">買進 Put</span> 
+                <span class="tag tag-hedge">反向 ETF</span><br>
+                <p style="margin-top: 8px; font-size: 14px; color: #555;">跌破 20MA 往下趨勢成立，預計下探季線。<strong>不要買 VIX Call</strong>，因本次重點在於「方向性的下跌空間」而非單純的事件波動，買 Put 或反向 ETF 保護效果更佳。</p>
+            </div>
+
+            <div class="strategy-block" style="border-left-color: var(--buy-color);">
+                <strong>策略二：逢低建倉搶反彈</strong><br>
+                <span class="tag tag-buy">買進績優科技股</span> 
+                <span class="tag tag-buy">分批進場至70%倉位</span><br>
+                <p style="margin-top: 8px; font-size: 14px; color: #555;">多頭格局具備「急跌緩漲」特性。若先前有在高檔減倉，現在應利用大跌開始建立大型績優 AI 龍頭部位，以對沖手上的空單部位。年底大選前，執政黨有作帳護盤動機。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">🎯 重點個股操作清單</h2>
+            
+            <div class="stock-item">
+                <div>
+                    <span class="tag tag-symbol">TSM</span> 台積電
+                </div>
+                <div>
+                    <span class="tag tag-buy">第一順位買進</span>
+                    <span class="tag tag-buy">分批建倉</span>
+                </div>
+            </div>
+            
+            <div class="stock-item">
+                <div>
+                    <span class="tag tag-symbol">ASX</span> 日月光
+                </div>
+                <div>
+                    <span class="tag tag-buy">逢低佈局</span>
+                </div>
+            </div>
+
+            <div class="stock-item">
+                <div>
+                    <span class="tag tag-symbol">NVDA</span> 輝達
+                </div>
+                <div>
+                    <span class="tag tag-buy">逢低佈局</span>
+                </div>
+            </div>
+
+            <div class="stock-item">
+                <div>
+                    <span class="tag tag-symbol">MRVL</span> 邁威爾
+                </div>
+                <div>
+                    <span class="tag tag-buy">逢低佈局</span>
+                </div>
+            </div>
+
+            <div class="stock-item">
+                <div>
+                    <span class="tag tag-symbol">LITE</span> 光通訊
+                </div>
+                <div>
+                    <span class="tag tag-buy">逢低佈局</span>
+                </div>
+            </div>
+
+            <div class="stock-item" style="background-color: #fafafa;">
+                <div>
+                    <span class="tag tag-symbol">AVGO</span> 博通
+                </div>
+                <div>
+                    <span class="tag tag-wait">先等等 / 觀望</span>
+                    <div style="font-size: 11px; color: #888; text-align: right; margin-top: 4px;">財報市場有疑慮，反彈幅度較小</div>
+                </div>
+            </div>
+
+            <div class="stock-item" style="background-color: #fafafa;">
+                <div>
+                    <span class="tag tag-symbol">AAPL</span> 蘋果
+                </div>
+                <div>
+                    <span class="tag tag-sell">財報前該走就走</span>
+                    <div style="font-size: 11px; color: #888; text-align: right; margin-top: 4px;">WWDC利多出盡預期</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">⚠️ 風險提示與近期催化劑 (Catalysts)</h2>
+            <ul>
+                <li>
+                    <strong>CPI 數據公佈 (6/10 下週三)：</strong> <span style="color: #d63031; font-weight: bold;">[最關鍵風險]</span> 若 CPI 數據暴增將嚴重影響今年美股趨勢，可能需轉向全面保守。
+                </li>
+                <li>
+                    <strong>Space X 資金黑洞效應：</strong> 基金為貼近大盤，被迫賣出大科技權值股以換取現金購買 Space X。
+                </li>
+                <li>
+                    <strong>比特幣大跌警訊：</strong> 比特幣作為風險性資產先行指標大跌，幣圈損失可能引發中小型股「補 Margin (保證金)」的連鎖拋售潮。
+                </li>
+                <li>
+                    <strong>其他事件變數：</strong> 
+                    <ul>
+                        <li>台北 Computex 結束 (AI硬體股利多暫歇)。</li>
+                        <li>蘋果 WWDC (媒體過度預熱，提防利多出盡)。</li>
+                        <li>六月底石油庫存耗盡與美伊戰爭地緣政治風險。</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>操作紀律：</strong> 未來看到大盤出現「高9」訊號時，務必敬畏並確實執行減碼。
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
