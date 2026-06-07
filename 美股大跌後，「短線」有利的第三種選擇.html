@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-07</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --buy-color: #10b981;
+            --hold-color: #f59e0b;
+            --risk-color: #ef4444;
+            --info-color: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            max-width: 1200px;
+            margin: 0 auto 24px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #111827;
+        }
+
+        .date-badge {
+            background-color: #1f2937;
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #111827;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: var(--info-color);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        .logic-list {
+            list-style: none;
+        }
+
+        .logic-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+        }
+
+        .logic-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--info-color);
+            font-weight: bold;
+        }
+
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .ticker {
+            font-size: 22px;
+            font-weight: 900;
+            color: #111827;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .metric-box {
+            background-color: #f9fafb;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #f3f4f6;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 4px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-07</div>
+    </header>
+
+    <main class="grid-container">
+        
+        <section class="card col-span-12">
+            <h2 class="card-title">核心總經觀點與產業趨勢邏輯</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+                <div>
+                    <h3 style="font-size: 15px; color: #111827; margin-bottom: 8px;">資金輪動主軸轉向</h3>
+                    <ul class="logic-list">
+                        <li>市場由交易「降息＋AI高成長」轉向交易<strong style="color:var(--risk-color);">「升息預期」</strong>。</li>
+                        <li>資金流出高估值科技股/中小科技股，流入具備<strong style="color:var(--buy-color);">「穩定現金流、低久期風險、自身催化劑」</strong>的大型醫療與防禦股。</li>
+                        <li>高股息非避風港：若美債殖利率升至 5%，高股息股將面臨估值壓縮與資金排擠。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 15px; color: #111827; margin-bottom: 8px;">AI 投資邏輯的微調</h3>
+                    <ul class="logic-list">
+                        <li>AI 趨勢未死，但估值需重新定價。不再盲目抄底所有硬體股。</li>
+                        <li>大型藥廠的 AI 應用為<strong style="color:var(--info-color);">「加分項」</strong>，核心仍依賴現有藥品銷售產生的現金流護城河。</li>
+                        <li>策略：兩手準備。部分佈局大型優質醫療，保留現金以「Sell Put」分批低接績優 AI 龍頭 (如台積電)。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 15px; color: #111827; margin-bottom: 8px;">近期關鍵觀測節點</h3>
+                    <ul class="logic-list">
+                        <li><span style="background-color: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold;">下週</span> CPI 數據公布 (決定升息預期是否強化)。</li>
+                        <li><span style="background-color: #fef08a; color: #854d0e; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold;">6/17</span> 聯準會(Fed)新主席 Warsh 首場利率會議與談話態度。</li>
+                        <li>觀測指標：XLV (大型醫療) 相對 SPY/QQQ 的比值是否持續向上，資金流入是否具延續性。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card col-span-6">
+            <h2 class="card-title">第一順位核心配置 (資金佔比：60%)</h2>
+            <div class="stock-header">
+                <div class="ticker">ABBV (艾伯維)</div>
+                <span style="background-color: var(--buy-color); color: white; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">逢低佈局 / 核心部位</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+                估值保護與成長兼具。Skyrizi 與 Rinvoq 的成長已抵銷 Humira 專利懸崖衰退，神經科學引擎啟動。政策利空已 Price-in，完美契合「升息劇本＋低久期＋現金流」邏輯。
+            </p>
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-label">操作策略一：回踩佈局 (優先)</div>
+                    <div class="metric-value" style="color: var(--info-color);">~$217</div>
+                    <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">回測 10MA 與年線支撐且量縮建倉</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">操作策略二：突破加碼</div>
+                    <div class="metric-value" style="color: var(--buy-color);">> $234</div>
+                    <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">突破壓力位站穩後加碼</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card col-span-6">
+            <h2 class="card-title">第二順位攻擊配置 (資金佔比：40%)</h2>
+            <div class="stock-header">
+                <div class="ticker">LLY (禮來)</div>
+                <span style="background-color: var(--buy-color); color: white; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold;">分批承接 / 進攻部位</span>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 16px;">
+                醫療板塊中成長最猛但估值最貴。依靠減肥藥 (Mounjaro/Zepbound) 強大現金流驅動，具備最完整的 AI 平台規模。屬於「高預期、低容錯」的高成長進攻股。
+            </p>
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-label">第一承接位：均線回踩</div>
+                    <div class="metric-value" style="color: var(--info-color);">$1,094</div>
+                    <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">5MA 與 10MA 交叉支撐</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">第二承接位：波段防線</div>
+                    <div class="metric-value" style="color: var(--info-color);">$1,046</div>
+                    <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">20MA 支撐，需觀察板塊強弱</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card col-span-8">
+            <h2 class="card-title">其他標的操作與觀望名單</h2>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                
+                <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <div style="font-weight: 700; color: #111827; font-size: 18px;">UNH (聯合健康) <span style="background-color: var(--hold-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px;">列入觀察 / 第三順位</span></div>
+                    </div>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 8px;">典型「極度悲觀轉向修復」交易。Q1 醫療成本率改善至 83.9%，估值已修復一段。挑戰上方缺口需 Q2 數據進一步上修。</p>
+                    <div style="display: flex; gap: 16px; font-size: 13px;">
+                        <div><span style="color: #6b7280;">年線支撐/頸線：</span> <strong style="color: #111827;">$318 - $328</strong></div>
+                        <div><span style="color: #6b7280;">上方缺口目標：</span> <strong style="color: #111827;">$478 - $564</strong></div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: 8px;">
+                        <div style="font-weight: 700; color: #111827; font-size: 16px; margin-bottom: 4px;">JNJ (嬌生) <span style="background-color: var(--info-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px;">資金停泊</span></div>
+                        <p style="font-size: 13px; color: var(--text-secondary);">最純粹的防禦標的。產品分散、現金流穩、Beta 低。預期差最小，適合降波動，不具備估值重評爆發力。</p>
+                    </div>
+
+                    <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: 8px;">
+                        <div style="font-weight: 700; color: #111827; font-size: 16px; margin-bottom: 4px;">TSMC / NVDA / AI硬體 <span style="background-color: var(--info-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 8px;">保留現金等買點</span></div>
+                        <p style="font-size: 13px; color: var(--text-secondary);">AI 基本面無虞但面臨估值壓縮。優先選擇基本面穩定龍頭 (如台積電)，利用 Sell Put 或掛低單分批佈局。</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="card col-span-4">
+            <h2 class="card-title">基本面成長數據檢視 (2026 Q1)</h2>
+            
+            <div style="margin-bottom: 24px;">
+                <h4 style="font-size: 14px; color: #111827; margin-bottom: 12px; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px;">LLY 營收年增率 (YoY)</h4>
+                
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">Mounjaro (減肥藥主力)</span>
+                        <span style="font-weight: 700; color: var(--buy-color);">+125%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 100%; background-color: var(--buy-color); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">Zepbound</span>
+                        <span style="font-weight: 700; color: var(--buy-color);">+80%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 64%; background-color: var(--buy-color); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">總體營收 YoY</span>
+                        <span style="font-weight: 700; color: var(--info-color);">+56%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 44.8%; background-color: var(--info-color); height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="font-size: 14px; color: #111827; margin-bottom: 12px; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px;">ABBV 營收年增率 (YoY)</h4>
+                
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">Skyrizi (免疫主力)</span>
+                        <span style="font-weight: 700; color: var(--buy-color);">+29%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 72.5%; background-color: var(--buy-color); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">Rinvoq</span>
+                        <span style="font-weight: 700; color: var(--buy-color);">+20%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 50%; background-color: var(--buy-color); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">總體營收 YoY</span>
+                        <span style="font-weight: 700; color: var(--info-color);">+12.4%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 12px;">
+                        <div style="width: 31%; background-color: var(--info-color); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+                        <span style="color: #4b5563;">Humira (專利懸崖)</span>
+                        <span style="font-weight: 700; color: var(--risk-color);">-40%</span>
+                    </div>
+                    <div style="width: 100%; background-color: #fca5a5; border-radius: 4px; overflow: hidden; height: 12px; display: flex; flex-direction: row-reverse;">
+                        <div style="width: 100%; background-color: var(--risk-color); height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card col-span-12" style="border-left: 4px solid var(--risk-color);">
+            <h2 class="card-title" style="color: var(--risk-color);">交易失效與風險觸發條件 (停損/撤退觀察點)</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+                <div style="flex: 1; min-width: 280px; background-color: #fef2f2; padding: 16px; border-radius: 8px;">
+                    <span style="display: inline-block; background-color: var(--risk-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 8px;">板塊輪動反轉</span>
+                    <p style="font-size: 14px; color: #7f1d1d;">XLV (醫療) 相對 SPY/QQQ 的強弱比快速反轉，證明週五僅為單日避險。若 XBI (中小生技) 持續破底，代表市場風險偏好未擴散。</p>
+                </div>
+                <div style="flex: 1; min-width: 280px; background-color: #fef2f2; padding: 16px; border-radius: 8px;">
+                    <span style="display: inline-block; background-color: var(--risk-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 8px;">個股技術面破線</span>
+                    <p style="font-size: 14px; color: #7f1d1d;">大盤反彈時，ABBV、LLY 卻再度跌破突破區與關鍵支撐 (跌破 20MA 且量增)，顯示主力承接意願不如預期。</p>
+                </div>
+                <div style="flex: 1; min-width: 280px; background-color: #fef2f2; padding: 16px; border-radius: 8px;">
+                    <span style="display: inline-block; background-color: var(--risk-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-bottom: 8px;">宏觀劇本推翻</span>
+                    <p style="font-size: 14px; color: #7f1d1d;">美債殖利率再度回落，SOXX (費半)、QQQ、AI 硬體股重新奪回領導地位，短線資金重新跑回 AI 主線，此時防禦倉位應果斷撤退。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
