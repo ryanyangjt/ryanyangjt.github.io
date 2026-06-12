@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-12</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e2e8f0;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #3498db;
+            --success: #2ecc71;
+            --dark: #34495e;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            border-top: 4px solid var(--info);
+        }
+
+        .card.danger-card { border-top-color: var(--danger); }
+        .card.warning-card { border-top-color: var(--warning); }
+        .card.macro-card { border-top-color: var(--dark); }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ticker {
+            background-color: var(--dark);
+            border: 1px solid #1a252f;
+        }
+
+        .action-sell { background-color: var(--danger); }
+        .action-wait { background-color: var(--warning); color: #333; }
+        .action-buy { background-color: var(--success); }
+
+        .stock-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--border-color);
+        }
+
+        .stock-item.bearish { border-left-color: var(--danger); }
+        
+        .levels {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Bar Chart Styles */
+        .chart-container {
+            margin-top: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .bar-label {
+            width: 120px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .bar-track {
+            flex: 1;
+            background-color: #e2e8f0;
+            border-radius: 4px;
+            height: 20px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>華爾街投資研究儀表板 - 2026-06-12</h1>
+        <p style="color: var(--text-muted); margin: 0.5rem 0 0 0;">AI 行情重估與流動性壓力測試報告</p>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card macro-card">
+            <h2>🌍 核心總經觀點與產業趨勢邏輯</h2>
+            <ul>
+                <li><strong>通膨數據假象：</strong>CPI 雖符合預期，但市場仍下跌。市場擔憂的是 6、7 月後油價衝擊的滯後效應（3-4個月）。</li>
+                <li><strong>AI 融資模式質變（龐氏階段）：</strong>AI 資本支出融資循環已從「債務市場」轉向「股權市場」。訂單需求雖真，但建立在瘋狂募資與稀釋股權上。</li>
+                <li><strong>稀釋的反身性循環：</strong>股價越低 ➔ 募同樣的錢需印更多股票 ➔ 股價進一步下跌。即使公司獲利成長（EPS），原股東價值仍遭毀滅性稀釋。</li>
+                <li><strong>流動性隱憂：</strong>若聯準會不降息，疊加日本等國升息，加上大量 CSP 及 Neocloud 企業排隊抽資（辦增發/IPO），年底前流動性將面臨極大考驗。</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">股權稀釋數學模型 (募資 100 億情境)</div>
+                <div class="bar-row">
+                    <div class="bar-label">股價 $100 (首輪)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 33%; background-color: var(--info);">需增發 1 億股</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">股價 $50 (次輪)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 66%; background-color: var(--danger);">需增發 2 億股 (成本翻倍)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card danger-card">
+            <h2>📉 重點標的與操作建議 (風險區)</h2>
+
+            <div class="stock-item bearish">
+                <div>
+                    <span class="tag ticker">SMCI</span>
+                    <span class="tag action-sell">禁止交易 / 僅供觀察</span>
+                </div>
+                <p><strong>核心邏輯：</strong>宣布高達 70 億美元的股權與強制可轉換特別股融資。跳過發債直接向股東提款，利用會計延遲稀釋帳面。高達 390 億訂單超出資產負債表承載力。</p>
+                <div class="levels">
+                    <span><strong>前高壓力：</strong>$51.00</span>
+                    <span><strong>近期低點：</strong>下探 2 字頭 ($29.82)</span>
+                </div>
+                
+                <div class="chart-container" style="margin-top: 10px;">
+                    <div class="chart-title">SMCI 波段跌幅視覺化</div>
+                    <div class="bar-row">
+                        <div class="bar-label">波段高點 ($51)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 100%; background-color: var(--info);">-</div>
+                        </div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">現價 ($29.82)</div>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: 58%; background-color: var(--danger);">-42% 跌幅</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stock-item bearish">
+                <div>
+                    <span class="tag ticker">ORCL</span>
+                    <span class="tag action-sell">拋售 / 強力避開</span>
+                </div>
+                <p><strong>核心邏輯：</strong>財報雙殺（beat 預期但盤後跌 10%）。總債務達 1620 億，承諾不發債改走 ATM 增發（市價增發）。自由現金流嚴重為負，利息負擔沉重。</p>
+                <div class="levels">
+                    <span><strong>支撐位：</strong>已跌破年線</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card warning-card">
+            <h2>⚠️ 大型 CSP 與 Neocloud 骨牌效應</h2>
+
+            <div class="stock-item bearish">
+                <div>
+                    <span class="tag ticker">GOOGL</span>
+                    <span class="tag ticker">META</span>
+                    <span class="tag ticker">AMZN</span>
+                    <span class="tag ticker">MSFT</span>
+                    <span class="tag action-wait">偏空看待 / 觀望</span>
+                </div>
+                <p><strong>核心邏輯：</strong>大型科技股陷入 AI 資本支出泥沼，即將開啟增發潮。估值與股價結構正在破壞中。</p>
+                <div class="levels" style="flex-direction: column; gap: 0.2rem;">
+                    <span><strong>Google 趨勢：</strong>破 50MA，下探半年線</span>
+                    <span><strong>Amazon 趨勢：</strong>回撤年線</span>
+                    <span><strong>Microsoft：</strong>技術面與籌碼面極差</span>
+                </div>
+            </div>
+
+            <div class="stock-item bearish">
+                <div>
+                    <span class="tag ticker">CRWV</span>
+                    <span class="tag ticker">APLD</span>
+                    <span class="tag ticker">BRUN</span>
+                    <span class="tag action-sell">退避三舍</span>
+                </div>
+                <p><strong>核心邏輯：</strong>Neocloud 企業（重資產股）將是下一波壓力測試對象。原依賴發債續命，後續極高機率轉向股權增發稀釋。</p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">ORCL 2026 財務壓力預測 (單位: 億美元)</div>
+                <div class="bar-row">
+                    <div class="bar-label">資本支出 (Capex)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 80%; background-color: var(--danger);">557 億 (+162%)</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">自由現金流 (FCF)</div>
+                    <div class="bar-track" style="background-color: transparent;">
+                         <div style="width: 50%; display: flex; justify-content: flex-end; padding-right: 5px;">
+                            <div style="background-color: var(--warning); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">- 237 億</div>
+                        </div>
+                        <div style="width: 50%; background-color: #e2e8f0; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">預計募資 (股權+債)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 70%; background-color: #9b59b6;">480 億</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
