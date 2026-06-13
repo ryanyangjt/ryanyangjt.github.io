@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投資研究儀表板 | 2026-06-13</title>
+<style>
+:root {
+--bg-color: #f4f7f6;
+--card-bg: #ffffff;
+--text-main: #2c3e50;
+--text-muted: #7f8c8d;
+--accent-blue: #3498db;
+--buy-green: #27ae60;
+--sell-red: #e74c3c;
+--wait-orange: #f39c12;
+--border-color: #e0e6ed;
+}
+
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    header {
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    h1 {
+        font-size: 28px;
+        color: var(--text-main);
+    }
+
+    .date-badge {
+        background-color: var(--text-main);
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 20px;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border: 1px solid var(--border-color);
+    }
+
+    .col-span-12 { grid-column: span 12; }
+    .col-span-8 { grid-column: span 8; }
+    .col-span-4 { grid-column: span 4; }
+    .col-span-6 { grid-column: span 6; }
+
+    @media (max-width: 1024px) {
+        .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+    }
+
+    h2::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 18px;
+        background-color: var(--accent-blue);
+        margin-right: 10px;
+        border-radius: 2px;
+    }
+
+    .tag {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+        margin-right: 5px;
+        white-space: nowrap;
+    }
+    .tag-ticker { background-color: var(--text-main); }
+    .tag-buy { background-color: var(--buy-green); }
+    .tag-sell { background-color: var(--sell-red); }
+    .tag-wait { background-color: var(--wait-orange); }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+        background-color: #f8f9fa;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+
+    tr:hover {
+        background-color: #fbfcfc;
+    }
+
+    /* Data Bar CSS */
+    .chart-container {
+        margin-bottom: 15px;
+    }
+    .chart-label {
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .bar-bg {
+        width: 100%;
+        background-color: #edf2f7;
+        border-radius: 6px;
+        height: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    .bar-fill {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        transition: width 0.5s ease;
+    }
+
+    ul {
+        list-style-position: inside;
+        padding-left: 10px;
+    }
+    li {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+</style>
+
+
+
+</head>
+<body>
+
+
+<header>
+    <h1>Wall St. 投資研究儀表板</h1>
+    <div class="date-badge">2026-06-13</div>
+</header>
+
+<div class="dashboard-grid">
+    
+    <div class="card col-span-8">
+        <h2>核心總經與產業邏輯</h2>
+        <ul>
+            <li><strong>資金流向巨變：</strong> SpaceX IPO (SPCX) 啟動資金排擠效應，M7 科技巨頭多數承壓，資金短線撤出轉向太空板塊與修正後的 AI 硬體股。</li>
+            <li><strong>軟體 AI 變現困局 (MSFT)：</strong> 微軟 Copilot 變現速度遠落後於高昂的資本支出。封閉架構（Microsoft Graph 等安全邊界）導致運行延遲與體驗劣化，商務滲透率與活躍度大幅衰退，機構進入「殺估值」階段。</li>
+            <li><strong>硬體領先復甦：</strong> 資金回流相對強勢的半導體、記憶體、PCB 與網通設備。<span class="tag tag-ticker">SOXX</span> 已領先大盤站回 5/10/20MA，顯示硬體板塊買盤強勁。</li>
+            <li><strong>下一波主軸 (Rubin 架構)：</strong> 七月後 Nvidia Rubin 架構將開始大量出貨，AI 基礎建設需求實質增溫，優先佈局受惠的半導體硬體零組件與測試股。</li>
+        </ul>
+    </div>
+
+    <div class="card col-span-4">
+        <h2>策略與倉位控管</h2>
+        <div style="margin-bottom: 15px;">
+            <span class="tag tag-wait">大盤壓力</span>
+            <span class="tag tag-buy">逢低佈局硬體</span>
+            <span class="tag tag-sell">避開軟體巨頭</span>
+        </div>
+        <ul>
+            <li><strong>多頭倉位建議：</strong> 分批建倉至 <strong>60% - 70%</strong>。</li>
+            <li><strong>雙手策略：</strong> 一手佈局強勢 AI 硬體績優股，一手持有大盤空單對沖（因 <span class="tag tag-ticker">SPX</span> 尚未站上 20MA）。</li>
+            <li><strong>反轉訊號：</strong> 留意半年底做帳行情提早發動的可能；針對強勢板塊，尋找「不隨大盤破底」且「強者恆強」的標的。</li>
+        </ul>
+    </div>
+
+    <div class="card col-span-12">
+        <h2>關鍵數據與趨勢比較分析</h2>
+        <div class="dashboard-grid" style="gap: 20px;">
+            
+            <div class="col-span-4">
+                <div class="chart-container">
+                    <div class="chart-label"><span>付費 AI 訂閱市占率變化 (Copilot)</span><span>萎縮 40%</span></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 18.8%; background-color: var(--text-muted);">2025年7月 (18.8%)</div>
+                    </div>
+                    <div class="bar-bg" style="margin-top: 5px;">
+                        <div class="bar-fill" style="width: 11%; background-color: var(--sell-red);">2026年1月 (11.0%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-4">
+                <div class="chart-container">
+                    <div class="chart-label"><span>AI 職場轉換率 (有授權且實際使用)</span><span>輾壓性差距</span></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 83.1%; background-color: var(--buy-green);">ChatGPT (83.1%)</div>
+                    </div>
+                    <div class="bar-bg" style="margin-top: 5px;">
+                        <div class="bar-fill" style="width: 35.8%; background-color: var(--sell-red);">MSFT Copilot (35.8%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-4">
+                <div class="chart-container">
+                    <div class="chart-label"><span>TTMI 財務表現 (第一季)</span><span>基本面強勁</span></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 30.4%; background-color: var(--accent-blue);">營收 YoY 成長 (30.4%)</div>
+                    </div>
+                    <div class="bar-bg" style="margin-top: 5px;">
+                        <div class="bar-fill" style="width: 16.5%; background-color: var(--buy-green);">營業利益率提升至 16.5%</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card col-span-12">
+        <h2>個股與標的策略追蹤</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號</th>
+                        <th>板塊分類</th>
+                        <th>操作建議</th>
+                        <th>關鍵價位 / 趨勢</th>
+                        <th>核心邏輯 / 催化劑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-ticker">TTMI</span></td>
+                        <td>AI PCB</td>
+                        <td><span class="tag tag-buy">分批加碼</span></td>
+                        <td>前高壓力位: <strong>200.68</strong><br>站穩主要短期均線</td>
+                        <td>強於大盤，Rubin 出貨受惠股。Q1 營收大增，資料中心網路需求帶動利潤率提升。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">FORM</span>, <span class="tag tag-ticker">AEHR</span>, <span class="tag tag-ticker">VIAV</span>, <span class="tag tag-ticker">UCTT</span>, <span class="tag tag-ticker">AMKR</span>, <span class="tag tag-ticker">AEIS</span></td>
+                        <td>半導體測試/封裝/設備</td>
+                        <td><span class="tag tag-buy">逢低買進</span></td>
+                        <td>底部成型，準備挑戰前高</td>
+                        <td>AI 硬體供應鏈強者恆強，下半年 Rubin 平台放量之主要受惠群體，盤後可開新倉。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">ONTO</span>, <span class="tag tag-ticker">MKSI</span></td>
+                        <td>半導體設備</td>
+                        <td><span class="tag tag-buy">持有/加碼</span></td>
+                        <td>趨勢已確認反轉向上</td>
+                        <td>走勢強勁，低調冷門好股，籌碼穩定不易隨大盤下跌。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">VICR</span></td>
+                        <td>電源管理</td>
+                        <td><span class="tag tag-wait">觀望確認</span></td>
+                        <td>等待確認 K 線</td>
+                        <td>伺服器用電戰爭受惠者，但技術面需等待更明確的止跌突破訊號。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">ICHR</span></td>
+                        <td>半導體氣體/流體</td>
+                        <td><span class="tag tag-wait">拉回佈局</span></td>
+                        <td>等待拉回測試突破點</td>
+                        <td>設備供應鏈之一，追高風險大，測試支撐後進場較安全。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">MSFT</span></td>
+                        <td>軟體 / AI</td>
+                        <td><span class="tag tag-sell">機構砍倉/避開</span></td>
+                        <td>空頭排列，等待大陽線止跌</td>
+                        <td>Copilot 變現率極差，封閉生態系導致體驗劣於競品。1900億資本支出遭市場質疑，正經歷殺估值。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">GOOG</span></td>
+                        <td>軟體 / AI</td>
+                        <td><span class="tag tag-sell">弱勢觀望</span></td>
+                        <td>跌破 20MA 且無止跌訊號</td>
+                        <td>Gemini Flash 版本表現不如預期，大模型進展令市場失望，連帶拖累 TPU 硬體板塊短線情緒。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">SPCX</span></td>
+                        <td>太空 (IPO)</td>
+                        <td><span class="tag tag-wait">觀望</span></td>
+                        <td>首日開高走低</td>
+                        <td>吸金效應雖大，但走勢不如預期，早盤追高者多被套牢，建議觀察一週再評估。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">SPX</span></td>
+                        <td>大盤指數</td>
+                        <td><span class="tag tag-wait">區間對沖</span></td>
+                        <td>面臨上方壓力區</td>
+                        <td>科技七雄 (M7) 疲弱拖累指數，技術面失真，大環境尚未確認反轉。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">SOXX</span></td>
+                        <td>半導體 ETF</td>
+                        <td><span class="tag tag-buy">偏多看待</span></td>
+                        <td>站回 5, 10, 20MA<br>RSI 回升至 60+</td>
+                        <td>領先大盤修復，展現相對強勢。有機會成為新一輪反彈領漲板塊。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card col-span-12">
+        <h2>華爾街分析師綜合評論與查證 (Analyst Verification)</h2>
+        <p style="margin-bottom: 10px;"><strong>關於微軟 (MSFT) 護城河雙面刃的論述：</strong><br>
+        <span style="color: var(--buy-green); font-weight:bold;">[邏輯合理]</span> 作者精準點出了企業端 AI 導入的核心痛點。微軟依賴 Microsoft Graph 與 Office 封閉權限系統，雖然滿足了企業資安合規（Data Governance），但多層次的編排與檢索確實嚴重拖慢了推論速度，導致終端用戶體驗遠遜於 ChatGPT。市場目前對 AI CapEx（資本支出）回報率的耐心正在耗盡，MSFT 股價的「殺估值」邏輯具有堅實的財報與產業數據支撐。</p>
+        
+        <p style="margin-bottom: 10px;"><strong>關於半導體硬體 (SOXX) 領先復甦的論述：</strong><br>
+        <span style="color: var(--buy-green); font-weight:bold;">[數據吻合]</span> 在軟體變現卡關的當下，資本市場的共識確實退回「賣鏟子的人」。下半年 Nvidia Rubin 平台的過渡期，將帶動高階 PCB (如 TTMI)、先進封裝與測試設備的實質訂單。作者挑選的 TTMI 財報數據 (Q1營收 YoY +30.4%) 查證無誤，硬體股展現的抗跌性與相對強勢 (Relative Strength) 符合目前的資金輪動特徵。</p>
+
+        <p><strong>關於 SpaceX (SPCX) IPO 資金排擠效應：</strong><br>
+        <span style="color: var(--wait-orange); font-weight:bold;">[過度簡化]</span> 雖然大型 IPO 會產生短期流動性抽水效應，但將大盤或 M7 的弱勢完全歸咎於資金流向 SPCX 略顯主觀。大型科技股的回調更多是受到宏觀利率預期、估值過高以及 AI 變現疑慮的綜合影響。建議投資人將重點放在「板塊基本面差異」，而非單純的資金排擠假說。</p>
+    </div>
+
+</div>
+
+</body>
+</html>
