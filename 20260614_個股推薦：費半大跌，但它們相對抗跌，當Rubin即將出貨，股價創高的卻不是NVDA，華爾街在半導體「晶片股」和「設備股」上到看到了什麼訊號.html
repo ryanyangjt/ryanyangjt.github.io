@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>半導體投資研究儀表板 | 2026-06-14</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary: #2980b9;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --border: #e1e8ed;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: #1a252f;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag-buy { background-color: #d4edda; color: #155724; }
+        .tag-hold { background-color: #fff3cd; color: #856404; }
+        .tag-watch { background-color: #e2e3e5; color: #383d41; }
+        .tag-ticker { background-color: #cce5ff; color: #004085; }
+
+        /* Pure CSS Bar Charts */
+        .chart-container {
+            margin-top: 15px;
+        }
+
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .chart-label {
+            width: 80px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .chart-track {
+            flex-grow: 1;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chart-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: width 0.5s ease;
+        }
+
+        /* Colors for bars */
+        .bg-blue { background-color: #3498db; }
+        .bg-green { background-color: #2ecc71; }
+        .bg-purple { background-color: #9b59b6; }
+        
+        .meta-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 華爾街科技與投資研究儀表板 | 2026-06-14</h1>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">🧠 核心總經與產業趨勢邏輯</div>
+            <ul>
+                <li><strong>資金輪動：</strong> 資金正從面臨高估值與財測壓力的「AI 晶片股」轉向掌握關鍵製程的「AI 設備股」。</li>
+                <li><strong>三大引擎驅動 2027：</strong> 先進邏輯 (2nm/GAA)、HBM/先進 DRAM (消耗大量晶圓與製程資源)，以及先進封裝 (3D 異質整合) 同時進入高強度擴張。</li>
+                <li><strong>Rubin 量產的關鍵意義：</strong> 不在於短期訂單增加，而是<strong>驗證終端需求與量產可行性</strong>，消除華爾街對 2027 年設備擴產訂單被取消或延後的疑慮。</li>
+                <li><strong>投資邏輯轉換：</strong> 由尋找單一晶片贏家 (GPU vs ASIC)，轉向佈局「所有贏家都必須使用的製造設備」。估值天花板與 EPS 高峰預期皆向後延遲至 2027 年。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">📈 華爾街 WFE (晶圓設備) 市場規模上修預測</div>
+            <p class="meta-text">大型投行紛紛上修 2026-2029 WFE 預測，帶動設備股估值重估 (單位: 十億美元)</p>
+            
+            <div class="chart-container">
+                <div style="font-size: 0.85rem; margin-bottom: 5px; color: var(--text-muted);">Cantor Fitzgerald 預估趨勢 (2026 - 2029)</div>
+                <div class="chart-row">
+                    <div class="chart-label">2026預估</div>
+                    <div class="chart-track">
+                        <div class="chart-fill bg-blue" style="width: 58%;">145B</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">2027預估</div>
+                    <div class="chart-track">
+                        <div class="chart-fill bg-green" style="width: 74%;">185B</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">2029預估</div>
+                    <div class="chart-track">
+                        <div class="chart-fill bg-purple" style="width: 100%;">250B</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 20px;">
+                <div style="font-size: 0.85rem; margin-bottom: 5px; color: var(--text-muted);">Barclays 2027年 WFE 預期上調對比</div>
+                <div class="chart-row">
+                    <div class="chart-label">原先預估</div>
+                    <div class="chart-track">
+                        <div class="chart-fill" style="width: 76%; background-color: #95a5a6;">159B</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">最新上修</div>
+                    <div class="chart-track">
+                        <div class="chart-fill" style="width: 100%; background-color: #e74c3c;">209.5B (大幅上修)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 30px;">一線設備龍頭：估值重估與長線主軸</h2>
+    <p class="meta-text">註：文章主力探討 WFE 規模擴張與 EPS 上調邏輯，未給出單一個股具體「目標價/支撐/壓力位」，交易主打右側創高趨勢。</p>
+    <div class="grid-3">
+        <div class="card">
+            <div class="card-header">
+                <span>ASML (艾司摩爾)</span>
+                <span class="tag tag-ticker">設備龍頭</span>
+            </div>
+            <span class="tag tag-buy">長線持有</span> <span class="tag tag-buy">股價創高</span>
+            <p><strong>操作建議：</strong> 資金率先回補標的，順勢做多。</p>
+            <p><strong>核心邏輯：</strong> 交易「曝光設備稀缺性」。JPMorgan估計其年產能可從 90 台拉升至 110 台以上，打破供給端天花板。DRAM 製程升級亦增加 EUV 需求。</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>AMAT (應用材料)</span>
+                <span class="tag tag-ticker">設備龍頭</span>
+            </div>
+            <span class="tag tag-buy">長線持有</span> <span class="tag tag-buy">股價創高</span>
+            <p><strong>操作建議：</strong> 做為核心部位續抱。</p>
+            <p><strong>核心邏輯：</strong> 交易「材料與製程步驟增加」。受惠前段製程與先進封裝同時擴張。公司預估 2026 先進封裝業務成長 > 50%，大型客戶給出 8 季滾動需求預測。</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>LRCX / KLAC</span>
+                <span class="tag tag-ticker">設備龍頭</span>
+            </div>
+            <span class="tag tag-buy">波段做多</span>
+            <p><strong>操作建議：</strong> 跟隨板塊強勢聯動。</p>
+            <p><strong>核心邏輯：</strong> 
+            <br>LRCX：受惠記憶體與 3D 結構複雜化帶動的蝕刻與沉積需求。
+            <br>KLAC：晶片複雜化導致良率容忍度降，量測與檢測設備需求飆升。</p>
+        </div>
+    </div>
+
+    <h2 style="margin-top: 30px;">二階設備供應鏈 (高 Beta) & AI 晶片股</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">🏭 中小型二階供應鏈：獲利斜率重估</div>
+            
+            <div style="margin-bottom: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="tag tag-ticker">UCTT</span> <span class="tag tag-buy">重申買進</span> <span class="tag tag-hold">留意庫存風險</span>
+                <p class="meta-text" style="margin: 5px 0;"><strong>業務：</strong> 精密設備模組、氣體輸送。<br><strong>邏輯：</strong> AMAT/LRCX 高度連動的高 Beta 股。基期低，隨 Build Plan 提高迎來營運槓桿。需觀察庫存增加是否順利轉化為現金流與毛利。</p>
+            </div>
+
+            <div style="margin-bottom: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="tag tag-ticker">ICHR</span> <span class="tag tag-buy">重申買進</span> <span class="tag tag-hold">高波動風險</span>
+                <p class="meta-text" style="margin: 5px 0;"><strong>業務：</strong> 流體/氣體控制系統。<br><strong>邏輯：</strong> 低基期 EPS 爆發力強 (營收增 15%，EPS 由近 0 暴增至 0.15)。客戶集中度高，設備上行期彈性大，但下修時風險極高。</p>
+            </div>
+
+            <div style="margin-bottom: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 10px;">
+                <span class="tag tag-ticker">MKSI</span> <span class="tag tag-buy">穩健佈局</span>
+                <p class="meta-text" style="margin: 5px 0;"><strong>業務：</strong> 真空控制、雷射、量測平台。<br><strong>邏輯：</strong> 客戶分散的 WFE 平台型供應商。受惠前段與封裝需求，波動度與 EPS 彈性低於 UCTT/ICHR，但基本面較穩固。</p>
+            </div>
+
+            <div>
+                <span class="tag tag-ticker">NPO</span> <span class="tag tag-buy">強烈推薦 (新增)</span>
+                <p class="meta-text" style="margin: 5px 0;"><strong>業務：</strong> 腔體精密零件、表面塗層、清洗 (具售後市場特性)。<br><strong>邏輯：</strong> 少數純度連結 AMAT/ASML 的二階股。隨設備裝機量提升，售後翻修需求增，EBITDA 增速大於營收增速，走勢屬穩定的波段向上。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">💻 AI 晶片硬體股 (NVDA / AVGO)</div>
+            <div style="margin-bottom: 20px;">
+                <span class="tag tag-ticker">NVDA</span> <span class="tag tag-ticker">AVGO</span> <span class="tag tag-watch">觀望整理</span> <span class="tag tag-hold">面臨估值壓縮壓力</span>
+            </div>
+            
+            <p><strong>操作建議：</strong> 短線避開或降低部位，等待估值消化與數據驗證。</p>
+            <p><strong>核心邏輯：</strong></p>
+            <ul>
+                <li>市場正在重新檢驗 AI 晶片股的高估值與資本支出回報率。</li>
+                <li>晶片股的定價邏輯在於「下一季財測能否持續大幅超越預期」。當基準預期已被推至極高，即使基本面成長，只要未達「驚喜」程度，就面臨估值壓縮 (以 AVGO 為例)。</li>
+                <li><strong>NVDA 突破條件：</strong> 需等待 Rubin 7 月出貨後的初期規模、客戶採用速度、毛利率表現，以及 2027 年營收指引數據的實質驗證。</li>
+            </ul>
+
+            <div class="chart-container" style="margin-top: 25px;">
+                <h4 style="margin: 0 0 10px 0;">資金輪動強度指標 (概念對比)</h4>
+                <div class="chart-row">
+                    <div class="chart-label">設備股板塊</div>
+                    <div class="chart-track">
+                        <div class="chart-fill bg-green" style="width: 90%;">強勢突破歷史新高 (ASML/AMAT)</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">晶片股板塊</div>
+                    <div class="chart-track">
+                        <div class="chart-fill" style="width: 45%; background-color: #f39c12;">弱勢整理 / 消化高財測門檻</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px; border-left: 5px solid var(--primary);">
+        <div class="card-header">🔍 分析師綜合評論與風險查證 (Fact-Check)</div>
+        <p><strong>論述合理性評估：高度合理，但二階供應鏈需留意「長鞭效應」風險。</strong></p>
+        <ul>
+            <li><strong>合理點 (晶片轉設備)：</strong> 作者精準抓住了半導體產業的產能排擠效應。HBM 確實比傳統 DRAM 消耗更多晶圓面積與複雜的 TSV 封裝工序；在 AI 需求與傳統消費電子復甦的夾擊下，記憶體廠被迫新增無塵室與前段設備。2027 年 WFE 總量上修的總經邏輯具備極高說服力。</li>
+            <li><strong>合理點 (Rubin的意義)：</strong> 將 Rubin 視為「需求驗證器」而非「當下訂單催化劑」是成熟的法人視角。設備採購通常領先量產 6-9 個月，目前的設備股大漲反映的是「尾部風險 (2027年訂單被砍) 的消除」。</li>
+            <li><span class="highlight">⚠️ 盲點與風險提示 (二階供應鏈)：</span> 作者推薦 UCTT 與 ICHR 這種高 Beta 模組廠時，雖提到了「營運槓桿」，但作為華爾街分析師必須強調，這種二階供應鏈深受<strong>長鞭效應 (Bullwhip Effect)</strong> 影響。一旦 OEM (如 AMAT) 下修 Build Plan，這些小廠的營收與毛利將面臨雪崩式雙殺。操作 UCTT/ICHR 必須嚴格設立停損，切勿以 ASML/AMAT 的長線存股思維去持有。</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>
