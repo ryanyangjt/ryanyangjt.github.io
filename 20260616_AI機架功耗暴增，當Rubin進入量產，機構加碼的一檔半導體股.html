@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-16</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --primary: #2c3e50;
+            --buy-color: #d4edda;
+            --buy-text: #155724;
+            --sell-color: #f8d7da;
+            --sell-text: #721c24;
+            --hold-color: #fff3cd;
+            --hold-text: #856404;
+            --ticker-color: #e2e3e5;
+            --ticker-text: #383d41;
+            --chart-bar1: #3498db;
+            --chart-bar2: #2ecc71;
+            --chart-bar3: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-full {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-buy { background-color: var(--buy-color); color: var(--buy-text); }
+        .tag-sell { background-color: var(--sell-color); color: var(--sell-text); }
+        .tag-hold { background-color: var(--hold-color); color: var(--hold-text); }
+        .tag-ticker { background-color: var(--ticker-color); color: var(--ticker-text); border: 1px solid #ccc; }
+
+        .price-level {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .price-label { font-weight: bold; color: var(--text-muted); }
+        .price-value { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+
+        /* 純 HTML/CSS 橫向長條圖 */
+        .chart-row {
+            margin-bottom: 15px;
+        }
+        
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .bar-bg {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            height: 22px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .review-box {
+            background-color: #eef2f5;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📊 華爾街投資研究儀表板 (2026-06-16)</h1>
+
+    <div class="dashboard">
+        
+        <div class="card">
+            <div class="card-header">🌍 核心總經觀點與大盤趨勢</div>
+            <p><strong>聯準會 (Fed) 會議預期：</strong></p>
+            <ul>
+                <li>預期採「技術性放鴿」，維持基準利率於 <strong>3.50%–3.75%</strong>。</li>
+                <li>聲明將淡化 Headline CPI (4.2%)，轉向強調截尾平均通膨率 (Trimmed-mean CPI 2.8%)。</li>
+                <li>可能逐步邊緣化「點陣圖 (Dot Plot)」，回歸數據驅動。</li>
+            </ul>
+            <p><strong>大盤點位預估：</strong></p>
+            <div class="price-level">
+                <span class="price-label">突破做多位 (站穩帶動買盤)</span>
+                <span class="price-value">7,620</span>
+            </div>
+            <div class="price-level">
+                <span class="price-label">下檔支撐位 (20MA)</span>
+                <span class="price-value">7,473</span>
+            </div>
+            <div class="price-level">
+                <span class="price-label">波段挑戰目標</span>
+                <span class="price-value">7,500+</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">🔄 個股操作清單與資金輪動</div>
+            <p><strong>短線調節 (機構避險賣出)：</strong></p>
+            <div>
+                <span class="tag tag-sell">短線賣出</span>
+                <span class="tag tag-ticker">TTMI</span>
+                <span class="tag tag-ticker">FORM</span>
+                <span class="tag tag-ticker">VIVA</span>
+                <span class="tag tag-ticker">AEHR</span>
+                <span class="tag tag-ticker">ONTO</span>
+                <span class="tag tag-ticker">MKSI</span>
+                <span class="tag tag-ticker">CAMT</span>
+                <span class="tag tag-ticker">AMKR</span>
+            </div>
+            <p style="margin-top: 15px;"><strong>逢低佈局 (機構加碼買進)：</strong></p>
+            <div>
+                <span class="tag tag-buy">買進佈局</span>
+                <span class="tag tag-ticker">VSH</span>
+                <span class="tag tag-ticker">ICHR</span>
+                <span class="tag tag-ticker">MU</span>
+                <span class="tag tag-ticker">MRVL</span>
+                <span class="tag tag-ticker">WDC</span>
+                <span class="tag tag-ticker">ASX</span>
+                <span class="tag tag-ticker">UMC</span>
+                <span class="tag tag-ticker">AMD</span>
+            </div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                *策略：半導體設備股切勿追高，有上影線者建議等待聯準會週三會議拉回後再行加碼。整體費半(SOXX)仍處淨買超。
+            </p>
+        </div>
+
+        <div class="card card-full">
+            <div class="card-header">🎯 主推深度標的：ALGM (Allegro MicroSystems)</div>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <span class="tag tag-hold">波段持有 / 逢低加碼</span>
+                <span class="tag tag-ticker">ALGM</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <p><strong>產業催化劑 (Catalysts)：</strong></p>
+                    <ul>
+                        <li><strong>資料中心耗能升級：</strong> AI 機架功耗從 15kW 邁向 1MW，驅動散熱風扇與高速電流感測器需求。</li>
+                        <li><strong>Vera Rubin 週期：</strong> 2026 下半年 NVL72 量產，推升散熱馬達驅動器與 SiC 閘極驅動器營收。</li>
+                        <li><strong>800V 基礎設施：</strong> 傳聞提早至 2026 Q3 開始佈局，Power-Thru 技術導入將成 2027-2028 核心成長動能。</li>
+                        <li><strong>人形機器人引擎：</strong> 打入關節高精度馬達控制供應鏈，Q4 機器人相關銷售年增翻倍。</li>
+                    </ul>
+                </div>
+                <div>
+                    <p><strong>目標價預估 (Sell-Side 機構重評)：</strong></p>
+                    <div class="price-level">
+                        <span class="price-label">Mizuho (瑞穗)</span>
+                        <span class="price-value">$54</span>
+                    </div>
+                    <div class="price-level">
+                        <span class="price-label">UBS (瑞銀)</span>
+                        <span class="price-value">$55</span>
+                    </div>
+                    <div class="price-level">
+                        <span class="price-label">Evercore</span>
+                        <span class="price-value">$53</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin-top: 10px;"><strong>進場策略：</strong> 週三聯準會會議若拉回可買進，保守者待週四後加碼。先前最高推薦成本為 $51，目前機構持續加碼中。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">📈 關鍵財務與總經數據可視化</div>
+            
+            <div class="chart-row">
+                <div class="chart-label"><span>ALGM 毛利率目標</span><span>> 55%</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 55%; background-color: var(--chart-bar1);">55%</div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label"><span>ALGM 營收年複合成長率 (CAGR)</span><span>13% - 16%</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 16%; background-color: var(--chart-bar2);">16% (高標)</div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label"><span>ALGM 資料中心佔總營收比重 (創歷史新高)</span><span>14%</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 14%; background-color: var(--chart-bar1);">14%</div>
+                </div>
+            </div>
+
+            <div class="chart-row" style="margin-top: 25px;">
+                <div class="chart-label"><span>通膨指標對比：Headline CPI vs Trimmed-mean CPI</span></div>
+                <div class="bar-bg" style="margin-bottom: 8px;">
+                    <div class="bar-fill" style="width: 42%; background-color: var(--chart-bar3);">Headline 4.2%</div>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 28%; background-color: var(--chart-bar2);">Trimmed-mean 2.8%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">💡 分析師綜合評論與查證</div>
+            <div class="review-box">
+                <p><strong>論述合理性查核與風險提示：</strong></p>
+                <p>1. <strong>產業邏輯堅實：</strong> 作者針對 ALGM 的基本面分析精準抓住了 AI 硬體演進的核心痛點——「能耗危機」。隨著 NVIDIA 晶片功耗急升，伺服器從 12V 轉向 48V 甚至高壓 800V 直流架構是確定的硬體趨勢，ALGM 專注於電流感測與高壓隔離驅動器，邏輯完全契合市場對「電源管理與散熱」題材的追捧。</p>
+                <p>2. <strong>總經預測帶有強烈主觀色彩：</strong> 文中關於美聯儲「內褲線 (內線消息)」、「利益交換」與「邊緣化點陣圖」的描述，屬於高度推演或次級市場八卦，不具備官方查證基礎。雖然使用截尾平均通膨率 (Trimmed-mean CPI) 確實是剔除極端值的重要學術指標，但押注單次會議的文字遊戲作為短線進出依據，勝率極不穩定。</p>
+                <p>3. <strong>操作建議：</strong> 剝離總經陰謀論後，其「長多短空」的交易紀律具備參考價值。建議投資者將焦點放在 <strong>ALGM</strong> 的本業拐點及 <strong>AMD, MRVL, MU</strong> 等巨頭的回檔佈局，不宜因短線消息頻繁換股。</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
