@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-06-17 投資研究儀表板：Physical AI 供應鏈</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2B7A78;
+            padding-bottom: 10px;
+        }
+        h1 {
+            color: #17252A;
+            margin: 0;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #555;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-full {
+            grid-column: span 2;
+        }
+        h2 {
+            color: #2B7A78;
+            font-size: 18px;
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .tag-ticker {
+            display: inline-block;
+            background-color: #17252A;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-buy {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-wait {
+            display: inline-block;
+            background-color: #FF9800;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-hold {
+            display: inline-block;
+            background-color: #2196F3;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+        }
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .chart-label {
+            width: 180px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        .chart-bar-container {
+            flex-grow: 1;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            height: 20px;
+            overflow: hidden;
+            margin: 0 15px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+        .chart-bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .chart-value {
+            width: 60px;
+            font-size: 14px;
+            color: #555;
+            text-align: right;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #D32F2F;
+        }
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .card-full {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <header>
+        <h1>2026-06-17 投資研究儀表板：Physical AI 供應鏈</h1>
+        <div class="subtitle">分析報告來源萃取 ｜ 焦點領域：人形機器人與精密零組件</div>
+    </header>
+
+    <div class="grid-container">
+        
+        <div class="card">
+            <h2>🌍 核心總經與產業趨勢邏輯</h2>
+            <ul style="padding-left: 20px; font-size: 14px;">
+                <li><strong>資金輪動主線：</strong> 2026下半年，AI 行情將從純算力基礎設施 (<span class="tag-ticker">NVDA</span> Rubin 平台) 延伸至真實世界的 <strong>Physical AI (物理人工智慧)</strong>。</li>
+                <li><strong>板塊資金轉移：</strong> 事件驅動與零售資金預計將從近期降溫的太空板塊 (<span class="tag-ticker">SPCX</span>) 獲利了結，並轉往具備高 Beta 與顛覆性題材的機器人板塊。</li>
+                <li><strong>關鍵催化劑 (2026 Q3)：</strong> 
+                    <ul>
+                        <li>7月中至8月：Tesla <span class="tag-ticker">Optimus V3</span> 產線啟動與規格發布。</li>
+                        <li>7/19 - 7/23：NVDA 於 SIGGRAPH 展示 Physical AI 模型 (GR00T/Isaac)。</li>
+                        <li>8月：世界機器人大會 (WRC) 新品密集發布。</li>
+                    </ul>
+                </li>
+                <li><strong>護城河邏輯：</strong> 投資重點不在整機品牌廠或大語言模型，而是具備數十年工藝累積、微米級加工精度且難以被短期資本複製的<strong>核心零組件供應商</strong>。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📊 人形機器人硬體價值與量產難度評估</h2>
+            <p style="font-size: 13px; color: #666; margin-top: 0;">註：圖表基於文中「致動與傳動系統成本最高且量產最困難」之邏輯進行視覺化結構對比。</p>
+            
+            <div class="chart-row">
+                <div class="chart-label">致動與傳動系統<br><span style="font-size: 11px; color:#777;">(行星滾柱絲槓/諧波減速機)</span></div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 85%; background-color: #D32F2F;">極高</div>
+                </div>
+                <div class="chart-value">難度/成本</div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-label">動態控制與無框馬達<br><span style="font-size: 11px; color:#777;">(高頻響控制/高扭力)</span></div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 65%; background-color: #F57C00;">高</div>
+                </div>
+                <div class="chart-value">難度/成本</div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label">感知系統<br><span style="font-size: 11px; color:#777;">(3D視覺/力矩感測器)</span></div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 45%; background-color: #1976D2;">中高</div>
+                </div>
+                <div class="chart-value">難度/成本</div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-label">AI 晶片與軟體演算法<br><span style="font-size: 11px; color:#777;">(大廠已克服基礎瓶頸)</span></div>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="width: 30%; background-color: #388E3C;">穩定</div>
+                </div>
+                <div class="chart-value">難度/成本</div>
+            </div>
+        </div>
+
+        <div class="card card-full">
+            <h2>🎯 個股操作策略與標的監控</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號 / 類型</th>
+                        <th>核心優勢與業務解析</th>
+                        <th>操作建議</th>
+                        <th>目標價 / 支撐壓力位</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag-ticker">PH</span><br><span style="font-size: 12px; color: #666;">大型股</span></td>
+                        <td><strong>全球運動控制巨頭：</strong>航太與軍工級液壓/機電技術。具備傳統 AI 伺服器與工業自動化基本面利潤支撐，是具備實際量產能力的穩定大廠。</td>
+                        <td><span class="tag-hold">長線持有</span> <span class="tag-buy">基本面佈局</span></td>
+                        <td>未提供<br><span style="font-size:12px; color:#777;">(作者視為穩定基石，無需等待極端訊號)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-ticker">RRX</span><br><span style="font-size: 12px; color: #666;">中小型黑科技</span></td>
+                        <td><strong>無框力矩馬達王者：</strong>旗下 Kollmorgen 為全球前三。技術極致輕量化，能將定子與轉子嵌入機器人關節，輸出瞬間最大爆發扭力。</td>
+                        <td><span class="tag-wait">觀望訊號</span> <span class="tag-wait">短線技術面</span></td>
+                        <td>待訊號確認<br><span style="font-size:12px; color:#777;">(目前以技術面操作為主，待訂單催化)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-ticker">MOG.A</span><br><span style="font-size: 12px; color: #666;">中小型軍工級</span></td>
+                        <td><strong>動態控制與致動專家：</strong>原供應五代戰機與飛彈伺服閥。提供高頻響精密控制與耐衝擊結構，解決機器人複雜地形的「動態平衡」難題。</td>
+                        <td><span class="tag-wait">觀望訊號</span> <span class="tag-wait">短線技術面</span></td>
+                        <td>待訊號確認<br><span style="font-size:12px; color:#777;">(目前以技術面操作為主，待訂單催化)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-ticker">CGNX</span><br><span style="font-size: 12px; color: #666;">中小型視覺</span></td>
+                        <td><strong>機器人的智慧眼睛：</strong>專精工業機械視覺與邊緣識別演算法。3D 視覺感測系統提供不受光線干擾的精準數據，用於高精度對位與抓取。</td>
+                        <td><span class="tag-wait">觀望訊號</span> <span class="tag-wait">短線技術面</span></td>
+                        <td>待訊號確認<br><span style="font-size:12px; color:#777;">(目前以技術面操作為主，待訂單催化)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag-ticker">NVDA</span><br><span style="font-size: 12px; color: #666;">AI 基礎設施</span></td>
+                        <td><strong>大腦與模擬平台：</strong>Rubin 平台進入量產週期；提供 GR00T, Isaac 與 Cosmos 處理世界模型與邊緣運算。</td>
+                        <td><span class="tag-hold">波段續抱</span> <span class="tag-buy">拉回加碼</span></td>
+                        <td>未提供</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card card-full">
+            <h2>💡 分析師綜合評論與查證 (Fact-Check & Review)</h2>
+            <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #2B7A78; font-size: 14px;">
+                <p style="margin-top: 0;"><strong>邏輯合理性查核：高度合理。</strong></p>
+                <p><strong>產業觀點：</strong>作者將人形機器人投資重點從「AI 軟體」轉移至「硬體致動/傳動機構（如行星滾柱絲槓、諧波減速機）」是非常精準的工程視角。這些精密機械組件確實受限於高階螺紋磨床產能與冶金熱處理工藝，構成極高的進入門檻（護城河）。AI 僅提供大腦，但「關節過熱與微米級公差」才是目前量產無法達標的物理瓶頸。</p>
+                <p><strong>標的真實性：</strong>
+                    <ul>
+                        <li><strong>RRX (Regal Rexnord):</strong> 其併購的 Kollmorgen 確實是全球自動化與無框馬達的頂尖品牌，邏輯相符。</li>
+                        <li><strong>MOG.A (Moog Inc.):</strong> 傳統上為強大的軍工航太致動系統供應商，其高精度伺服技術轉向高階機器人平衡系統合乎技術外溢邏輯。</li>
+                        <li><strong>PH (Parker-Hannifin) / CGNX (Cognex):</strong> 皆為工業自動化、流體動力與機器視覺領域的實際龍頭。</li>
+                    </ul>
+                </p>
+                <p style="margin-bottom: 0;"><strong>風險提示：</strong>作者策略將中小型黑科技股（RRX, MOG.A, CGNX）設定為「等待訊號/短線技術面操作」是明智之舉。機器人訂單尚未轉化為實質 EPS 前，這類股票具備高波動（高 Beta）特性，極易受 Tesla 產線進度延期或情緒面降溫影響而回撤。在缺乏明確目標價的情況下，嚴格設置停損與技術面紀律為首要任務。</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
