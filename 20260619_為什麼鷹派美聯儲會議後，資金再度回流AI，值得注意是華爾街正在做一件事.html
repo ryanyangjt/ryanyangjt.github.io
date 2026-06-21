@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-21</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #596a7b;
+            --border-color: #e9ecef;
+            --primary: #0d6efd;
+            --success: #198754;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #0dcaf0;
+            --dark: #212529;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .header h1 {
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .card-title span {
+            margin-right: 10px;
+        }
+
+        .content-block {
+            margin-bottom: 1.2rem;
+        }
+
+        .content-block h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.375rem;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .tag-ticker { background-color: #e2e8f0; color: #475569; border: 1px solid #cbd5e1; font-family: monospace; }
+        .tag-buy { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+        .tag-sell { background-color: #f8d7da; color: #842029; border: 1px solid #f5c2c7; }
+        .tag-hold { background-color: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
+
+        /* Pure CSS Progress/Bar Charts */
+        .chart-container {
+            margin: 1rem 0;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-row {
+            margin-bottom: 0.8rem;
+        }
+
+        .chart-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bar-wrap {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.8rem;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-size: 1.5rem;
+            line-height: 1;
+            top: -2px;
+        }
+
+        .commentary-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 投資研究與策略儀表板 - 2026-06-21</h1>
+        <p>鷹派美聯儲會議後資金動向與六月底結算操作策略</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h2 class="card-title"><span>🧠</span> 核心總經與產業邏輯</h2>
+            <div class="content-block">
+                <h4>1. 宏觀風險短期消除</h4>
+                <p>CPI 數據與美聯儲事件風險已過。市場已完全 Price-in 目前的升息預期，加上油價下跌（荷姆茲海峽重開），短期內大盤無重大宏觀利空。</p>
+            </div>
+            <div class="content-block">
+                <h4>2. 美聯儲的「隱含指引」</h4>
+                <p>美聯儲官方維持鷹派，但新老闆頻繁提及 AI。市場解讀 AI 為官方認可的「長期解決通膨方向」，促使資金在短期內重新抱團 AI 硬體板塊。</p>
+            </div>
+            <div class="content-block">
+                <h4>3. 華爾街「做帳行情」啟動 (Window Dressing)</h4>
+                <p>臨近六月下旬（半年報結算），機構為美化績效，會集中火力拉抬已有龐大獲利部位的「半導體硬體股」，而非重新建倉大盤股，此為短期資金瘋狂的主要推手。</p>
+            </div>
+            <div class="content-block">
+                <h4>4. 貨幣政策觀察指標轉換</h4>
+                <p>官方可能逐漸放棄傳統 Core PCE，轉向使用「Trimmed Mean PCE」作為通膨參考，為未來的降息決策提前鋪路尋找理論基礎。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><span>🎯</span> 個股策略與標的清單</h2>
+            <ul>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-buy">逢低買進 (短線)</span>
+                        <span class="tag tag-ticker">ONTO</span>
+                        <span class="tag tag-ticker">AMKR</span>
+                        <span class="tag tag-ticker">TTMI</span>
+                        <span class="tag tag-ticker">FORM</span>
+                        <span class="tag tag-ticker">VSH</span>
+                        <span class="tag tag-ticker">AEHR</span>
+                        <span class="tag tag-ticker">MKSI</span>
+                        <span class="tag tag-ticker">ICHR</span>
+                    </div>
+                    <strong>半導體設備股：</strong> 六月底機構做帳核心標的。短期內大盤無風險，逢拉回即可進場，目標持有至 6 月底結算。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-buy">短波段操作</span>
+                        <span class="tag tag-ticker">MU</span>
+                        <span class="tag tag-ticker">SNDK</span>
+                        <span class="tag tag-ticker">WDC</span>
+                        <span class="tag tag-ticker">STX</span>
+                    </div>
+                    <strong>記憶體板塊：</strong> 建議在下週三前操作。6/24 盤後 MU 財報若提前大漲，務必在財報前獲利了結，切忌賭財報。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-hold">整理後看好</span>
+                        <span class="tag tag-ticker">INTC</span>
+                        <span class="tag tag-ticker">AMD</span>
+                    </div>
+                    <strong>CPU相關：</strong> 短期整理完畢後有機會再度走強。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-sell">觀望 / 等待拐點</span>
+                        <span class="tag tag-ticker">META</span>
+                        <span class="tag tag-ticker">MSFT</span>
+                    </div>
+                    <strong>CSP 巨頭：</strong> MSFT 面臨成本壓力，META 承認策略失誤。兩者可能在下一次財報出現「資本支出 (CapEx)」的下修轉折點，長線需密切注意。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-buy">長線佈局準備</span>
+                        <span class="tag tag-ticker">黃金</span>
+                        <span class="tag tag-ticker">銅 / 銀</span>
+                    </div>
+                    <strong>貴金屬：</strong> 經歷大跌後，機構已開始重新買回，適合進行長線底部建倉。
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><span>📈</span> 關鍵點位與部位配置</h2>
+            
+            <div class="chart-container">
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>建議總體持股水位 (維持不變)</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 70%; background-color: var(--primary);">70%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h4 style="margin-bottom: 10px; color: var(--dark); font-size: 0.95rem;">大盤 (SPX/NDX) 期中大選前目標價預測</h4>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>基本目標 (Base Case)</span>
+                        <span>8000</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 75%; background-color: var(--success);">達標機率極高</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>情緒推升目標 (Bull Case)</span>
+                        <span>8200 - 8300</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 50%; background-color: var(--warning);">視市場做多情緒而定</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>極端樂觀目標 (Extreme Bull)</span>
+                        <span>8500</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 20%; background-color: var(--danger);">機率較低，看運氣</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 1rem; background-color: #fff3cd; border-radius: 8px; border: 1px solid #ffe69c;">
+                <strong>⚠️ 關鍵支撐位觀察：</strong><br>
+                SOXX (半導體ETF)：近期雖震盪，但會後<strong>並未跌破 5MA</strong>，顯示大人顧盤意願極強，短線趨勢偏多。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title"><span>🕵️‍♂️</span> 華爾街分析師綜合評論</h2>
+            <div class="commentary-box">
+                <p style="margin-bottom: 0.8rem;"><strong>1. 操作邏輯查證 (Highly Valid)：</strong><br>
+                作者指出六月底的「半年報做帳行情 (Window Dressing)」，這在華爾街是具備極高勝率的季節性現象。基金經理人為向客戶展示績效，會將資金集中推升今年最強勢的板塊（AI硬體與設備），藉此美化報表。此論點符合實戰邏輯，非紙上談兵的理論。</p>
+                
+                <p style="margin-bottom: 0.8rem;"><strong>2. 財報操作策略 (Prudent)：</strong><br>
+                強烈同意在美光 (MU) 財報前獲利了結的建議。當前市場對記憶體與 AI 概念的預期已拉升至極致（Priced for Perfection），財報一旦僅是「符合預期」便容易引發獲利了結賣壓 (Sell the news)。不賭財報是專業交易員的紀律表現。</p>
+
+                <p><strong>3. 長短線風險切割 (Insightful)：</strong><br>
+                文章明確區分了「短線資金瘋狗浪 (六月底前)」與「長線基本面 (2027年風險)」。投資人應嚴格遵守紀律，參與短線做帳行情的資金，時間到即應撤出，不可因套牢而將短線操作凹成成單。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
