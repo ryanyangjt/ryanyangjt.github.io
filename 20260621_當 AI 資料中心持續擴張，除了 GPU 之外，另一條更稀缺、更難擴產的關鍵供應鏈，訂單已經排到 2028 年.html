@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-21</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --border-color: #dfe6e9;
+            --primary: #0984e3;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --dark: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .header h1 {
+            color: var(--dark);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .content-block {
+            margin-bottom: 1.2rem;
+        }
+
+        .content-block h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25em 0.6em;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 0.375rem;
+            margin-right: 0.4rem;
+            margin-bottom: 0.4rem;
+            vertical-align: middle;
+        }
+
+        .tag-ticker { background-color: #e2e8f0; color: #475569; font-family: monospace; border: 1px solid #cbd5e1; }
+        .tag-buy { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+        .tag-hold { background-color: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
+        .tag-momentum { background-color: #cff4fc; color: #055160; border: 1px solid #b6effb; }
+
+        /* Pure CSS Progress/Bar Charts */
+        .chart-container {
+            margin: 1.2rem 0;
+            background: #fdfdfd;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-row {
+            margin-bottom: 1rem;
+        }
+
+        .chart-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bar-wrap {
+            height: 22px;
+            background-color: #e9ecef;
+            border-radius: 11px;
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        ul.strategy-list {
+            list-style: none;
+        }
+
+        ul.strategy-list li {
+            padding: 1rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        ul.strategy-list li:last-child {
+            border-bottom: none;
+        }
+
+        .commentary-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--primary);
+            padding: 1.2rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--danger);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 投資研究與策略儀表板 - 2026-06-21</h1>
+        <p>AI 供應鏈擴張與轉折：從「算力需求」到「非矽基物理瓶頸」</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h2 class="card-title">🧠 核心總經與產業邏輯</h2>
+            <div class="content-block">
+                <h4>1. AI 瓶頸的轉移 (物理層限制)</h4>
+                <p>AI 發展已從單純的「算力夠不夠 (GPU)」轉向「傳輸速度、電力效率、散熱能力」。矽材料在發光、抗高壓與高熱方面存在先天物理限制。</p>
+            </div>
+            <div class="content-block">
+                <h4>2. 非矽基材料成為「戰略物資」</h4>
+                <p>磷化銦 (InP)、碳化矽 (SiC)、氮化鎵 (GaN) 及高純材料因產能擴張緩慢，加上地緣政治（如中國管制銦出口），正從買方定價轉向<strong>賣方定價（供貨穩定性優於價格）</strong>。</p>
+            </div>
+            <div class="content-block">
+                <h4>3. 投資主線的三階段演進</h4>
+                <p>從「搶晶片 (GPU)」走向「搶關鍵材料」，最終聚焦於「量產能力 (先進設備)」。具備垂直整合與量產能力的公司將獲得市場重新估值。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">📈 關鍵數據與趨勢變化</h2>
+            
+            <div class="chart-container">
+                <h4 style="margin-bottom: 10px; color: var(--dark); font-size: 0.95rem;">地緣政治衝擊：6吋磷化銦 (InP) 晶圓價格飆升</h4>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>管制前均價 ($1,400)</span>
+                        <span>基準</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 28%; background-color: #b2bec3;">100%</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>近期報價 ($5,000)</span>
+                        <span class="highlight">+257%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 100%; background-color: var(--danger);">257%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h4 style="margin-bottom: 10px; color: var(--dark); font-size: 0.95rem;">WOLF 破產重整後財務體質改善</h4>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>總債務減少比例</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 70%; background-color: var(--success);">減少 70%</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>現金利息負擔下降</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 60%; background-color: var(--primary);">降低 60%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h4 style="margin-bottom: 10px; color: var(--dark); font-size: 0.95rem;">COHR (高意) 業務結構佔比</h4>
+                <div class="chart-row">
+                    <div class="chart-label">
+                        <span>資料中心與通訊部門</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar" style="width: 75%; background-color: var(--warning);">75% (核心驅動力)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2 class="card-title">🎯 個股操作策略與目標評估</h2>
+            <ul class="strategy-list">
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-buy">買進 (第一階段)</span>
+                        <span class="tag tag-ticker">COHR</span>
+                        <span class="tag tag-ticker">MTRN</span>
+                    </div>
+                    <strong>操作邏輯：</strong> 具備明確「基本面能見度」。<br>
+                    <strong>COHR：</strong> 掌握 AI 光通訊與 InP 光源垂直整合，NVDA 投資 20 億美元綁產能，1.6T 光收發器放量，是光鏈最強標的。<br>
+                    <strong>MTRN：</strong> 黑科技材料股。2026 Q1 訂單積壓創史高，預估全年 EPS $5.95，適合長線佈局。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-momentum">波段佈局 (第二階段)</span>
+                        <span class="tag tag-ticker">POWI</span>
+                        <span class="tag tag-ticker">ACLS</span>
+                    </div>
+                    <strong>操作邏輯：</strong> 架構導入與設備平台化。<br>
+                    <strong>POWI：</strong> 炒作 AI 機房 800V DC 高壓電源架構轉換。技術滲透取代矽，但本益比偏高，建議做短線/波段動能。<br>
+                    <strong>ACLS：</strong> SiC 與記憶體設備入口。看點在與 VECO 併購後的平台重估，需等待下半年擴產循環回溫。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-hold">耐心長抱 (第三階段)</span>
+                        <span class="tag tag-ticker">WOLF</span>
+                    </div>
+                    <strong>操作邏輯：</strong> 獨佔 300mm SiC 供給，彈性最大但驗證最久。<br>
+                    <strong>策略提示：</strong> 機構建倉成本約 15-20。目前處於洗盤階段，不要因短期波動 FOMO。若確認 300mm 進入 AI/HPC 先進封裝平台，股價具備極大爆發力（目標破三位數）。
+                </li>
+                <li>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span class="tag tag-buy">趨勢確認持股</span>
+                        <span class="tag tag-ticker">ENTG</span>
+                        <span class="tag tag-ticker">MTSI</span>
+                    </div>
+                    <strong>操作邏輯：</strong> 已突破創高，MTSI 目標價上看 <strong>418</strong>（站穩 20MA 後）。證明海龜交易法則有效，抱緊處理。
+                </li>
+            </ul>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2 class="card-title">🔍 分析師綜合查證與評論</h2>
+            <div class="commentary-box">
+                <p style="margin-bottom: 1rem;"><strong>1. 邏輯查證 (High Conviction)：</strong> 作者提出 AI 基礎設施瓶頸從「算力 (Compute)」轉移至「傳輸、供電與散熱 (Physical constraints)」的論述，完全吻合當前華爾街對 Co-Packaged Optics (CPO)、液冷散熱以及後端供電網路 (PDN) 的狂熱預期。矽光子無法發光，必須仰賴 InP 雷射源，這是顛撲不破的物理事實，以此作為選股核心具備強大的長線保護力。</p>
+                
+                <p style="margin-bottom: 1rem;"><strong>2. 資金輪動策略合理：</strong> 作者精準點出光通訊板塊中「中上游材料 (如 COHR)」與「下游模組廠 (漲多進入修正)」的差異。在晶片法案與地緣政治(中國出口管制)催化下，掌握上游長晶與材料的企業確實享有最高的護城河與定價權。</p>
+
+                <p><strong>3. 風險提示補充：</strong> 針對 <strong>WOLF</strong> 與 <strong>POWI</strong> 的操作建議非常中肯。WOLF 雖具備 300mm SiC 的轉機題材，但其財務體質與良率提升仍需嚴格檢視，放入「第三階段」觀察是極為成熟的資金控管策略；POWI 的 800V DC 題材極佳，但市場容易給出過高溢價，短線波段操作確實優於死抱。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
