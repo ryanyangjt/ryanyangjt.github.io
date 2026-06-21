@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 2026-06-21</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --buy-bg: #e8f5e9;
+            --buy-text: #2e7d32;
+            --sell-bg: #ffebee;
+            --sell-text: #c62828;
+            --hold-bg: #fff8e1;
+            --hold-text: #f57f17;
+            --ticker-bg: #e0f7fa;
+            --ticker-text: #006064;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .tag-buy { background-color: var(--buy-bg); color: var(--buy-text); }
+        .tag-sell { background-color: var(--sell-bg); color: var(--sell-text); }
+        .tag-hold { background-color: var(--hold-bg); color: var(--hold-text); }
+        .tag-ticker { background-color: var(--ticker-bg); color: var(--ticker-text); font-family: monospace; }
+
+        .strategy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .strategy-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        
+        .strategy-item:last-child {
+            border-bottom: none;
+        }
+
+        .strategy-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        /* Pure HTML/CSS Bar Chart Styles */
+        .chart-container {
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .bar-bg {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 22px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .support-resistance {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent);
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .analyst-commentary {
+            background-color: #fffde7;
+            border: 1px solid #fff59d;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .logic-point {
+            margin-bottom: 12px;
+            font-size: 14.5px;
+        }
+        
+        .logic-point strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>美股投資研究儀表板 (2026-06-21)</h1>
+        <div class="subtitle">美聯儲新時代 (沃許) 政策轉向分析與應對策略</div>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card">
+            <h2 class="card-title">🌐 核心總經觀點與產業趨勢</h2>
+            <div class="logic-point">
+                <strong>1. 貨幣政策大轉向 (葛老模式回歸)：</strong><br>
+                基準利率維持 3.50%–3.75%。新任主席沃許 (Warsh) 刻意模糊化政策，取消前瞻指引，記者會改為不定期，將引發市場「資訊真空期」。
+            </div>
+            <div class="logic-point">
+                <strong>2. 流動性持續緊縮 (QT)：</strong><br>
+                「Fed Put」保護網失效，下半年創紀錄抽水 (QT) 疊加可能升息，高估值市場將面臨極大壓力。
+            </div>
+            <div class="logic-point">
+                <strong>3. AI 資本支出的雙刃劍：</strong><br>
+                AI 基礎建設短期推升通膨 (推高利率)，長期才兌現生產力。此矛盾將考驗 AI 硬體股在高利率環境下的估值支撐力。
+            </div>
+            <div class="logic-point">
+                <strong>4. 數據驅動劇烈波動：</strong><br>
+                因缺乏政策指引，未來的 CPI、非農、PCE 數據及財報將成為引發大波動的直接觸發點。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">📊 關鍵趨勢與歷史數據預測</h2>
+            
+            <div class="chart-container">
+                <div class="chart-label">
+                    <span>10月美聯儲升息機率跳升</span>
+                    <span>60.7%</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 60.7%; background-color: #e53935;">60.7%</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label">
+                    <span>點陣圖：預期年底前升息委員比例 (15/18人)</span>
+                    <span>83.3%</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 83.3%; background-color: #fb8c00;">83.3% (鷹派共識)</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label">
+                    <span>點陣圖：預期升息「兩碼」委員比例 (6/18人)</span>
+                    <span>33.3%</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 33.3%; background-color: #8e24aa;">33.3%</div>
+                </div>
+            </div>
+            
+            <div class="support-resistance">
+                <strong>📉 關鍵技術點位觀察：</strong><br>
+                大盤 (SPX / QQQ)：正測試或微破 <strong>20MA</strong> 支撐。<br>
+                半導體板塊：相對強勢，目前維持在 <strong>5MA</strong> 之上，極端大跌時觀察 <strong>20MA</strong> 支撐力道。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">🎯 個股與板塊操作策略</h2>
+            <ul class="strategy-list">
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-sell">避開 / 減碼</span>
+                        <span class="tag tag-ticker">MSFT</span>
+                        <span class="tag tag-ticker">META</span>
+                        <span class="tag tag-ticker">AMZN</span>
+                    </div>
+                    <div class="strategy-desc">四大 CSP 權值股面臨機構砍倉，趨勢向下，強烈建議避開。</div>
+                </li>
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-sell">避開 / 陰跌</span>
+                        <span class="tag tag-ticker">GOOGL</span>
+                    </div>
+                    <div class="strategy-desc">處於陰跌狀態，同樣屬於需避開的大型科技股。</div>
+                </li>
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-hold">觀望 / 暫不砍倉</span>
+                        <span class="tag tag-ticker">NVDA</span>
+                        <span class="tag tag-ticker">半導體板塊</span>
+                    </div>
+                    <div class="strategy-desc">NVDA 發債暗示高利率延續，股價逼近破底；但半導體整體盤後偏強，建議度過三巫日後再做決斷，勿盲目停損。</div>
+                </li>
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-hold">中立</span>
+                        <span class="tag tag-ticker">AAPL</span>
+                    </div>
+                    <div class="strategy-desc">M7 科技巨頭中目前唯一股價型態尚可支撐的標的。</div>
+                </li>
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-buy">逢低佈局</span>
+                        <span class="tag tag-ticker">半導體硬體</span>
+                        <span class="tag tag-ticker">機器人零組件</span>
+                    </div>
+                    <div class="strategy-desc">若自身倉位極低，可利用本波三巫日動盪回檔時，優先佈局具實質獲利的硬體股與機器人概念。</div>
+                </li>
+                <li class="strategy-item">
+                    <div>
+                        <span class="tag tag-buy">佈局參考</span>
+                        <span class="tag tag-ticker">HOOD</span>
+                        <span class="tag tag-ticker">GLXY</span>
+                    </div>
+                    <div class="strategy-desc">作者點名之兩檔獨立個股，可作為佈局參考標的。</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 class="card-title">🔍 分析師綜合查證與評論</h2>
+            <div class="analyst-commentary">
+                <strong>邏輯驗證與風險提示：</strong><br><br>
+                1. <strong>宏觀邏輯合理性 (Pass)：</strong> 作者提出「AI 資本支出短期推升通膨、長期才兌現生產力」的觀點極具深度且符合經濟學邏輯。在新任 Fed 鷹派作風下，缺乏現金流且純靠「降息預期」支撐的高本益比軟體股，確實是殺估值的重災區。<br><br>
+                2. <strong>策略一致性 (Caution)：</strong> 作者建議避開大型 CSP (微軟、Meta 等)，卻建議逢低買入「半導體硬體」(如 NVDA 供應鏈)。這裡存在潛在矛盾：CSP 正是 AI 硬體的最大買單方。若 CSP 因高利率縮減資本支出，半導體硬體的 EPS 將難以維持。因此，對半導體板塊的「逢低佈局」應保持極高警覺，嚴控部位。<br><br>
+                3. <strong>操作建議總結：</strong> 認同文章中「縮手觀望一兩天、等待三巫日結算」的防禦性策略。在 Fed 沒收前瞻指引後，市場的波動率 (VIX) 中樞必然上移。投資人應將投資組合轉向具備強大自由現金流的企業，並降低整體槓桿率。
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
