@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 | 2026-06-23</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --accent-blue: #2980b9;
+            --accent-green: #27ae60;
+            --accent-red: #c0392b;
+            --accent-orange: #d35400;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--accent-blue);
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+            color: #1a202c;
+            margin: 0;
+        }
+
+        .dashboard-header .date-badge {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-6 { grid-column: span 6; }
+        .col-4 { grid-column: span 4; }
+
+        @media (max-width: 1024px) {
+            .col-8, .col-6, .col-4 { grid-column: span 12; }
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 18px;
+            background-color: var(--accent-blue);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            white-space: nowrap;
+        }
+        
+        /* Inline CSS tag equivalent styles generated via classes for maintainability */
+        .tag-ticker { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+        .tag-buy { background: #c6f6d5; color: #22543d; border: 1px solid #9ae6b4; }
+        .tag-hold { background: #feebc8; color: #7b341e; border: 1px solid #fbd38d; }
+        .tag-avoid { background: #fed7d7; color: #742a2a; border: 1px solid #feb2b2; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f7fafc;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        /* Pure CSS Bar Charts */
+        .chart-container {
+            margin-bottom: 16px;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #4a5568;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 14px;
+            background-color: #edf2f7;
+            border-radius: 7px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 7px;
+        }
+
+        ul.styled-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.styled-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        ul.styled-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background-color: #fffaf0;
+            border-left: 4px solid var(--accent-orange);
+            padding: 12px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-23</div>
+    </div>
+
+    <div class="grid-container">
+
+        <div class="card col-8">
+            <h2 class="card-title">核心總經觀點與產業趨勢邏輯</h2>
+            <ul class="styled-list">
+                <li><strong>AI 資金板塊輪動預警：</strong> 六月底機構作帳結束前，AI 硬體股仍是主線。但下一次四大 CSP (特別是微軟與 Meta) 財報若出現「資本支出成長放緩」或「資本支出上升但無相對應之 AI ROI」，資金將開始撤出 AI 硬體板塊。</li>
+                <li><strong>Meta 元宇宙前車之鑑：</strong> 2022 年 Meta 股價崩跌七成主因是「燒錢無回報」。目前 AI 資本支出面臨相似困境 (自由現金流被吞噬)。但差異在於現今大廠本業仍健康，若本業趨緩疊加 AI 變現未果，將面臨雙殺估值收縮。</li>
+                <li><strong>美國政府啟動「量子」炒作週期：</strong> 拜登(三爺)簽署行政命令，將量子計算與後量子密碼學提升至國家戰略，要求 2028 年前部署科研量子電腦。政策催化下，資金將尋找具備夢想空間的下一個矽光子/CPO 題材。</li>
+                <li><strong>量子投資第一定律「基礎設施先行」：</strong> 傳統量子位元股易流於畫大餅。真正在 2028-2030 前能取得政府與實驗室訂單的，是解決瓶頸的「鏟子股」：控制層、測試平台、低溫連接與安全晶片。</li>
+            </ul>
+        </div>
+
+        <div class="card col-4">
+            <h2 class="card-title">財務與歷史數據對比</h2>
+            
+            <div class="chart-container">
+                <div class="chart-label"><span>Meta Q1 現金流去向 (單位: 億美元)</span></div>
+                <div class="chart-label" style="font-weight: normal; font-size: 0.8rem;">
+                    <span style="color: var(--accent-green);">自由現金流 (123.9)</span>
+                    <span style="color: var(--accent-red);">資本支出 (198.4)</span>
+                </div>
+                <div class="bar-track" style="background-color: var(--accent-red);">
+                    <div class="bar-fill" style="width: 38.4%; background-color: var(--accent-green);"></div>
+                </div>
+                <div style="font-size: 0.75rem; color: #718096; margin-top: 4px;">* 資本支出超越自由現金流，引發估值壓縮疑慮。</div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 20px;">
+                <div class="chart-label"><span>QNT 2025 財務預估 (單位: 萬美元)</span></div>
+                <div class="chart-label" style="font-weight: normal; font-size: 0.8rem;">
+                    <span>營收 (3,090)</span>
+                    <span style="color: var(--accent-red);">淨虧損 (19,260)</span>
+                </div>
+                <div class="bar-track" style="background-color: var(--accent-red);">
+                    <div class="bar-fill" style="width: 13.8%; background-color: var(--accent-blue);"></div>
+                </div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 20px;">
+                <div class="chart-label"><span>量子概念股建議配置權重</span></div>
+                <div style="display: flex; height: 16px; border-radius: 8px; overflow: hidden; margin-top: 4px;">
+                    <div style="width: 45%; background-color: #2b6cb0; text-align: center; color: white; font-size: 0.7rem; line-height: 16px;">KEYS</div>
+                    <div style="width: 30%; background-color: #4299e1; text-align: center; color: white; font-size: 0.7rem; line-height: 16px;">QNT</div>
+                    <div style="width: 15%; background-color: #63b3ed; text-align: center; color: white; font-size: 0.7rem; line-height: 16px;">QTEX</div>
+                    <div style="width: 10%; background-color: #90cdf4; text-align: center; color: white; font-size: 0.7rem; line-height: 16px;">LAES</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-12">
+            <h2 class="card-title">個股建議與操作策略</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的 / 代號</th>
+                        <th>板塊定位</th>
+                        <th>操作建議</th>
+                        <th>技術點位 / 時機</th>
+                        <th>核心投資邏輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-ticker">KEYS</span></td>
+                        <td>量子控制與測試層</td>
+                        <td><span class="tag tag-buy">首選買進</span> <span class="tag tag-hold">波段持有</span></td>
+                        <td>即刻佈局</td>
+                        <td>最具基本面支撐的「AI+量子」雙棲鏟子股。已交付商用量子控制系統(支援1000+ qubits)，受惠機構與實驗室初期設備採購。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">QNT</span></td>
+                        <td>量子主機層 (Full-stack)</td>
+                        <td><span class="tag tag-buy">短線買進</span></td>
+                        <td>-</td>
+                        <td>Honeywell 背書的機構級純量子股。近期 IPO，籌碼集中且具備真實營收，預期成爲量子主機領頭羊。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">QTEX</span></td>
+                        <td>低溫連接基礎設施</td>
+                        <td><span class="tag tag-buy">短線波段</span></td>
+                        <td>-</td>
+                        <td>解決量子硬體規模化極低溫連接瓶頸。具備「量子供應鏈」敘事，市值彈性與爆發力最大。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">LAES</span></td>
+                        <td>後量子安全晶片</td>
+                        <td><span class="tag tag-hold">觀望</span></td>
+                        <td><strong>壓力位：</strong> 等待站上<span style="color:#e53e3e; font-weight:bold;">年線</span></td>
+                        <td>受惠政府「後量子密碼學」升級政策。防止量子破解加密的安全晶片，2026 下半年預期營收爆發，但需等待技術面右側確認。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">MSFT</span> <span class="tag tag-ticker">META</span></td>
+                        <td>AI 雲端與應用</td>
+                        <td><span class="tag tag-hold">高度警戒</span></td>
+                        <td>下一次財報公佈日</td>
+                        <td>作為 AI 資本支出的風向球。若財報暗示「資本支出減緩」或「廣告本業衰退」，將成爲大盤與 AI 硬體股的殺跌拐點。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">NVDA</span></td>
+                        <td>AI 算力硬體</td>
+                        <td><span class="tag tag-hold">短線續抱</span></td>
+                        <td>-</td>
+                        <td>Rubin 架構尚未大量出貨，成長性仍在，六月機構作帳期間可安心持有，逢拉回可買。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">IONQ</span> <span class="tag tag-ticker">QUBT</span> <span class="tag tag-ticker">QBTS</span> <span class="tag tag-ticker">RGTI</span></td>
+                        <td>傳統量子位元股</td>
+                        <td><span class="tag tag-avoid">避開 / 觀望</span></td>
+                        <td>-</td>
+                        <td>舊時代量子概念，籌碼凌亂且套牢賣壓沉重，不符合本次「基礎設施先行」的炒作邏輯。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card col-6">
+            <h2 class="card-title">分析師綜合評論與查證</h2>
+            <div style="font-size: 0.95rem; color: #4a5568;">
+                <p style="margin-bottom: 12px;"><strong>邏輯查證：</strong> 作者對「Meta 2022 崩盤模式」與「當前 AI 資本支出」的對比邏輯<strong>高度合理</strong>。華爾街確實對 Hyperscalers 鉅額 CapEx 產生 ROI 焦慮。若 MSFT/META 下一季釋出 Capex 趨緩訊號，確實可能引發 AI 供應鏈重新估值 (Re-rating)。</p>
+                <p style="margin-bottom: 12px;"><strong>量子題材驗證：</strong> 美國政府推動 NQI (國家量子倡議) 與後量子密碼學 (PQC) 標準化是確實發生的產業趨勢。將炒作邏輯定錨於「測試設備 (KEYS)」與「連接/資安 (LAES, QTEX)」遠比追逐純 Qubit 公司 (如 IONQ) 更符合早期科技基建的投資規律。</p>
+                <p><strong>估值風險：</strong> 需注意 QNT 等新股即便有富爸爸背書，其營收占比相對於高昂的研發虧損仍顯脆弱。這類標的本質仍是「流動性與政策驅動的題材股」，適合動能交易，不宜重倉長持。</p>
+            </div>
+        </div>
+
+        <div class="card col-6">
+            <h2 class="card-title" style="color: #c0392b;">關鍵風險提示</h2>
+            <div class="highlight-box">
+                <strong style="color: var(--accent-red);">1. AI 泡沫破裂的「完美風暴」條件：</strong>
+                <p style="margin-top: 4px; margin-bottom: 12px;">若 Q2/Q3 財報中，巨頭資本支出 guidance 上調，但本業 (如廣告) 增速卻因總經衰退而放緩，將完美複製 2022 年 Meta 的雙殺結構。</p>
+                
+                <strong style="color: var(--accent-red);">2. 量子題材的流動性風險：</strong>
+                <p style="margin-top: 4px; margin-bottom: 12px;">除了 KEYS (具備實質獲利與多重業務)，其餘純量子股 (QNT, QTEX, LAES) 處於燒錢階段。若總經環境面臨利率高企或通膨反彈，長天期折現率上升將重創此類無現金流概念股。</p>
+
+                <strong style="color: var(--accent-red);">3. 融資與稀釋風險：</strong>
+                <p style="margin-top: 4px;">投資 QTEX 或新創量子股，必須密切追蹤其後續是否因資本支出不足而進行增發 (Offering)，導致股權遭嚴重稀釋。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
