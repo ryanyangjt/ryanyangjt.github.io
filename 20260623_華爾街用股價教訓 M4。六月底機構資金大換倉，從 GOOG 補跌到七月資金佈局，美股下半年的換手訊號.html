@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 | 2026-06-23</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --accent-blue: #3498db;
+            --accent-green: #2ecc71;
+            --accent-red: #e74c3c;
+            --accent-orange: #f39c12;
+            --border-color: #ecf0f1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--accent-blue);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+            color: #1a252f;
+        }
+
+        .dashboard-header .date {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            background: #eaf2f8;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background-color: var(--accent-blue);
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        /* Span sizes */
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-12 { grid-column: span 12; }
+        .col-span-6 { grid-column: span 6; }
+
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .tag-buy { background: #e8f8f5; color: #1abc9c; border: 1px solid #1abc9c; }
+        .tag-sell { background: #fdedec; color: #e74c3c; border: 1px solid #e74c3c; }
+        .tag-watch { background: #fef5e7; color: #f39c12; border: 1px solid #f39c12; }
+        .tag-ticker { background: #ebf5fb; color: #2980b9; border: 1px solid #2980b9; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Bar Chart */
+        .bar-chart-container {
+            margin-bottom: 1rem;
+        }
+
+        .bar-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 12px;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .summary-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.2rem;
+            position: relative;
+            list-style-type: none;
+        }
+
+        .summary-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: -4px;
+        }
+
+        .highlight-text {
+            background-color: #fff3cd;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>華爾街科技與投資分析儀表板</h1>
+        <div class="date">2026-06-23</div>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card col-span-8">
+            <h2 class="card-title">總體經濟與核心趨勢邏輯</h2>
+            <ul class="summary-list">
+                <li><strong>季底機構資金再平衡：</strong> 預估高達 1,650 億美元調倉，其中 JPM 預估有 650 億美元的股票賣壓。由於大型科技股 (M7) 先前大幅跑贏，機構拋售科技股以轉入固定收益（10年期美債殖利率達 4.3%）。</li>
+                <li><strong>資金板塊輪動：</strong> 6 月底做帳行情高度集中於 <span class="tag tag-ticker">AI 半導體供應鏈</span> 與 <span class="tag tag-ticker">中小科技股</span> (IWM 走勢強於 SOXX)。</li>
+                <li><strong>七月反轉訊號：</strong> 六月底調倉結束後，預期 7 月前兩週短線出現反轉。資金將獲利了結 AI 硬體/中小型股，回補跌深乖離過大的大型科技股 (如 <span class="tag tag-ticker">GOOG</span>, <span class="tag tag-ticker">MSFT</span>)。</li>
+                <li><strong>長線流動性風險預警：</strong> 預測 2027 年美股將面臨流動性劫數，潛在回檔幅度達 <span class="highlight-text">15% - 20%</span>，需熬至 2028 年大選年方迎來新一輪多頭。</li>
+            </ul>
+        </div>
+
+        <div class="card col-span-4">
+            <h2 class="card-title">市場情緒與動能指標</h2>
+            
+            <div class="bar-chart-container">
+                <div class="bar-header"><span>Market Breadth (市場廣度)</span> <span style="color:var(--accent-red)">16.2</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 16.2%; background-color: var(--accent-red);"></div></div>
+                <div style="font-size:0.8rem; color:#7f8c8d; margin-top:2px;">漲勢極度集中，內部結構分裂。</div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-header"><span>Stock Price Strength (股價強度)</span> <span style="color:var(--accent-orange)">36.4</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 36.4%; background-color: var(--accent-orange);"></div></div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-header"><span>恐慌指數 (Fear Index)</span> <span style="color:#27ae60">35.0</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 35%; background-color: #27ae60;"></div></div>
+                <div style="font-size:0.8rem; color:#7f8c8d; margin-top:2px;">VIX 低於 18，市場尚未進入極端恐慌。</div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-header"><span>Market Momentum (短線動能)</span> <span style="color:#2980b9">61.0</span></div>
+                <div class="bar-track"><div class="bar-fill" style="width: 61%; background-color: #2980b9;"></div></div>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2 class="card-title">個股操作策略與關鍵點位</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號 / 板塊</th>
+                        <th>操作建議</th>
+                        <th>關鍵點位 / 目標與條件</th>
+                        <th>核心邏輯說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>TE</strong></td>
+                        <td><span class="tag tag-buy">逢低佈局</span></td>
+                        <td>-</td>
+                        <td>AI 硬體股拉回承接，配合 7 月財報季行情。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VRT</strong></td>
+                        <td><span class="tag tag-buy">拉回買進</span></td>
+                        <td>-</td>
+                        <td>AI 硬體波段佈局，需等待拉回方可建倉。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>VICR</strong></td>
+                        <td><span class="tag tag-watch">等待拉回</span></td>
+                        <td>拉回至 <strong>20MA</strong></td>
+                        <td>短線觸及 Bollinger Bands (BB) 上緣，乖離過大需等均線靠攏。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MU</strong> (美光)</td>
+                        <td><span class="tag tag-sell">財報前出脫</span></td>
+                        <td>週三財報公佈前</td>
+                        <td>避開財報不確定性及季底大機構賣壓。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>APH / CRDO</strong></td>
+                        <td><span class="tag tag-sell">逢高減碼 50%</span></td>
+                        <td>-</td>
+                        <td>「做多銅、空光通訊」題材告一段落，法人買盤縮手甚至轉賣。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVDA</strong> (輝達)</td>
+                        <td><span class="tag tag-watch">短線觀望</span></td>
+                        <td>等待 7 月出貨數據</td>
+                        <td>六月底機構避開做帳拉抬以防被倒貨；體量大暫受 SPCX 吸金影響。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GOOG / MSFT</strong></td>
+                        <td><span class="tag tag-buy">七月佈局</span></td>
+                        <td>-</td>
+                        <td>M4 短線淪為提款機補跌。7/1 起被動資金回補，具備跌深修復契機。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MOG.A</strong></td>
+                        <td><span class="tag tag-watch">觀察 1-2 日</span></td>
+                        <td>-</td>
+                        <td>機器人概念股零組件，近期開始拉回修正，無需急於抄底。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card col-span-6">
+            <h2 class="card-title">分析師綜合評論與查證</h2>
+            <p style="margin-bottom: 1rem; color: #34495e;"><strong>資金流向邏輯合理性：✅ 高</strong></p>
+            <p style="font-size: 0.95rem; color: #555;">
+                作者提出的「季底退休金與保險機構賣股買債」是華爾街典型的 Rebalancing 現象。JPMorgan 估算的 650 億美元股票賣壓在歷史規模上屬於大型調倉，與目前 10 年期美債高達 4.3% 的無風險利率吸引力完全吻合。<br><br>
+                將操作拆分為「6月底買中小/半導體」與「7月初接回大型科技股」符合避險基金 (Hedge Funds) 與 CTA 獵取被動資金換倉的時間差套利策略。
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: #555;">
+                <strong>風險提示查證：</strong>
+                作者提及的 Market Breadth 極低 (16.2)，從美股歷史來看，當大盤強勢但廣度背離時，確實容易在季初爆發急跌修正。建議投資人嚴格遵守「MU財報前拔檔」與「光通訊逢高減碼」的防禦性紀律。
+            </p>
+        </div>
+
+        <div class="card col-span-6">
+            <h2 class="card-title">風險提示與 CTA 關鍵防守位</h2>
+            <div style="background: #fdf2e9; padding: 1rem; border-left: 4px solid #e67e22; border-radius: 4px; margin-bottom: 1rem;">
+                <h3 style="font-size: 1rem; color: #d35400; margin-bottom: 0.5rem;">CTA 程式交易觸發點位</h3>
+                <ul class="summary-list" style="margin-left: 0;">
+                    <li><strong>SPY 賣出點位：</strong> 744.82</li>
+                    <li><strong>S&P 500 (SPX) 賣出區間：</strong> 7,442 至 7,278</li>
+                </ul>
+                <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 0.5rem;">* 若跌破此區間，CTA 將啟動程式化賣壓；反之若突破加碼，由於資金水位已高，向上推升力道有限。</p>
+            </div>
+            <div style="background: #f9ebea; padding: 1rem; border-left: 4px solid #c0392b; border-radius: 4px;">
+                <h3 style="font-size: 1rem; color: #c0392b; margin-bottom: 0.5rem;">重大風險雷達</h3>
+                <p style="font-size: 0.95rem; color: #555;">
+                    1. <strong>SPCX 效應：</strong> 吸金效應顯著，短線做空者眾，切勿盲目抄底。<br>
+                    2. <strong>資本支出雷區：</strong> 下半年財報需嚴格檢視 AI 資本支出 (CapEx)，MSFT 與 Meta 恐成破口。<br>
+                    3. <strong>十年期美債殖利率：</strong> 6月底做帳後買盤縮手，殖利率若觸底反彈將壓抑科技股估值。
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
