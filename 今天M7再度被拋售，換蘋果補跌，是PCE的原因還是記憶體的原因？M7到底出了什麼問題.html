@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-26</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-blue: #2980b9;
+            --accent-green: #27ae60;
+            --accent-red: #c0392b;
+            --accent-orange: #f39c12;
+            --accent-purple: #8e44ad;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .date-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .col-12 { grid-column: span 12; }
+        .col-8 { grid-column: span 8; }
+        .col-4 { grid-column: span 4; }
+
+        @media (max-width: 1024px) {
+            .col-8, .col-4 { grid-column: span 12; }
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+            border-top: 4px solid var(--border-color);
+            height: 100%;
+        }
+
+        .card-strategy { border-top-color: var(--accent-blue); }
+        .card-logic { border-top-color: var(--accent-purple); }
+        .card-review { border-top-color: var(--accent-green); }
+        .card-data { border-top-color: var(--accent-orange); }
+        .card-risk { border-top-color: var(--accent-red); }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Table */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: var(--primary-color);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 2px;
+            white-space: nowrap;
+        }
+
+        .tag-ticker { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+        .tag-buy { background: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; }
+        .tag-hold { background: #fef9c3; color: #ca8a04; border: 1px solid #fef08a; }
+        .tag-sell { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+        .tag-watch { background: #f3f4f6; color: #4b5563; border: 1px solid #e5e7eb; }
+
+        /* Pure HTML Bar Charts */
+        .chart-group {
+            margin-bottom: 24px;
+        }
+        
+        .chart-title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .bar-track {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 8px;
+            height: 28px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: width 0.5s ease;
+            white-space: nowrap;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 20px;
+            margin-top: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+        }
+
+        .review-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--accent-green);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            color: #166534;
+        }
+
+        .risk-box {
+            background-color: #fef2f2;
+            border-left: 4px solid var(--accent-red);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header">
+        <h1>📊 華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-26</div>
+    </header>
+
+    <div class="grid">
+        
+        <div class="col-12">
+            <div class="card card-strategy">
+                <h2>🎯 個股操作策略與關鍵點位</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>標的 / 代號</th>
+                                <th>操作建議</th>
+                                <th>關鍵點位 / 目標價</th>
+                                <th>核心邏輯 / 備註</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="tag tag-ticker">AMAT</span> <span class="tag tag-ticker">LRCX</span> 
+                                    <span class="tag tag-ticker">TSM</span> <span class="tag tag-ticker">MU</span>
+                                    <span class="tag tag-ticker">SNDK</span> <span class="tag tag-ticker">TTMI</span>
+                                </td>
+                                <td><span class="tag tag-hold">波段續抱</span> <span class="tag tag-sell">逢高減碼</span></td>
+                                <td><span class="tag tag-watch">設移動止盈</span></td>
+                                <td>AI 硬體與設備股目前屬「擁擠交易」。逢財報季前，需設定移動止盈保護獲利；若 M4 資本支出指引無轉向，可續抱。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">AAPL</span> <span class="tag tag-ticker">QCOM</span></td>
+                                <td><span class="tag tag-buy">長線逢低佈局</span></td>
+                                <td><span class="tag tag-buy">支撐位：年線以下</span><br><span class="tag tag-sell">壓力位：半年線</span></td>
+                                <td>短期面臨補跌與鬼故事衝擊(漲價影響銷量/手機業務佔比高)。建議耐心等待股價回落至年線(200MA)以下，分批建倉。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">GOOGL</span> <span class="tag tag-ticker">AMZN</span></td>
+                                <td><span class="tag tag-watch">觀望 / 伺機買進</span></td>
+                                <td>-</td>
+                                <td>若 M4 (科技巨頭) 財報出現「行動認錯」(削減無效資本支出)，這兩檔具備優先佈局價值。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">NVDA</span> <span class="tag tag-ticker">MSFT</span> <span class="tag tag-ticker">META</span></td>
+                                <td><span class="tag tag-watch">長線觀望</span></td>
+                                <td>-</td>
+                                <td>M7 殺盤未束，需回測年線。NVDA 需等待機構買盤回補，目前缺乏上攻動能。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">光通訊族群</span></td>
+                                <td><span class="tag tag-hold">短線續抱等反彈</span></td>
+                                <td><span class="tag tag-buy">支撐位：半年線</span></td>
+                                <td>已大幅回調至半年線支撐，不宜在此殺低，建議等待技術性反彈後再行調節。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">TSLA</span> <span class="tag tag-ticker">機器人概念股</span></td>
+                                <td><span class="tag tag-buy">下半年佈局</span></td>
+                                <td>-</td>
+                                <td>Agility Robotics 將 IPO 借殼上市，加上特斯拉預期發表人形機器人進度，為下半年明確的主題投資機會。</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-ticker">SPX (標普500)</span></td>
+                                <td><span class="tag tag-watch">大盤點位監控</span></td>
+                                <td><span class="tag tag-sell">頸線：7265</span><br><span class="tag tag-buy">年線：6900 - 7000</span></td>
+                                <td>若跌破波段前低 7265 將形成 M 頭，下方強力支撐落在年線 6900-7000 點區間，屆時才是撿股時機。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="card card-logic">
+                <h2>🧠 核心總經與產業趨勢邏輯</h2>
+                <ul>
+                    <li><strong>M7 軟體化與估值壓縮：</strong> M7 過去的高成長光環消退，被市場視為重資本支出的「負二代」。機構投資者（如保險資金）更看重穩定配息與回購，導致資金從長久期 (Long-duration) 的科技股撤出。</li>
+                    <li><strong>「DIA 強，QQQ 弱」的歷史警訊：</strong> 目前盤勢與 2018 年、2022 年初高度相似。道瓊(DIA)創高僅是資金撤離科技股、轉向防禦與價值股的「假性撐盤」。QQQ 跌破月線是估值殺盤的早期訊號。</li>
+                    <li><strong>資本支出 (Capex) 的雙面刃：</strong> M4 財報的重點在於「資本支出」。若持續無節制燒錢（AI 基礎建設），將面臨華爾街無情拋售；唯有「行動認錯」縮減開支，科技巨頭股價方能真正止跌。</li>
+                    <li><strong>總經與貨幣政策：</strong> PCE 數據滯後，聯準會 (Fed) 高層傾向「嘴巴鷹、身體偏鴿」。預期今年僅有 1 碼降息/升息空間，最可能落在 11 或 12 月（大選後），9 月動作機率極低。</li>
+                </ul>
+            </div>
+
+            <div class="card card-review" style="margin-top: 24px;">
+                <h2>🔎 分析師綜合評論 (查證與點評)</h2>
+                <div class="review-box">
+                    <p style="margin-top: 0;"><strong>論述合理性：極高 (符合機構法人避險邏輯)</strong></p>
+                    <p>作者精準點出了當前美股結構的隱憂：<strong>「指數背離」與「擁擠交易」</strong>。以 2018 年與 2022 年為例，當道瓊(DIA)創高而那斯達克(QQQ)破線時，往往是大型機構在掩護撤退，進行資產久期 (Duration) 的調整。</p>
+                    <p style="margin-bottom: 0;">將 AI 硬體股視為「擁擠交易」並建議採用「移動止盈」而非盲目追高，是非常專業的風險控管策略。此外，點出科技巨頭 (M7) 龐大 AI 資本支出侵蝕現金流，導致股價「軟體股化、傳產化」，完全切中當前華爾街對 AI 變現能力 (ROI) 的焦慮核心。長線佈局轉向防禦與下半年的機器人題材，邏輯清晰且具備防禦力。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card card-data">
+                <h2>📈 關鍵數據與歷史情境</h2>
+                
+                <div class="chart-group">
+                    <div class="chart-title">
+                        <span>當前盤勢演變為 2018 估值殺盤機率</span>
+                        <span style="color: var(--accent-red);">70%</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 70%; background: linear-gradient(90deg, #f59e0b, #dc2626);">高度警戒 (通膨黏著+科技高估值)</div>
+                    </div>
+                </div>
+
+                <div class="chart-group">
+                    <div class="chart-title">
+                        <span>SPX 大盤回撤路徑預測</span>
+                        <span style="color: var(--accent-blue);">點位監控</span>
+                    </div>
+                    <div style="margin-bottom: 4px; font-size: 0.8rem; color: #64748b;">頸線保衛戰 (7265)</div>
+                    <div class="bar-track" style="margin-bottom: 8px;">
+                        <div class="bar-fill" style="width: 90%; background: #3b82f6;">若跌破將形成 M 頭</div>
+                    </div>
+                    <div style="margin-bottom: 4px; font-size: 0.8rem; color: #64748b;">年線強力支撐 (6900 - 7000)</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 75%; background: #10b981;">長線資金接盤區</div>
+                    </div>
+                </div>
+
+                <div class="chart-group">
+                    <div class="chart-title">
+                        <span>Fed 2026 利率決策市場預期</span>
+                    </div>
+                    <div style="display: flex; gap: 4px; height: 24px; margin-top: 8px;">
+                        <div style="width: 80%; background: #14b8a6; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; font-weight: bold; border-radius: 4px;">升息 1 碼 (大選後)</div>
+                        <div style="width: 20%; background: #cbd5e1; display: flex; align-items: center; justify-content: center; color: #475569; font-size: 0.8rem; border-radius: 4px;">維持不變</div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">註: 大投行極端預測(升/降3碼)機率極低。</p>
+                </div>
+            </div>
+
+            <div class="card card-risk" style="margin-top: 24px;">
+                <h2>⚠️ 系統性風險提示</h2>
+                <div class="risk-box">
+                    <strong>通膨數據滯後 (PCE 黏滯)</strong><br>
+                    核心 PCE 年增率仍在高檔(3.4%)，油價與物價傳導具滯後性，Fed 無法輕易轉鴿，長久期資產(科技股)估值持續承壓。
+                </div>
+                <div class="risk-box">
+                    <strong>AI 硬體股擁擠交易</strong><br>
+                    資金過度集中於設備供應鏈，一但大型科技股縮減 2027 年資本支出，硬體股將面臨慘烈的「戴維斯雙殺」(盈餘與本益比雙降)。
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
