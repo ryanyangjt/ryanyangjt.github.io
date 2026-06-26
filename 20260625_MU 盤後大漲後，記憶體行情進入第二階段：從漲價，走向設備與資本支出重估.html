@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-26</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-blue: #3498db;
+            --accent-green: #2ecc71;
+            --accent-red: #e74c3c;
+            --accent-orange: #f39c12;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+            --border-color: #e0e6ed;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .header-section h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .date-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+
+        @media (max-width: 992px) {
+            .col-span-8, .col-span-4 { grid-column: span 12; }
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f4f8;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+        
+        .tag-ticker { background-color: #e1f0fa; color: #1a73e8; border: 1px solid #cce4f7; }
+        .tag-buy { background-color: #e6f4ea; color: #1e8e3e; border: 1px solid #ceead6; }
+        .tag-hold { background-color: #fef7e0; color: #b06000; border: 1px solid #fce8b2; }
+        .tag-risk { background-color: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; }
+        
+        /* Bar Charts */
+        .chart-container {
+            margin-bottom: 20px;
+        }
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--primary-color);
+        }
+        .bar-bg {
+            width: 100%;
+            background-color: #edf2f7;
+            border-radius: 8px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+        .color-blue { background-color: var(--accent-blue); }
+        .color-green { background-color: var(--accent-green); }
+        .color-orange { background-color: var(--accent-orange); }
+
+        .logic-list, .risk-list {
+            padding-left: 20px;
+            margin: 0;
+        }
+        .logic-list li, .risk-list li {
+            margin-bottom: 12px;
+        }
+        
+        .review-box {
+            background-color: #f8f9fc;
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <header class="header-section">
+        <h1>📊 華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-26</div>
+    </header>
+
+    <div class="grid-layout">
+        
+        <div class="card col-span-12">
+            <h2 class="card-title">🎯 個股操作策略與關鍵點位</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>投資標的 / 代號</th>
+                            <th>操作建議</th>
+                            <th>目標價 / 支撐壓力位</th>
+                            <th>核心邏輯 / 備註</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">MU 美光</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-hold">波段續抱</span>
+                                <span class="tag tag-buy">短線動能</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-risk">支撐位：20MA下方</span><br>
+                                <small style="color: #7f8c8d;">跌破停利出場</small>
+                            </td>
+                            <td>財報優於預期(Q4毛利率上修至86%)。不以PE評估估值，重點在SCA長約與龐大資本支出後的自由現金流。屬「高估值/高預期」階段。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">LRCX</span>
+                                <span class="tag tag-ticker">AMAT</span>
+                                <span class="tag tag-ticker">KLAC</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-buy">逢低加碼 / 續抱</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-hold">跟隨記憶體擴產週期</span>
+                            </td>
+                            <td>HBM與DRAM前段製程最直接受惠的大型設備龍頭。隨美光2027年資本支出翻倍增長，訂單能見度極高。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">VECO</span>
+                                <span class="tag tag-ticker">KLIC</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-buy">波段買進</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-buy">HBM封裝受惠股</span>
+                            </td>
+                            <td>中型設備商爆發力強。<br><b>VECO:</b> 卡位HBM先進封裝、微影、濕製程。<br><b>KLIC:</b> 記憶體互連與混合鍵合設備受惠。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">MKSI</span> <span class="tag tag-ticker">ICHR</span> <span class="tag tag-ticker">UCTT</span><br>
+                                <span class="tag tag-ticker">AEIS</span> <span class="tag tag-ticker">ENTG</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-buy">逢低加碼 / 續抱</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-hold">次系統估值重估</span>
+                            </td>
+                            <td>大型機台背後的真空系統、氣體控制、射頻電源等關鍵零組件與次系統供應商，將隨主設備出貨放量而重新定價。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">ACLS</span>
+                                <span class="tag tag-ticker">TRT</span>
+                                <span class="tag tag-ticker">PDFS</span>
+                            </td>
+                            <td>
+                                <span class="tag tag-buy">逢低佈局</span>
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td><b>ACLS:</b> 前段離子佈植。<br><b>TRT:</b> 後段高階燒機測試。<br><b>PDFS:</b> HBM良率與製程數據分析軟體。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-span-8">
+            <div class="card" style="margin-bottom: 20px;">
+                <h2 class="card-title" style="color: #2980b9;">🧠 核心總經與產業趨勢邏輯</h2>
+                <ul class="logic-list">
+                    <li><b>記憶體行情進入第二階段：</b>市場邏輯已從單純的「記憶體報價上漲」轉向「資本支出擴張與設備供應鏈重估」。獲利外溢效應將嘉惠設備、材料、封裝與測試次系統。</li>
+                    <li><b>資本支出大幅擴張至 2027 年：</b>美光不只買機台，更需新建無塵室與廠房以應對 HBM/DRAM 產能緊縮。龐大的 Capex 確保了設備商未來兩年的強勁營收動能。</li>
+                    <li><b>本益比 (PE) 的陷阱：</b>在景氣週期頂峰，EPS 暴增會導致 PE 看似極低（如 MU 的 10-14 倍）。分析師指出真正該看的是「資產淨值比 (P/B)」與「自由現金流 (FCF)」。目前 MU P/B 高達 12 倍，已反映市場將其視為 AI 戰略資產而非傳統景氣循環股。</li>
+                    <li><b>SCA 長約改變商業模式：</b>美光簽署大量至 2030 年的長期協議，鎖定價格下限與需求，試圖降低傳統景氣循環波動，這是其估值被重新定義的核心理由。</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title" style="color: #8e44ad;">🔎 分析師綜合評論 (查證與點評)</h2>
+                <div class="review-box">
+                    <p style="margin-top: 0;"><b>論述合理性：極高</b></p>
+                    <p>作者完美點出了華爾街交易半導體週期股的核心盲區——<b>「週期頂部的低本益比陷阱」</b>。當市場被短期 EPS 成長蒙蔽時，作者精準將視角切換至「資本支出 (Capex)」的受惠者（即「賣鏟子」的設備商），這在投資策略上具備極高的防禦性與上漲彈性。</p>
+                    <p style="margin-bottom: 0;">同時，給予 MU 投資人「設定 20MA 移動止盈」的建議非常務實。在 P/B 高達 12 倍的位階，估值已經 fully priced in (完全定價) 甚至 overstretched，追高的風險遠大於尋找底部剛啟動的中小型設備股 (如 VECO, KLIC)。整體操作邏輯嚴謹且契合法人圈當前的資金輪動思維。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-4">
+            <div class="card" style="margin-bottom: 20px;">
+                <h2 class="card-title" style="color: #d35400;">📈 關鍵數據可視化</h2>
+                
+                <div class="chart-container">
+                    <div class="chart-label">
+                        <span>MU 全年資本支出 (Capex)</span>
+                        <span>+48% YoY</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill color-blue" style="width: 67%;">2026預估: 270億美元</div>
+                    </div>
+                    <div class="bar-bg" style="margin-top: 8px;">
+                        <div class="bar-fill color-orange" style="width: 100%;">2027預估: > 400億美元</div>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-label">
+                        <span>2027 設備採購年增率 (YoY)</span>
+                        <span>25% - 40%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill color-green" style="width: 40%;">中位數高標預期 (40%)</div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">扣除廠房與無塵室建置後，純設備採購的爆發力</p>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-label">
+                        <span>MU Q4 毛利率指引</span>
+                        <span>86%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill color-blue" style="width: 86%;">86% (持續攀升中)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="border-top: 4px solid var(--accent-red);">
+                <h2 class="card-title" style="color: var(--accent-red);">⚠️ 系統性風險提示</h2>
+                <ul class="risk-list">
+                    <li>
+                        <b>估值重置風險：</b>
+                        MU 目前股價淨值比 (P/B) 高達 12 倍。若 2027 年證明只是傳統週期的另一個高峰，而非 AI 帶來的新常態底座，將面臨極大的估值下殺壓力。
+                    </li>
+                    <li>
+                        <b>自由現金流壓力：</b>
+                        儘管 Q3 自由現金流達 183 億，但後續龐大且持續的建廠資本支出 (單季近百億) 將快速侵蝕現金，不可單純被帳面 EPS 蒙蔽。
+                    </li>
+                    <li>
+                        <b>合約上限天花板：</b>
+                        SCA 長約雖有「保底」作用，但亦有「價格上限」。若現貨價格持續瘋漲，美光的利潤上行空間將受制於合約，無法完全享受紅利。
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
