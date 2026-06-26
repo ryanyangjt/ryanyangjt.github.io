@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-26</title>
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 992px) {
+            .grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+            border-top: 4px solid #e0e0e0;
+        }
+        .card.strategy { border-top-color: #2e7d32; }
+        .card.logic { border-top-color: #1976d2; }
+        .card.risk { border-top-color: #c62828; }
+        .card.review { border-top-color: #f57c00; }
+        
+        h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+        }
+        .bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 8px 0 15px 0;
+            height: 24px;
+        }
+        .data-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>投資研究儀表板</h1>
+        <span style="font-size: 1.1rem; font-weight: 600; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px;">更新日期: 2026-06-26</span>
+    </div>
+
+    <div class="card strategy">
+        <h2>📊 個股操作策略與關鍵點位</h2>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號</th>
+                        <th>操作建議</th>
+                        <th>目標價 / 支撐壓力位</th>
+                        <th>核心邏輯 / 備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9;">DHI</span>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9; margin-left: 4px;">PHM</span>
+                        </td>
+                        <td><span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e8f5e9; color: #2e7d32; font-weight: bold; font-size: 0.85rem;">長線佈局 (2年期)</span></td>
+                        <td><strong>支撐位：</strong>ITB 板塊年線</td>
+                        <td>專注中低價位與首購族，直接受惠於「21世紀住房之路法案」平價土地放寬與 BTR (建造出租) 條款鬆綁，週轉率將大幅提升。建議等通膨下降或確認站穩年線後建倉。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9;">TOL</span>
+                        </td>
+                        <td><span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e8f5e9; color: #2e7d32; font-weight: bold; font-size: 0.85rem;">逢低建倉</span></td>
+                        <td><strong>支撐位：</strong>ITB 板塊年線</td>
+                        <td>中高階/奢華住宅建商，雖非平價住房最直接受惠者，但將隨整體房地產板塊資金行情、行政流程簡化連帶受惠。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9;">IREN</span>
+                        </td>
+                        <td><span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #ffebee; color: #c62828; font-weight: bold; font-size: 0.85rem;">賣出 / 減碼</span></td>
+                        <td><strong>壓力位：</strong>技術面已破位</td>
+                        <td>AI 轉算力概念股，面臨資料中心禁令利空，趨勢已走空，建議波段反彈先減碼出場。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9;">NVDA</span>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9; margin-left: 4px;">ORCL</span>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9; margin-left: 4px;">WULF</span>
+                        </td>
+                        <td><span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #fff3e0; color: #ef6c00; font-weight: bold; font-size: 0.85rem;">觀望 / 提防下修</span></td>
+                        <td>-</td>
+                        <td>短期面臨「估值重新定價」壓力。資料中心落地審查變慢，營收認列將遞延。須等待籌碼沉澱與出貨速度恢復。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #e3f2fd; color: #1565c0; font-weight: bold; font-size: 0.85rem; border: 1px solid #90caf9;">AI 落地解決方案鏈</span>
+                        </td>
+                        <td><span style="display: inline-block; padding: 4px 10px; border-radius: 12px; background: #ede7f6; color: #5e35b1; font-weight: bold; font-size: 0.85rem;">尋找新題材</span></td>
+                        <td>-</td>
+                        <td>關注能解決「水資源、電力瓶頸、熱管理、審批」的公司。資金將從單純追逐算力，轉移至能讓算力真正落地的基建公司。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div>
+            <div class="card logic">
+                <h2>🧠 核心總經與產業趨勢邏輯</h2>
+                <ul style="padding-left: 20px;">
+                    <li style="margin-bottom: 12px;"><strong>AI 基建進入「第二階段」：</strong>市場邏輯從「追逐科技巨頭資本支出」轉向「資本支出何時能真正落地」。美國各地已通過超過 300 項資料中心禁令，導致 AI 園區面臨土地、許可、電網、水資源及當地居民反彈等五大現實阻力。</li>
+                    <li style="margin-bottom: 12px;"><strong>高估值 AI 硬體股的殺手：營收遞延。</strong>市場並未否定 AI 需求，但當落地受阻，被提前定價的「快速交付、快速產生收入」曲線將被迫延後，引發短線資金獲利了結與估值修正。</li>
+                    <li style="margin-bottom: 12px;"><strong>房地產政策大轉向，建商成最大贏家：</strong>「21世紀住房之路法案」從發錢補貼轉為擴大供給，放寬區劃限制。取消「BTR 7年強制出售」條款，使大型建商 (如 DHI, PHM) 實質轉型為華爾街的「基礎設施供應商」，享有高資產週轉率。</li>
+                    <li><strong>資產配置降溫：</strong>建議將資金從過度擁擠的 AI 半導體板塊，分散至受惠於政策與抗通膨的傳統龍頭股（如房地產），避免單一題材在 2027 年面臨政權交替或資本支出縮減的系統性風險。</li>
+                </ul>
+            </div>
+
+            <div class="card review">
+                <h2>🔎 分析師綜合評論 (查證與點評)</h2>
+                <p><strong>論述合理性：高</strong></p>
+                <p>作者精準捕捉了基礎建設投資的典型週期特性：<strong>「預期膨脹期 (Phase 1)」</strong>向<strong>「現實消化期 (Phase 2)」</strong>的過渡。AI 算力擴展在現實世界中必然會撞上物理資源（電力、水冷）與社會資源（土地許可、環保法規）的上限，這在 2026 年的宏觀環境中已成為顯學。</p>
+                <p>其看空缺乏護城河的「純概念股 (如 IREN)」、提防高估值延遲認列風險的邏輯非常紮實。同時，將資金引導至政策紅利釋放、解決全美 1,000 萬套結構性缺房的 <strong>BTR 建商族群 (ITB)</strong>，展現了極佳的板塊輪動防禦意識。此策略在美聯準會可能維持較高利率或大選年政治波動的背景下，提供了優異的風險回報比 (Risk-Reward Ratio)。</p>
+            </div>
+        </div>
+
+        <div>
+            <div class="card" style="border-top-color: #fbc02d;">
+                <h2>📈 關鍵數據可視化</h2>
+                
+                <div class="data-label">
+                    <span>美國資料中心禁令/暫停案累計數量</span>
+                    <span style="color: #1976d2;">> 300 項</span>
+                </div>
+                <div class="bar-container" style="background-color: #e3f2fd;">
+                    <div style="width: 100%; background: linear-gradient(90deg, #90caf9 8%, #42a5f5 50%, #1565c0 100%); height: 100%; border-radius: 6px; display: flex; align-items: center; color: white; font-size: 0.75rem; font-weight: bold;">
+                        <span style="padding-left: 10px; width: 8%; border-right: 1px solid rgba(255,255,255,0.5);">1月前 (<25)</span>
+                        <span style="padding-left: 10px; width: 42%; border-right: 1px solid rgba(255,255,255,0.5);">1-5月暴增 (>150)</span>
+                        <span style="padding-left: 10px;">6月現況 (>300)</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #666; margin-top: -5px; margin-bottom: 25px;">註：反彈聲浪從零星事件演變為全美級距，集中在中西部與南部AI核心區。</p>
+
+                <div class="data-label">
+                    <span>全美房屋結構性缺口數量</span>
+                    <span style="color: #c62828;">~ 10,000,000 套</span>
+                </div>
+                <div class="bar-container" style="background-color: #ffebee;">
+                    <div style="width: 100%; background-color: #ef5350; height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: white; font-size: 0.8rem; font-weight: bold;">
+                        10M 供給缺口
+                    </div>
+                </div>
+                <p style="font-size: 0.85rem; color: #666; margin-top: -5px; margin-bottom: 25px;">註：自 2008 年金融海嘯以來累積的巨量缺口，奠定建商長線基本面。</p>
+
+                <div class="data-label">
+                    <span>AI 基建投資重心轉移</span>
+                </div>
+                <div style="margin-top: 10px;">
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <span style="width: 80px; font-size: 0.85rem; font-weight: bold;">第一階段</span>
+                        <div style="flex-grow: 1; height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden;">
+                            <div style="width: 90%; background: #9e9e9e; height: 100%;"></div>
+                        </div>
+                        <span style="margin-left: 10px; font-size: 0.8rem; color: #555;">算力/硬體</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span style="width: 80px; font-size: 0.85rem; font-weight: bold; color: #2e7d32;">第二階段</span>
+                        <div style="flex-grow: 1; height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden;">
+                            <div style="width: 100%; background: #4caf50; height: 100%;"></div>
+                        </div>
+                        <span style="margin-left: 10px; font-size: 0.8rem; color: #555;">水/電/許可解決方案</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card risk">
+                <h2>⚠️ 系統性風險提示</h2>
+                <div style="background-color: #fff8e1; border-left: 4px solid #ffb300; padding: 12px 15px; font-size: 0.9rem; color: #424242; margin-bottom: 10px;">
+                    <strong>擁擠交易 (Crowded Trade)：</strong>AI 科技股估值處於絕對高位，若 CSP (雲端服務供應商) 放緩資本支出，將引發軟體與硬體股慘烈的殺盤估值重置。
+                </div>
+                <div style="background-color: #ffebee; border-left: 4px solid #f44336; padding: 12px 15px; font-size: 0.9rem; color: #424242;">
+                    <strong>政治與時程風險：</strong>2027 年政權交替潛在變數大；房地產「拯救美國法案」若持續遭杯葛，短期將影響法規落地進度，建商類股需提防技術面假突破。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
