@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-06-28</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary: #2980b9;
+            --success: #27ae60;
+            --danger: #c0392b;
+            --warning: #f39c12;
+            --info: #8e44ad;
+            --border: #e0e6ed;
+        }
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: var(--text-main);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .date-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+        }
+        .card-full {
+            grid-column: 1 / -1;
+        }
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            font-size: 1.35rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin: 2px;
+            white-space: nowrap;
+        }
+        .tag-ticker { background-color: #ebf5fb; color: #2980b9; border: 1px solid #d4e6f1; }
+        .tag-buy { background-color: #e9f7ef; color: #27ae60; border: 1px solid #d4efdf; }
+        .tag-avoid { background-color: #fdedec; color: #c0392b; border: 1px solid #fadbd8; }
+        .tag-wait { background-color: #f4ecf8; color: #8e44ad; border: 1px solid #e8daef; }
+        .tag-price { background-color: #fef5e7; color: #d35400; border: 1px solid #fdebd0; }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: #f8fafc;
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        td {
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+        tbody tr:hover {
+            background-color: #fbfcfd;
+        }
+
+        /* Native HTML Bar Chart CSS */
+        .chart-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fdfefe;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+        .bar-group {
+            margin-bottom: 20px;
+        }
+        .bar-group:last-child {
+            margin-bottom: 0;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .bar-track {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            overflow: hidden;
+            height: 24px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: width 0.8s ease-in-out;
+        }
+        
+        .text-highlight {
+            font-weight: 700;
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>華爾街投資研究儀表板</h1>
+        <div class="date-badge">2026-06-28</div>
+    </header>
+
+    <div class="dashboard-grid">
+        <div class="card card-full">
+            <h2>🧠 核心總經觀點與產業趨勢邏輯</h2>
+            <p><strong>季底作帳與流動性劇本 (Window Dressing & Liquidity Hunt)：</strong>目前正處於六月底法人作帳的最後階段，華爾街機構利用半導體與M7巨頭（如MSFT）輪流撐盤以調節倉位。進入七月後，機構為了「買在低點」，高機率會策動市場跌破關鍵頸線，藉此引發散戶極度恐慌與量化/CTA基金的停損賣壓，創造出充足的底部流動性（Liquidity）供大資金進場建倉。</p>
+            <p><strong>產業趨勢轉移 (AI至量子計算)：</strong>美國政府在AI基礎設施（星際之門）之外，正大力扶植「量子電腦」以拉開與中國的科技差距。相較於已經擁擠交易的AI硬體股，具備實質企業訂單（如Honeywell、JPMorgan、BMW、HPE）與高保真度技術的量子計算，將是下一波值得關注的政府扶植與商轉化板塊。</p>
+        </div>
+
+        <div class="card">
+            <h2>📊 量子計算路線「保真度」與「錯誤率」比較</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: -5px;">無保真度的量子位元數量毫無意義。比較傳統超導路線與離子阱路線在每 1,000 次運算中的表現差異。</p>
+            
+            <div class="chart-container">
+                <div class="chart-title">量子保真度 (Fidelity) 比較</div>
+                <div class="bar-group">
+                    <div class="bar-label">
+                        <span>QNT 離子阱技術 (Helios 系統)</span>
+                        <span>99.92%</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 99.92%; background-color: var(--primary);">領先</div>
+                    </div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar-label">
+                        <span>IBM / Google 超導路線</span>
+                        <span>99.50%</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 99.50%; background-color: var(--warning);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">每 1,000 次運算預期錯誤次數 (越低越好)</div>
+                <div class="bar-group">
+                    <div class="bar-label">
+                        <span>IBM / Google (錯誤率會污染演算法)</span>
+                        <span class="text-highlight">5 次錯誤</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 100%; background-color: var(--danger);">高錯誤率</div>
+                    </div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar-label">
+                        <span>QNT (高了一個數量級的精準度)</span>
+                        <span style="color: var(--success); font-weight: bold;">< 1 次錯誤</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 16%; background-color: var(--success);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>⚖️ 分析師查證與綜合評論</h2>
+            <p><strong>市場結構推演合理性：</strong>作者提出的「獵殺流動性（ICT理論）」非常符合美股季底至季初的資金行為特徵。大型機構在缺乏流動性的高檔區難以建倉，刻意摜破技術面頸線（如SPX 7250）以觸發CTA停損機制，是極為經典的華爾街造市手法。</p>
+            <p><strong>量子計算標的點評：</strong>作者推薦的 <span class="tag tag-ticker">QNT</span>（Quantinuum/相關標的）邏輯嚴密。捨棄純炒作概念股，轉向具備 <strong>Honeywell (HON)</strong> 48.1% 投票權背書、且能與 <strong>NVDA Hopper</strong> 晶片整合的實質商業落地公司。其提出的「保真度先於位元數」觀點直擊量子計算目前的產業痛點，是一次高質量的非共識性看多（Contrarian Call）。</p>
+            <p><strong>風險提示：</strong>新股（IPO）疊加技術面「高9」確實有回調風險，作者提醒不宜追高並嚴設停損，展現了成熟的交易紀律。</p>
+        </div>
+
+        <div class="card card-full">
+            <h2>🎯 個股操作建議與目標價矩陣</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>板塊分類</th>
+                        <th>標的代號</th>
+                        <th>操作建議</th>
+                        <th>關鍵支撐 / 壓力位</th>
+                        <th>策略備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>美股大盤指數</strong></td>
+                        <td><span class="tag tag-ticker">SPX (SPY)</span></td>
+                        <td><span class="tag tag-wait">耐心觀望等待破位</span></td>
+                        <td>
+                            頸線：<span class="tag tag-price">7250</span><br>
+                            支撐：<span class="tag tag-price">6900 - 7000</span>
+                        </td>
+                        <td>跌破頸線 7250 勿恐慌殺低，這正是機構獵殺流動性區域。等待下殺至半年線 (6900-7000) 附近，分批跟隨機構接回好股票。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>量子電腦潛力股</strong></td>
+                        <td><span class="tag tag-ticker">QNT</span></td>
+                        <td><span class="tag tag-buy">逢低建倉 / 嚴設停損</span></td>
+                        <td>短線壓力：<span class="tag tag-price">75元以上</span></td>
+                        <td>技術面高9不宜追高，有短線獲利了結賣壓。可建小倉或等七月大盤洗盤時佈局，未來美國政府與巨頭企業大力扶植的核心受惠者。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI 硬體與半導體</strong></td>
+                        <td>
+                            <span class="tag tag-ticker">ASML</span> <span class="tag tag-ticker">TSM</span>
+                        </td>
+                        <td><span class="tag tag-wait">等待財報前表現</span></td>
+                        <td>無特定預設</td>
+                        <td>兩週後將開啟財報季，屆時市場焦點有望重新回歸 AI 硬體股與半導體設備。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>M7 科技巨頭</strong></td>
+                        <td><span class="tag tag-ticker">MSFT</span></td>
+                        <td><span class="tag tag-wait">短線觀望</span></td>
+                        <td>無特定預設</td>
+                        <td>季底被華爾街機構用來撐盤與調節的工具，不建議在此時盲目追價或殺低。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>避開標的 (抓交替股)</strong></td>
+                        <td>
+                            <span class="tag tag-ticker">INFQ</span> <span class="tag tag-ticker">SPCX</span>
+                        </td>
+                        <td><span class="tag tag-avoid">避開 / 勿買進</span></td>
+                        <td>無特定預設</td>
+                        <td>缺乏實質商轉能力，上檔冤魂多，屬於來市場撈錢或投機炒作的標的，不如專注佈局 QNT。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
