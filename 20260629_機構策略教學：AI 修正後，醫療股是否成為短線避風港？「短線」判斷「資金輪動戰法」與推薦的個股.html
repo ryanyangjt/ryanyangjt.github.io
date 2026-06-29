@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美股資金輪動投資研究儀表板 - 2026-06-29</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-text: #2c3e50;
+            --secondary-text: #596a7b;
+            --border-color: #e1e8ed;
+            --buy-color: #10b981;
+            --sell-color: #ef4444;
+            --watch-color: #f59e0b;
+            --ticker-color: #3b82f6;
+            --bar-bg: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--primary-text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--primary-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header .date {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            font-weight: normal;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .tag-ticker { background-color: var(--ticker-color); }
+        .tag-buy { background-color: var(--buy-color); }
+        .tag-watch { background-color: var(--watch-color); color: #fff;}
+        .tag-risk { background-color: var(--sell-color); }
+
+        /* Custom Bar Chart Styles */
+        .chart-container {
+            margin-top: 1rem;
+        }
+
+        .chart-row {
+            margin-bottom: 1rem;
+        }
+
+        .chart-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bar-wrap {
+            width: 100%;
+            height: 24px;
+            background-color: var(--bar-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+
+        .strategy-item {
+            background: #f8fafc;
+            border-left: 4px solid var(--ticker-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .strategy-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .price-levels {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .level {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--ticker-color);
+        }
+
+        .review-box {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        
+        ul.bullet-list {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        ul.bullet-list li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>📊 美股機構資金輪動投資研究儀表板</h1>
+        <div class="date">2026-06-29</div>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <div class="card card-full-width">
+            <h2>💡 核心總經觀點與產業趨勢邏輯</h2>
+            <p><strong>資金流向特徵：</strong>大盤（SPX）維持高位，但內部結構劇烈變化。資金正從高度擁擠的科技/AI板塊（QQQ獨弱、SOXX跌破20MA）流出，轉向具防禦與價值屬性的醫療保健、公用事業、金融板塊（DIA、IWM獨強）。</p>
+            <br>
+            <p><strong>底層驅動邏輯：</strong></p>
+            <ul class="bullet-list">
+                <li><strong>季末窗飾效應 (Window Dressing)：</strong>機構於 Q2 結帳前鎖定科技股利潤，進行資金再平衡。</li>
+                <li><strong>經濟與股市週期錯位：</strong>聯準會高利率預期維持（甚至升息預期增溫），股市週期領先實體經濟 6-9 個月，資金按照經典輪動模型從「科技/非必須消費」轉入「醫療/公用事業/民生必需」。</li>
+            </ul>
+            <p><strong>⚠️ 戰略定調：</strong>當前醫療板塊的上漲為<strong>「短線資金避風港與相對強弱輪動」</strong>，切忌將其視為新長線主線（避免買三天變套三年）。需緊盯相對強弱指標 (RS)，若 AI 重新回補即需果斷撤出。</p>
+        </div>
+
+        <div class="card">
+            <h2>📉 板塊相對動能分析 (近 1 個月與 1 週)</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;">數據基準：相對報酬率 (Relative Performance)。長條圖比例依據最大漲跌幅動態映射。</p>
+            
+            <div class="chart-container">
+                <div class="chart-label"><span>近 1 個月績效</span></div>
+                
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--buy-color)">醫療保健 (Health Care)</span><span>+9.88%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 98.8%; background-color: var(--buy-color);">9.88%</div></div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--buy-color)">金融 (Financials)</span><span>+8.00%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 80.0%; background-color: var(--buy-color);">8.00%</div></div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--secondary-text)">科技 (Technology)</span><span>+0.19%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 1.9%; background-color: #94a3b8; color: #333;">0.19%</div></div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--sell-color)">通訊服務 (Comm Services)</span><span>-5.61%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 56.1%; background-color: var(--sell-color);">-5.61%</div></div>
+                </div>
+
+                <hr style="border:0; border-top:1px dashed var(--border-color); margin:1.5rem 0;">
+
+                <div class="chart-label"><span>近 1 週績效 (情緒加速攤牌)</span></div>
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--buy-color)">醫療保健 (Health Care)</span><span>+9.17%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 91.7%; background-color: var(--buy-color);">單週爆發 9.17%</div></div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label"><span style="color:var(--sell-color)">科技 (Technology)</span><span>-2.91%</span></div>
+                    <div class="bar-wrap"><div class="bar-fill" style="width: 29.1%; background-color: var(--sell-color);">-2.91%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛡️ 華爾街分析師綜合評量</h2>
+            <div class="review-box">
+                <p><strong>邏輯查證：✅ 高度合理</strong></p><br>
+                <p>作者巧妙運用華爾街經典的<strong>「板塊輪動模型 (Sector Rotation Model)」</strong>配合季末<strong>「窗飾效應 (Window Dressing)」</strong>來解釋近期的美股資金流向，論述邏輯嚴密且貼合機構操盤實務。</p><br>
+                <p>操作面建議採用「由上而下 (Top-Down)」策略極具實戰價值：先以 <strong>XLV/SPX</strong> 相對強弱確認資金大水庫，再細分防禦型 (JNJ)、價值修復 (MRK) 與成長型 (LLY) 個別擊破，策略立體度極高。</p><br>
+                <p><strong>⚠️ 風險提示與補充：</strong></p>
+                <p>季末作帳資金通常具備<strong>「高爆發、短延續」</strong>的特性。若費半 (SOXX) 短線殺估值完成並重新站回均線，AI 板塊的吸血效應將迅速重現。投資人務必嚴格遵守作者提示的紀律：破關鍵支撐 (如 XLV 153 防線) 需無條件停損，切勿將避險短線拗成套牢長線。</p>
+            </div>
+        </div>
+
+        <div class="card card-full-width">
+            <h2>🚀 個股/標的短線操作策略</h2>
+            
+            <div class="strategy-item" style="border-left-color: #64748b;">
+                <div style="margin-bottom: 8px;">
+                    <span class="tag tag-ticker">XLV</span> 
+                    <span class="tag tag-watch">區間觀望 / 訊號指標</span>
+                </div>
+                <p><strong>定位：</strong>整體醫療板塊資金方向與大盤相對強弱 (RS) 判斷基準。</p>
+                <p><strong>策略：</strong>不建議盲目追高長紅Ｋ。需觀察回測時 XLV/SPX 能否守住 0 軸上方。若有效突破再行建倉內部強勢股。</p>
+                <div class="price-levels">
+                    <div class="level">📉 關鍵支撐：<span class="highlight">156.0</span></div>
+                    <div class="level">🚀 有效突破：<span class="highlight">160.6</span></div>
+                    <div class="level">⚠️ 跌破停損：<span style="color:var(--sell-color); font-weight:bold;">< 153.0</span> (前低)</div>
+                </div>
+            </div>
+
+            <div class="strategy-item">
+                <div style="margin-bottom: 8px;">
+                    <span class="tag tag-ticker">JNJ</span> 
+                    <span class="tag tag-buy">拉回佈局</span>
+                </div>
+                <p><strong>定位：</strong>機構降波動之防禦型配置 (大型低波動醫療股)。</p>
+                <p><strong>策略：</strong>機構買盤特徵為連陽且回檔淺。因非高 Beta 飆股，切勿在連續大漲後追高，建議於回測不破短期關鍵低點時試單買進。</p>
+            </div>
+
+            <div class="strategy-item">
+                <div style="margin-bottom: 8px;">
+                    <span class="tag tag-ticker">MRK</span> 
+                    <span class="tag tag-buy">突破買進</span>
+                </div>
+                <p><strong>定位：</strong>大型藍籌藥廠估值修復交易。</p>
+                <p><strong>策略：</strong>需同時滿足三要件方可進場：(1) XLV 本身上漲 (2) MRK/XLV 相對強弱線上升 (3) MRK 自身股價突破且拉回不破。慎防假突破。</p>
+            </div>
+
+            <div class="strategy-item">
+                <div style="margin-bottom: 8px;">
+                    <span class="tag tag-ticker">LLY</span> 
+                    <span class="tag tag-risk">嚴控停損 / 動能交易</span>
+                </div>
+                <p><strong>定位：</strong>醫療板塊內的成長題材股 (減重藥)，具備科技股交易屬性。</p>
+                <p><strong>策略：</strong>估值高、波動大，採純動能股邏輯操作。若 JNJ/MRK 向上且 LLY 同步轉強，代表板塊資金結構完整。追價需極度小心。</p>
+                <div class="price-levels">
+                    <div class="level">⚠️ 停損防線：<span style="color:var(--sell-color); font-weight:bold;">上週五低點下方</span></div>
+                </div>
+            </div>
+
+            <div class="strategy-item" style="border-left-color: #ef4444;">
+                <div style="margin-bottom: 8px;">
+                    <span class="tag tag-ticker">QQQ</span>
+                    <span class="tag tag-ticker">SOXX</span> 
+                    <span class="tag tag-watch">反向觀察指標</span>
+                </div>
+                <p><strong>定位：</strong>AI 主線回補壓力測試指標。</p>
+                <p><strong>策略：</strong>若半導體板塊 (SOXX) 重新放量站回短期均線，代表資金再度回歸 AI 硬體主軸，屆時醫療股將喪失相對強勢優勢，應準備獲利了結或出場。</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
