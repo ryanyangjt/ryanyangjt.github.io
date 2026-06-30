@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-06-30</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            
+            /* Tags Colors */
+            --tag-buy-bg: #d1fae5;
+            --tag-buy-text: #065f46;
+            --tag-watch-bg: #e0e7ff;
+            --tag-watch-text: #3730a3;
+            --tag-alert-bg: #fef3c7;
+            --tag-alert-text: #92400e;
+            --tag-neutral-bg: #f3f4f6;
+            --tag-neutral-text: #374151;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .date-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .tag.buy { background-color: var(--tag-buy-bg); color: var(--tag-buy-text); }
+        .tag.watch { background-color: var(--tag-watch-bg); color: var(--tag-watch-text); }
+        .tag.alert { background-color: var(--tag-alert-bg); color: var(--tag-alert-text); }
+        .tag.neutral { background-color: var(--tag-neutral-bg); color: var(--tag-neutral-text); }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--bg-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .ticker {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Native HTML/CSS Bar Charts */
+        .chart-section {
+            margin-top: 20px;
+        }
+        .chart-row {
+            margin-bottom: 16px;
+        }
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+        .bar-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+            white-space: nowrap;
+        }
+        
+        /* Specific Chart Colors */
+        .fill-blue { background-color: #3b82f6; }
+        .fill-green { background-color: #10b981; }
+        .fill-gray { background-color: #9ca3af; }
+        .fill-orange { background-color: #f59e0b; }
+
+        .synthesis-content {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>Wall Street 投資研究儀表板 : AI基建與次世代散熱</h1>
+        <div class="date-badge">2026-06-30</div>
+    </header>
+
+    <div class="grid-container">
+
+        <div class="card col-span-12">
+            <h2 class="card-title">🌐 核心總經觀點與產業趨勢</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <p><strong>盤勢雜音：</strong> 適逢半年底結帳與作帳行情，加上7/4美國國慶前後的護盤預期，近期盤面訊號混亂。大型科技股支撐指數 (SPX, QQQ)，但皆未站穩20MA且均線下彎，大盤仍存頭部成型風險。</p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <p><strong>產業輪動邏輯：</strong> 市場資金對單純的「AI 硬體股」已顯疲態，投資主軸正悄悄轉移至<strong>「AI 基礎設施：水資源效率管理與液冷散熱」</strong>。隨著AI算力激增與資料中心高功率化，解決耗水與散熱瓶頸成為科技巨頭剛需。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-8">
+            <h2 class="card-title">📈 重點標的與操作策略</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號 / 名稱</th>
+                        <th>操作建議</th>
+                        <th>關鍵價位 (支撐/壓力)</th>
+                        <th>策略備註與催化劑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ticker">ECL (Ecolab)</td>
+                        <td><span class="tag buy">中長線佈局</span><span class="tag buy">逢低買進</span></td>
+                        <td><strong>支撐位：</strong> $269 - $270 (年線位置)</td>
+                        <td>從水處理轉型「AI液冷與流體管理平台」。剛突破年線，等待拉回止穩後建倉。短線催化劑為 2026 Q3 CoolIT 併購交割。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">TSMC (台積電)</td>
+                        <td><span class="tag watch">短線波段</span></td>
+                        <td>-</td>
+                        <td>Q2財報法說前行情。建議策略：現階段 Buy Long Call，法說前一週因IV上升改採 Sell Put，財報發布前獲利了結一半以上。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">MOG.A / CGNX</td>
+                        <td><span class="tag buy">短線做多</span></td>
+                        <td>-</td>
+                        <td>人形機器人概念股。股價具備抗跌性，且機構近期有大單進場(CGNX)，受惠於下半年機器人發表題材。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">OUST</td>
+                        <td><span class="tag watch">建立觀察倉</span></td>
+                        <td>-</td>
+                        <td>光達感測器，切入AI重型機具領域。機構大買拉出長紅，但為避免作帳干擾不建議追高，先建觀察倉避免踏空。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">SPX / QQQ</td>
+                        <td><span class="tag alert">保守觀望</span></td>
+                        <td><strong>壓力位：</strong> 20MA (目前在下方)</td>
+                        <td>指數靠大型股撐盤，尚未站穩20MA，趨勢不明確，做波段者建議等待7/4長假後再行判斷。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">ABBV</td>
+                        <td><span class="tag neutral">關注資金流向</span></td>
+                        <td>-</td>
+                        <td>醫療板塊近期有機構大單買入，作為AI科技股之外的資金避風港觀察指標。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card col-span-4">
+            <h2 class="card-title">📊 ECL 財務預測與價值重估 (Re-rating) 軌跡</h2>
+            
+            <div class="chart-section">
+                <div class="chart-row">
+                    <div class="chart-label"><span>營收年增率 (YoY) 預估變化</span></div>
+                    <div class="bar-container" style="margin-bottom: 8px;">
+                        <div class="bar-fill fill-gray" style="width: 35%;">目前水準 (3% - 4%)</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill fill-green" style="width: 65%;">2027年加速目標 (5% - 7%)</div>
+                    </div>
+                </div>
+
+                <div class="chart-row" style="margin-top: 24px;">
+                    <div class="chart-label"><span>營業利益率 (Operating Margin) 目標</span></div>
+                    <div class="bar-container" style="margin-bottom: 8px;">
+                        <div class="bar-fill fill-gray" style="width: 60%;">過往傳統水處理水準</div>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill fill-blue" style="width: 85%;">2027年突破目標 (>20%)</div>
+                    </div>
+                </div>
+
+                <div class="chart-row" style="margin-top: 24px;">
+                    <div class="chart-label"><span>EPS 盈餘軌跡演進 (2026 - 2029)</span></div>
+                    <div style="position: relative; height: 40px; background: #f3f4f6; border-radius: 8px; margin-top: 10px; display: flex;">
+                        <div style="flex: 1; border-right: 1px dashed #ccc; text-align: center; padding-top: 8px; color: #ef4444; font-size: 0.8rem; font-weight: bold;">
+                            26H2 (稀釋-0.2)
+                        </div>
+                        <div style="flex: 1; border-right: 1px dashed #ccc; text-align: center; padding-top: 8px; color: #f59e0b; font-size: 0.8rem; font-weight: bold;">
+                            2027 (損益平衡)
+                        </div>
+                        <div style="flex: 1; border-right: 1px dashed #ccc; text-align: center; padding-top: 8px; color: #10b981; font-size: 0.8rem; font-weight: bold;">
+                            2028 (貢獻轉正)
+                        </div>
+                        <div style="flex: 1; text-align: center; padding-top: 8px; color: #059669; font-size: 0.8rem; font-weight: bold; background-color: #d1fae5; border-radius: 0 8px 8px 0;">
+                            2029+ (極速放大)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2 class="card-title">💡 分析師綜合評論與邏輯查證 (Fact-Check Synthesis)</h2>
+            <div class="synthesis-content">
+                <p><strong>邏輯評估：強烈合理 (Highly Plausible)</strong></p>
+                <p>作者將投資視角從「GPU等純硬體」轉向「資料中心水務與散熱管理」，具備極高的華爾街前瞻視角。AI 晶片（如 Nvidia 新一代架構）的熱設計功耗 (TDP) 已突破傳統氣冷極限，強制導入液冷 (Liquid Cooling) 系統如冷水板 (Cold Plates) 與冷卻液分配單元 (CDU) 是確定的產業趨勢。ECL 透過收購 CoolIT 確實能將其化學水處理專長延伸至高毛利的科技基建硬體層。</p>
+                <p><strong>估值與操作盲點提醒：</strong></p>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>作者提及 ECL 目前 P/E 估值低於 40 倍，相較傳統 AI 硬體股看似便宜，但需注意 ECL 傳統業務屬公用事業/特化性質，市場賦予的基準本益比本來就偏低。真正的「估值重塑 (Re-rating)」需等待 2026 Q4 或 2027 年財報中，AI 液冷營收佔比顯著提升，且抵銷併購產生的利息與無形資產攤銷（即作者提到的 0.2 元稀釋）。</li>
+                    <li><strong>策略驗證：</strong> 建議在 $269-$270（年線）逢低佈局是極具風險報酬比的策略。因短期財報 EPS 遭併購稀釋可能引發散戶拋售，專業機構反而會利用此「財報空窗期」吸收籌碼，完美符合「買在題材發酵前」的機構操作手冊。</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
