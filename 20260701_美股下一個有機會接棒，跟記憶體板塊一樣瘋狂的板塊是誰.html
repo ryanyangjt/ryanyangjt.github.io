@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-01</title>
+    <style>
+        :root {
+            --bg-main: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --border-color: #dfe6e9;
+            --color-buy: #00b894;
+            --color-sell: #d63031;
+            --color-watch: #fdcb6e;
+            --color-hold: #0984e3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #2c3e50;
+        }
+
+        .dashboard-header p {
+            margin: 0;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.2rem;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f2f6;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Bar Chart */
+        .bar-container {
+            margin-bottom: 1.2rem;
+        }
+        
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .bar-track {
+            width: 100%;
+            background-color: #f1f2f6;
+            border-radius: 6px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 0.75rem;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .insight-list {
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+
+        .insight-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 {
+                grid-column: span 12;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>📊 投資研究儀表板</h1>
+        <p>更新日期：2026-07-01</p>
+    </div>
+
+    <div class="grid">
+        
+        <div class="card col-span-8">
+            <h2 class="card-title">🧠 核心總經觀點與產業趨勢邏輯</h2>
+            <ul class="insight-list">
+                <li><strong>資金板塊遷徙 (去大科技化)：</strong> 散戶與游資正全面撤出估值過高、彈性不足的 M7 大型科技巨頭，轉向 AI 第二圈硬體板塊（中小型半導體、落後補漲股）。</li>
+                <li><strong>AI 投資進入第二階段：</strong> 從「誰是 AI 引擎 (GPU)」轉向「支撐高速運轉的基礎設施」——記憶體、CPU、設備、封裝、測試、電源與散熱。</li>
+                <li><strong>記憶體超級循環：</strong> 美光財報證實 AI 需求已轉化為實質營收與千億級長約，供需吃緊將延續至 2027 年，帶動資本支出與上游設備需求大增。</li>
+                <li><strong>關鍵事件驅動 (7月上半月)：</strong> 資金正在卡位 7/7 SPCX 入納指、7/10 SK 海力士(SKHY) 赴美 ADR 掛牌募資、7/15 ASML 財報及 7/16 台積電法說。機構利用事件時間軸進行波段操作。</li>
+                <li><strong>CPU 重新定價：</strong> AI 應用從雲端擴展至邊緣裝置 (AI PC)，市場開始重估 CPU 巨頭（AMD 成長邏輯 vs INTC 轉機邏輯）的算力價值。</li>
+            </ul>
+        </div>
+
+        <div class="card col-span-4">
+            <h2 class="card-title">📈 關鍵市場趨勢與數據對比</h2>
+            
+            <div class="bar-container">
+                <div class="bar-label">
+                    <span>M7 科技巨頭散戶交易參與度</span>
+                    <span>僅剩 6%</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: 6%; background-color: var(--color-sell); color: #000; padding-left: 5px;">📉 驟降</div>
+                </div>
+            </div>
+
+            <div class="bar-container">
+                <div class="bar-label">
+                    <span>費城半導體 ETF (SMH) Q2 漲幅</span>
+                    <span>+71%</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: 71%; background-color: var(--color-buy);">🚀 歷史級表現</div>
+                </div>
+            </div>
+
+            <div class="bar-container">
+                <div class="bar-label">
+                    <span>NVTS 股價漲幅 (2026至今)</span>
+                    <span>+330% ($1.52 ➜ $34.17)</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: 95%; background-color: var(--color-hold);">⚡ 暴漲區間</div>
+                </div>
+            </div>
+            
+            <div class="bar-container">
+                <div class="bar-label">
+                    <span>美光 (MU) 剩餘履約義務預估</span>
+                    <span>$1,000億 USD</span>
+                </div>
+                <div class="bar-track">
+                    <div class="bar-fill" style="width: 85%; background-color: #8e44ad;">長約鎖定需求</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2 class="card-title">🎯 投資標的與操作策略</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的代號</th>
+                            <th>板塊/題材</th>
+                            <th>操作建議</th>
+                            <th>關鍵價位/目標</th>
+                            <th>核心邏輯說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MU, SNDK, WDC, STX</strong></td>
+                            <td>記憶體 / HBM</td>
+                            <td><span class="tag" style="background:#e8f4fd; color:#0984e3;">波段續抱</span></td>
+                            <td>-</td>
+                            <td>AI 第二圈領頭羊，只要 MU 與 SNDK 未現大幅回檔，設備供應鏈皆可續抱。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ASML</strong></td>
+                            <td>半導體設備 (EUV)</td>
+                            <td><span class="tag" style="background:#e6f4ea; color:#00b894;">提前卡位買進</span></td>
+                            <td>-</td>
+                            <td>受惠 SK 海力士赴美募資添購 EUV 及 7/15 財報預期，可利用槓桿操作但需控管倉位。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>INTC</strong></td>
+                            <td>CPU / 先進封裝</td>
+                            <td><span class="tag" style="background:#e6f4ea; color:#00b894;">低檔佈局</span></td>
+                            <td>-</td>
+                            <td>低基期轉機股。短線看 CPU 回溫，中線看 EMIB/Foveros 封裝，長線具備矽光子想像空間。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AMD</strong></td>
+                            <td>CPU / AI PC</td>
+                            <td><span class="tag" style="background:#e8f4fd; color:#0984e3;">成長股持有</span></td>
+                            <td>-</td>
+                            <td>EPYC 伺服器市佔擴張，Ryzen 需求強勁，實質成長確認。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NVTS</strong></td>
+                            <td>資料中心電源</td>
+                            <td><span class="tag" style="background:#e6f4ea; color:#00b894;">打底佈局</span></td>
+                            <td>歷史高點 34.17</td>
+                            <td>與 NVDA 開發 800V 電源架構，基期相較 VICR 更具佈局價值。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LRCX, AMAT, MKSI, KLAC 等</strong></td>
+                            <td>設備 / 封裝測試</td>
+                            <td><span class="tag" style="background:#e8f4fd; color:#0984e3;">強者恆強</span></td>
+                            <td>-</td>
+                            <td>記憶體擴產直接受惠者，資金從成品端湧入製程與測試設備端。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>M7 (NVDA, MSFT, META)</strong></td>
+                            <td>大型科技巨頭</td>
+                            <td><span class="tag" style="background:#fee2e2; color:#d63031;">減碼/避開</span></td>
+                            <td>-</td>
+                            <td>估值過高，散戶與游資流出，面臨資金「去大科技化」壓力。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SPCX</strong></td>
+                            <td>指數編制事件</td>
+                            <td><span class="tag" style="background:#fff3cd; color:#f39c12;">短線獲利了結</span></td>
+                            <td>7/7 前出場</td>
+                            <td>7/7 納入納指 100，事件發酵後極易利多出盡，短線客需提早跑。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>VICR, OUST</strong></td>
+                            <td>前期熱門股</td>
+                            <td><span class="tag" style="background:#fee2e2; color:#d63031;">切勿追高</span></td>
+                            <td>-</td>
+                            <td>股價已大幅噴出，風險報酬比不佳。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card col-span-12" style="background-color: #fdfbf7; border-color: #f1e5bc;">
+            <h2 class="card-title">👨‍💻 分析師綜合評論 (Fact-Check & Review)</h2>
+            <div style="padding: 1rem; border-left: 4px solid #fdcb6e; background-color: #fff; border-radius: 4px;">
+                <p><strong>1. 邏輯合理性與市場微結構：</strong><br>
+                作者精準抓住了市場資金的「板塊輪動效應 (Sector Rotation)」。在第一梯隊 (M7, GPU) 估值達到高位後，資金外溢至「基礎設施建設」 (記憶體、電力、散熱、先進封裝) 是極為經典且合理的華爾街牛市擴散邏輯。SK 海力士赴美發行 ADR (SKHY) 確實將成為吸納被動資金與引爆記憶體供應鏈重估的強烈催化劑。</p>
+                
+                <p><strong>2. 風險提示 - 游資的高波動性：</strong><br>
+                文章雖點出散戶與 YOLO 資金轉戰中小型半導體，但<strong>必須警惕流動性風險</strong>。這類「迷因式」的動能交易 (Momentum Trading) 雖然短線極具爆發力，但籌碼穩定度極低。一旦出現宏觀經濟數據不如預期或美債殖利率飆升，這些二線硬體股的多殺多回撤幅度將遠大於 M7 巨頭。</p>
+
+                <p><strong>3. INTC (英特爾) 的估值陷阱警示：</strong><br>
+                雖然作者提出 INTC 具備 CPU、EMIB 與矽光子的「轉機邏輯」，但從基本面來看，INTC 的代工業務 (Foundry) 仍在鉅額虧損，且良率與擴產進度頻頻受挫。將其視為「低基期價值股」進行波段佈局尚可，但若視為長期 AI 核心標的，仍需觀察其未來財報中代工毛利的實質改善，不可過度樂觀。</p>
+                
+                <p><strong>總結操作紀律：</strong><br>
+                高度認同「事件型交易 (Event-driven trading)」需在新聞落地前 (如 7/7 SPCX, 7/10 SKHY) 獲利了結的策略。投資人應將核心倉位保留在有實質長約支撐的記憶體 (MU) 與設備 (ASML, LRCX)，邊緣題材 (如 NVTS) 僅宜小注試單。</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
