@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-01</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e2e8f0;
+            --primary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 2.5rem;
+        }
+
+        .dashboard-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Span Grid Assignments */
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Pure HTML/CSS Charts */
+        .chart-container {
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bar-bg {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 6px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+
+        .insight-box {
+            background-color: #eef2f5;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>Wall Street 投資研究儀表板</h1>
+        <p>更新日期：2026-07-01 | 專注科技板塊與量價資金流動分析</p>
+    </div>
+
+    <div class="grid-container">
+
+        <div class="card col-span-8">
+            <h2>🌍 總經與核心投資邏輯 (Macro & Core Logic)</h2>
+            <div class="insight-box">
+                <strong>核心觀點：</strong> 機構法人（大人）在季底/半年底結帳後開始回補資金。市場正提前卡位「七月國慶行情」與「Q2財報行情」。技術面大盤標普（SPX）站上20MA，科技股（QQQ）止穩，VIX處於低檔，具備短線做多條件。
+            </div>
+            <ul>
+                <li><strong>利多因子：</strong> SPX站上20MA、巨頭科技股止穩（MSFT連三日不破底）、Q2財報獲利預期優於Q1、VIX回落低位。</li>
+                <li><strong>利空/風險因子：</strong> 季底量能萎縮（量價背離疑慮）、CNN恐懼貪婪指數偏向恐懼、US10Y公債殖利率單日大漲（1.67%）、散戶資金過早湧入可能導致利多出盡。</li>
+                <li><strong>總體操作準則：</strong> 按照紀律，站上20MA即短線作多。保留部分資金應對量能不足的回檔測試。財報公布前須獲利了結。</li>
+            </ul>
+        </div>
+
+        <div class="card col-span-4">
+            <h2>📊 市場關鍵指標可視化</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">
+                    <span>VIX 恐慌指數 (低位區間)</span>
+                    <span>16.47</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 41%; background-color: #2ecc71;">安全水位</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">
+                    <span>Q2 標普500 獲利成長預期 (vs Q1)</span>
+                    <span>成長/持平</span>
+                </div>
+                <div class="bar-bg" style="margin-bottom: 5px;">
+                    <div class="bar-fill" style="width: 65%; background-color: #95a5a6;">Q1 基期</div>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 80%; background-color: #3498db;">Q2 預測</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">
+                    <span>US10Y 殖利率單日漲幅</span>
+                    <span>+1.67% (未破20MA)</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 75%; background-color: #e74c3c;">警示點</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2>🎯 資金卡位的四條主軸 (Sector Rotation)</h2>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px; background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                    <h3 style="margin-top: 0; color: #e74c3c;">1. 台積電法說概念</h3>
+                    <p style="font-size: 0.9rem; color: #555;"><strong>邏輯：</strong> AI算力擴張瓶頸在於先進封裝、製程材料、資料傳輸與散熱。Q2財報前最易被重新定價。</p>
+                </div>
+                <div style="flex: 1; min-width: 250px; background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #8e44ad;">
+                    <h3 style="margin-top: 0; color: #8e44ad;">2. 太空板塊 (嘎空)</h3>
+                    <p style="font-size: 0.9rem; color: #555;"><strong>邏輯：</strong> SPCX於7/7入納指100前引發板塊嘎空反彈。籌碼清洗完畢，需在7/7前找機會獲利出場。</p>
+                </div>
+                <div style="flex: 1; min-width: 250px; background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #3498db;">
+                    <h3 style="margin-top: 0; color: #3498db;">3. 水資源與特化 (波段)</h3>
+                    <p style="font-size: 0.9rem; color: #555;"><strong>邏輯：</strong> AI資料中心高耗能耗水，水冷與用水效率成為下一個被低估的基建瓶頸。</p>
+                </div>
+                <div style="flex: 1; min-width: 250px; background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid #f39c12;">
+                    <h3 style="margin-top: 0; color: #f39c12;">4. 機器人零組件</h3>
+                    <p style="font-size: 0.9rem; color: #555;"><strong>邏輯：</strong> 敘事焦點轉向「量產瓶頸供應鏈」，非單一整機廠。趁拉回找機會上車。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2>📋 個股標的與操作策略 (Actionable Tickers)</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的代號 / 名稱</th>
+                            <th>所屬板塊 / 題材</th>
+                            <th>技術面 / 關鍵價位</th>
+                            <th>操作建議與目標</th>
+                            <th>狀態標籤</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MXL</strong></td>
+                            <td>AI高速傳輸 (資料搬運)</td>
+                            <td>剛啟動 / 關注 20MA 支撐</td>
+                            <td>解決 Memory Wall 瓶頸受惠股，建議買進並長期觀察。</td>
+                            <td><span style="background:#e8f4fd; color:#0056b3; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">彩蛋推薦買進</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>INTC</strong></td>
+                            <td>大公子 / 晶片製造</td>
+                            <td>目標價: <strong>$200</strong></td>
+                            <td>機構法人準備回歸操作，做多目標價 200。</td>
+                            <td><span style="background:#e8f4fd; color:#0056b3; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">波段做多</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>VSAT, PL</strong></td>
+                            <td>太空板塊</td>
+                            <td>短線強勢 (領頭羊)</td>
+                            <td>趁 SPCX 入納指前做短線嘎空反彈，<strong>7/7前隨時準備跑</strong>。</td>
+                            <td><span style="background:#fce8e8; color:#c82333; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">短線 / 逢高跑</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AMBA, CRDO, APH</strong></td>
+                            <td>AI 半導體 / 設備</td>
+                            <td>剛站上或突破 20MA</td>
+                            <td>不會選股者可直接以此三檔作短線衝刺。</td>
+                            <td><span style="background:#e8f4fd; color:#0056b3; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">短線買進</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CRWD, PANW</strong></td>
+                            <td>資安 (倚天劍概念)</td>
+                            <td>趨勢強勁</td>
+                            <td>獲利能力極強，川普概念股之一，阿姨愛股，抱緊處理。</td>
+                            <td><span style="background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">強勢抱牢</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ECL</strong></td>
+                            <td>水資源基建</td>
+                            <td>未標明</td>
+                            <td>可與特化板塊搭配做 Q2 業績波段。</td>
+                            <td><span style="background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">波段佈局</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ENTG, Q</strong></td>
+                            <td>特化板塊</td>
+                            <td>未標明</td>
+                            <td>波段操作，仍有獲利空間 (有肉)。</td>
+                            <td><span style="background:#e6f4ea; color:#137333; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">波段佈局</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>UMAC</strong></td>
+                            <td>拜登選舉概念股</td>
+                            <td>日線止跌訊號確立，出量</td>
+                            <td>指標股，選舉行情前期佈局開始，持續關注。</td>
+                            <td><span style="background:#fff3cd; color:#856404; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">止跌關注</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ITB, PHM, DHI, TOL</strong></td>
+                            <td>房屋/營建 (選舉概念)</td>
+                            <td>抗跌 / TOL創波段新高</td>
+                            <td>拜登拒簽房屋法案利空不跌，顯示籌碼穩固。</td>
+                            <td><span style="background:#fff3cd; color:#856404; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">利空測試</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ASX, IMOS</strong></td>
+                            <td>封測/半導體</td>
+                            <td>IMOS 剛站上 20MA</td>
+                            <td>IMOS 股性較差易受台股投信干擾，短線操作需謹慎。</td>
+                            <td><span style="background:#fff3cd; color:#856404; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">謹慎做多</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ASTS, RKLB</strong></td>
+                            <td>太空板塊 (中小股)</td>
+                            <td>落後補漲位階</td>
+                            <td>走勢還差一點，先觀察，暫不視為主攻部隊。</td>
+                            <td><span style="background:#e2e8f0; color:#475569; padding:4px 10px; border-radius:12px; font-weight:bold; font-size:12px;">持續觀望</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card col-span-12">
+            <h2>🧠 分析師綜合評論 (Analyst Review & Fact-Check)</h2>
+            <div style="background: #fdfbf7; border: 1px solid #f1e5bc; padding: 20px; border-radius: 8px;">
+                <p><strong>1. 邏輯合理性：</strong> 作者運用「財報空窗期前卡位」與「國慶日季節性效應」作為短多理由，符合華爾街常見的動能交易（Momentum Trading）邏輯。特別是針對 AI 基礎建設的資金外溢效應（從 GPU 擴散至資料傳輸 MXL、水冷 ECL、特化 ENTG）論述具備堅實的產業基本面支持。</p>
+                
+                <p><strong>2. 技術與量價隱憂：</strong> 作者點出「量縮但指數上漲」的量價背離現象，並據此建議保留現金水位應對回撤，這是非常專業且具有防守意識的紀律操作。VIX 低位（16.47）確實代表市場恐慌情緒不高，但低波幅搭配低成交量，容易受突發消息引發劇烈震盪。</p>
+                
+                <p><strong>3. 需要警惕的異常數據 (Fact-Check 警告)：</strong> 
+                   <br>- <strong>INTC 目標價 $200：</strong> 依據 2024-2026 年 Intel 的基本面與市值規模，喊出 $200 的目標價屬於極度激進甚至脫離現實的預測（除非伴隨大規模的股票分割或極端的市場泡沫）。此建議需極度保守看待。
+                   <br>- <strong>太空板塊事件交易：</strong> 提到 SPCX 入納斯達克 100（預計7/7）帶動的散戶嘎空潮，作者明確指出「隨時要跑」，顯示這純粹是事件驅動的博弈，不適合長線投資人參與。
+                </p>
+                <p style="margin-bottom: 0; color: #e74c3c; font-weight: bold;">結論：可採納其關於 AI 基礎設施（散熱/高速傳輸）的波段邏輯，但對於特定舊科技股的誇張目標價及高風險的嘎空題材，應嚴格控制倉位。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
