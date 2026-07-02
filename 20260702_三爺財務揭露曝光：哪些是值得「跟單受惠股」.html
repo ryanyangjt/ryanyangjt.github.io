@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-07-02</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --accent-blue: #3498db;
+            --buy-green: #2ecc71;
+            --sell-red: #e74c3c;
+            --hold-yellow: #f1c40f;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px;
+            line-height: 1.6;
+        }
+        .dashboard-header {
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--accent-blue);
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #1a252f;
+        }
+        .date-badge {
+            background-color: var(--text-main);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .grid-full {
+            grid-column: 1 / -1;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            border: 1px solid #e1e8ed;
+        }
+        .card h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--accent-blue);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .bar-chart-container {
+            margin-bottom: 15px;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .bar-bg {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 12px;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s ease-in-out;
+        }
+        .analyst-comment {
+            background-color: #f0f7fb;
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>Wall Street Insights: 投資研究儀表板</h1>
+        <div class="date-badge">更新日期: 2026-07-02</div>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card grid-full">
+            <h2>宏觀經濟與核心投資邏輯 (Macro & Core Thesis)</h2>
+            <ul>
+                <li><strong>選舉年金髮女孩經濟 (Goldilocks Economy)：</strong>下半年大象黨全力衝刺選舉，聯準會(沃許)釋放不升息訊號，配合強勁製造業數據，營造利多環境。</li>
+                <li><strong>市場廣度擴張 (Market Breadth Widening)：</strong>道瓊指數(DJI)率先創新高且RSP(等權重標普)走勢強於大盤，顯示資金正從擁擠的AI科技股輪動至其他板塊，市場呈現普漲格局。</li>
+                <li><strong>政商內線籌碼追蹤 (OGE Disclosure)：</strong>透過927頁的聯邦財務公開報告，追蹤華府高層(三爺)的資產申報，挖掘地緣政治與美國技術出口政策變現的商業藍圖。</li>
+                <li><strong>技術面多頭續航 (Technical Confirmation)：</strong>SPX大盤回測20MA有守且量縮；MACD於零軸以上形成「黃金交叉」，此為多頭趨勢中回檔結束的「續漲訊號」，而非單純跌深反彈，策略定調為「拉回找買點」。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>內部人資金流向與板塊動能預估 (Insider Sentiment & Momentum)</h2>
+            
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>國防與執法科技 (AXON, PLTR)</span><span>95% (強力加碼)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 95%; background-color: var(--buy-green);"></div></div>
+            </div>
+            
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>政策受惠醫藥 (LLY)</span><span>85% (明確買進)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 85%; background-color: var(--buy-green);"></div></div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>落後補漲科技巨頭 (GOOGL, AAPL)</span><span>80% (Q1買進無賣出)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 80%; background-color: var(--buy-green);"></div></div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>量子電腦轉機股 (IBM, QNT)</span><span>75% (機構建倉)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 75%; background-color: #3498db;"></div></div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>AI 核心基建 (NVDA, AVGO)</span><span>50% (中立觀望)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 50%; background-color: var(--hold-yellow);"></div></div>
+            </div>
+
+            <div class="bar-chart-container">
+                <div class="bar-label"><span>部分雲端/社群巨頭 (MSFT, AMZN, META)</span><span>15% (大額倒貨)</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 15%; background-color: var(--sell-red);"></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>分析師查證與綜合評論 (Analyst Commentary)</h2>
+            <div class="analyst-comment">
+                <p><strong>邏輯查證結果：具備高實戰參考價值。</strong></p>
+                <p>作者基於「選舉年維穩」的總經假設，結合「OGE財務揭露」的籌碼面優勢，是一套勝率極高的華爾街 Alpha 策略。SPX 在 20MA 上方的高檔震盪配合 MACD 零軸上金叉，從量價結構來看確實屬於強勢整理。資金從擁擠的半導體流出，尋找如 <strong>IBM</strong> 這類具備「高股息+量子運算/AI題材+低基期」的標的，完美契合 RSP（等權重指數）轉強的輪動邏輯。</p>
+                <p><strong>風險提示：</strong>過度迷信單一政治人物的財報申報（如 AXON, LLY）可能存在時間差風險。建議嚴格設定停損點，並將 IBM 年線（200MA）作為波段多空分水嶺。</p>
+            </div>
+        </div>
+
+        <div class="card grid-full">
+            <h2>個股操作策略清單 (Stock Strategy Matrix)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號</th>
+                        <th>操作建議</th>
+                        <th>核心邏輯 / 題材催化劑</th>
+                        <th>技術面 / 關鍵價位 (支撐/壓力)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>IBM</strong></td>
+                        <td><span class="tag" style="background-color: var(--buy-green);">逢低買進 (波段)</span></td>
+                        <td>量子電腦突破、政府入股預期、選舉年友善概念股。適合穩健型大資金。</td>
+                        <td><strong>支撐位：</strong>年線 (200MA)。已站穩年線且突破後回測成功，盈虧比極佳。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AXON</strong></td>
+                        <td><span class="tag" style="background-color: var(--buy-green);">強力買進</span></td>
+                        <td>華府高層2/10買入500萬美元；2/24政府即宣布2.2億美元採購合約。內線跟單首選。</td>
+                        <td>政策推動，視為強勢趨勢股操作。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>QNT</strong></td>
+                        <td><span class="tag" style="background-color: #3498db;">短線操作</span></td>
+                        <td>不同於IBM/Google路線的量子電腦技術，波動較大，適合短線風險偏好者。</td>
+                        <td>建議搭配IBM進行技術路線雙邊押注以對沖風險。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GOOGL, AAPL</strong></td>
+                        <td><span class="tag" style="background-color: var(--buy-green);">長線持有</span></td>
+                        <td>機構高層Q1最明確加碼買進且無賣出的兩檔科技巨頭。</td>
+                        <td>長線底倉配置，不建議頻繁波段操作。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LLY</strong></td>
+                        <td><span class="tag" style="background-color: #3498db;">政策受惠 (佈局)</span></td>
+                        <td>Q1買進73萬美元，與政府利多GLP-1減重藥業務的決策時間點高度重合。</td>
+                        <td>跟隨政策紅利與機構建倉成本。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>TXN, DELL, JBL</strong></td>
+                        <td><span class="tag" style="background-color: #9b59b6;">短線遊走</span></td>
+                        <td>AI 基礎建設與供應鏈延伸。</td>
+                        <td>短線動能交易，嚴格執行技術面停損利。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NVDA, AVGO</strong></td>
+                        <td><span class="tag" style="background-color: var(--hold-yellow);">觀望等待</span></td>
+                        <td>AI 晶片長期邏輯不變，但短線資金流出板塊，需等待量價結構重新轉強。</td>
+                        <td>等待新的技術面進場或加碼訊號出現。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MSFT, AMZN, META</strong></td>
+                        <td><span class="tag" style="background-color: var(--sell-red);">大額賣出 / 避開</span></td>
+                        <td>大型科技股中，機構與高層在申報中呈現大額賣出狀態。</td>
+                        <td>籌碼面偏空，建議避開或減倉。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
