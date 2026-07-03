@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-07-03</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border-color: #e1e8ed;
+            --primary: #2980b9;
+            --buy-bg: #d4edda;
+            --buy-text: #155724;
+            --sell-bg: #f8d7da;
+            --sell-text: #721c24;
+            --watch-bg: #fff3cd;
+            --watch-text: #856404;
+            --ticker-bg: #e2e3e5;
+            --ticker-text: #383d41;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-full {
+            grid-column: 1 / -1;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        .tag-ticker { background-color: var(--ticker-bg); color: var(--ticker-text); border: 1px solid #d6d8db; }
+        .tag-buy { background-color: var(--buy-bg); color: var(--buy-text); }
+        .tag-sell { background-color: var(--sell-bg); color: var(--sell-text); }
+        .tag-watch { background-color: var(--watch-bg); color: var(--watch-text); }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+            background-color: #f8f9fa;
+        }
+
+        /* Pure HTML/CSS Bar Chart Styles */
+        .chart-container {
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .chart-title {
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .bar-wrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .bar-label {
+            width: 120px;
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
+
+        .bar-track {
+            flex-grow: 1;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            height: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 8px;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+
+        .review-box {
+            background-color: #fdfbf7;
+            border-left: 4px solid #f39c12;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>📊 華爾街投資研究儀表板 | 2026-07-03</h1>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card">
+            <h2>🌍 核心宏觀與產業邏輯 (Rotation Day)</h2>
+            <ul>
+                <li><strong>資金輪動 (Rotation) 啟動：</strong> 七月初市場廣度增加，資金明確從高估值的 AI 硬體板塊撤出，流向軟體股 (SaaS)、醫療板塊及非 AI 領域。</li>
+                <li><strong>AI 鬼故事發酵 (殺估值藉口)：</strong> 市場借題發揮 Meta 出售過剩算力，引發「AI 算力過剩、資本支出見頂」的疑慮。軟銀成立 SB Neo 進入 neocloud 市場，加深未來 GPU 雲端市場競爭與供給過剩的擔憂。</li>
+                <li><strong>軟體股估值壓力解除：</strong> 6月非農就業數據遠低於預期，降息機率重燃 (7月降息機率升，2年期美債殖利率降至4.125%)，帶動軟體股上演「估值修復與對沖硬體下跌」的蹺蹺板效應。</li>
+                <li><strong>記憶體產業多重利空：</strong> 韓國記憶體大廠 (Samsung, SK Hynix) 暴跌。受制於美光 (MU) 財報利多出盡、南韓政府推動擴建 4 座晶圓廠 (定價供給大幅擴產)、以及非法限制 DRAM 供給的集體訴訟。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📈 關鍵歷史數據與趨勢可視化</h2>
+            
+            <div class="chart-container">
+                <div class="chart-title">美國 6 月非農新增就業人數對比 (影響利率預期)</div>
+                <div class="bar-wrap">
+                    <div class="bar-label">市場預期</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 100%; background-color: #95a5a6;">11.3 萬人</div>
+                    </div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">實際公布</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 50.4%; background-color: #3498db;">5.7 萬人 (遠低於預期)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">七月板塊資金輪動熱度 (蹺蹺板效應)</div>
+                <div class="bar-wrap">
+                    <div class="bar-label">AI 硬體/半導體</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 25%; background-color: #e74c3c;">資金淨流出 (破位)</div>
+                    </div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">軟體股/蘋果/非AI</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 75%; background-color: #2ecc71;">資金淨流入 (轉強)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-title">過往四年間 DRAM 價格漲幅指控 (訴訟爭議)</div>
+                <div class="bar-wrap">
+                    <div class="bar-label">價格漲幅</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 100%; background-color: #8e44ad;">+700%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-full">
+            <h2>🎯 投資標的與操作策略矩陣</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的 / 代號</th>
+                        <th>板塊屬性</th>
+                        <th>操作建議</th>
+                        <th>關鍵價位 / 目標與支撐</th>
+                        <th>策略邏輯說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">TSMC (台積電)</span>
+                            <br><span class="tag tag-ticker">台積電供應鏈</span>
+                        </td>
+                        <td>晶圓代工</td>
+                        <td><span class="tag tag-buy">逢低分批買進</span></td>
+                        <td>等待 Q2 財報發布前後反應</td>
+                        <td>基本面確定性最高，Q3 展望預期強勁。操作節奏放慢，以此為核心配置，取代純粹的高 Beta 硬體股。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">AAPL</span>
+                        </td>
+                        <td>消費硬體</td>
+                        <td><span class="tag tag-buy">資金避風港</span></td>
+                        <td>獨強走勢，承接美光外流資金</td>
+                        <td>整個硬體相關個股中獨強。美光跌倒，蘋果吃飽，資金將其視為安全性較高的硬體巨頭。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">IGV (軟體股)</span>
+                            <br><span>醫療板塊</span>
+                        </td>
+                        <td>軟體/防禦性</td>
+                        <td><span class="tag tag-buy">分散配置</span></td>
+                        <td>前波低點反彈未破底</td>
+                        <td>受惠於就業數據疲軟帶來的估值壓力解除。作為對沖 AI 硬體下跌的部位，具備均值回歸潛力。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">SOXX (費半)</span>
+                            <br><span class="tag tag-ticker">QQQ</span>
+                        </td>
+                        <td>大盤指數</td>
+                        <td><span class="tag tag-watch">短線中立觀望</span></td>
+                        <td><strong>支撐位：</strong> BB 下緣 + 30MA<br><strong>壓力位：</strong> 20MA (跌破)</td>
+                        <td>費半已正式跌破 20MA，若下週未站回將引發量化拋售。硬體股止跌需觀察 SOXX 能否在 30MA 與布林通道下緣止穩。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">NVDA</span>
+                            <br><span class="tag tag-ticker">MU</span>
+                            <br><span class="tag tag-ticker">AMD</span>
+                            <br><span class="tag tag-ticker">MRVL</span>
+                        </td>
+                        <td>高 Beta AI硬體</td>
+                        <td><span class="tag tag-watch">暫緩加碼/觀望</span></td>
+                        <td>需觀察連續放量拋售是否止穩</td>
+                        <td>因擁擠交易與估值偏高，目前市場正在交易「見頂風險」。等待利空鈍化與 NVDA 股價止穩後再做右側交易。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">META</span>
+                            <br><span class="tag tag-ticker">MSFT</span>
+                            <br><span class="tag tag-ticker">GOOGL</span>
+                            <br><span class="tag tag-ticker">AMZN</span>
+                        </td>
+                        <td>M4 (雲端巨頭)</td>
+                        <td><span class="tag tag-watch">緊盯 Q2/Q3 財報</span></td>
+                        <td>留意「資本支出減緩」訊號</td>
+                        <td>Meta 因出售算力遭散戶抄底後被洗盤。未來兩季電話會議是關鍵：若出現 "utilization optimization" 等暗示，即為硬體股中期見頂訊號。</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="tag tag-ticker">Samsung</span>
+                            <br><span class="tag tag-ticker">SK Hynix</span>
+                        </td>
+                        <td>記憶體製造商</td>
+                        <td><span class="tag tag-sell">風險警示</span></td>
+                        <td>估值重設進行中 (下修 20-30%)</td>
+                        <td>面臨南韓建廠擴產 (破壞供給邏輯) 以及價格操縱訴訟雙重打擊，拖累整體硬體供應鏈。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card card-full">
+            <h2>💡 華爾街分析師綜合評論與查證</h2>
+            <div class="review-box">
+                <strong>論述合理性評估：高度合理且具備實戰指導意義。</strong>
+                <p>作者精準捕捉了季初資金輪動 (Quarterly Rebalancing) 的本質，而非單純的 AI 基本面崩塌。Meta 算力拋售與軟銀 NeoCloud 擴張，在華爾街眼中確實是機構用來「殺估值 (Multiple Compression)」與獲利了結的完美敘事工具。AI 硬體板塊在經歷連續數月的「擁擠交易 (Crowded Trades)」後，極需一場深度的技術性修正。</p>
+                <p><strong>核心驗證結論：</strong></p>
+                <ul>
+                    <li><strong>防禦性輪動邏輯正確：</strong> 在 Q2 財報空窗期，資金轉向估值修復的 SaaS (IGV) 與具備業績確定性基底的台積電 (TSM/供應鏈)，符合華爾街當前「降低 Beta、尋求 Alpha」的防禦性成長策略。</li>
+                    <li><strong>宏觀數據解讀準確：</strong> 非農就業顯著降溫確實為長天期美債殖利率帶來壓力緩解，這直接構成了軟體股反彈的總經基礎 (Discount Rate 降低)。</li>
+                    <li><strong>風險節點前瞻：</strong> 作者指出真正的定生死時刻在於 M4 巨頭未來的電話會議指引，這點與華爾街 Sell-side 共識完全一致。一旦 Hyperscaler 出現哪怕微小的 Capex (資本支出) 下修暗示，AI 硬體股的修正將立刻演變為中期熊市。當下保持「中立偏謹慎」，等待 SOXX 在 30MA 的築底行為是極其專業的風險控管建議。</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
