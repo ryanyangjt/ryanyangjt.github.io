@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街 AI 投資研究儀表板 | 2026-07-06</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        .card-full-width {
+            grid-column: 1 / -1;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #1e3c72;
+            font-size: 20px;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .stock-section {
+            background: #fdfefe;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .stock-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .price-levels {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: #7f8c8d;
+            background: #f4f7f6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .logic-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .logic-list li {
+            margin-bottom: 10px;
+        }
+        /* Native Bar Chart Styles */
+        .chart-wrapper {
+            margin-bottom: 25px;
+        }
+        .chart-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+        .bar-container {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 6px;
+            height: 24px;
+            margin-bottom: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .bar-label-out {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-align: right;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Wall Street 投資研究儀表板 | 2026-07-06</h1>
+        <p style="margin: 10px 0 0 0; opacity: 0.9;">板塊輪動監控：AI 硬體至 AI 軟體 (SaaS) 之資金流向分析</p>
+    </div>
+
+    <div class="dashboard-grid">
+        
+        <div class="card">
+            <h2>🌍 核心總經與產業趨勢邏輯</h2>
+            <ul class="logic-list">
+                <li><strong>擁擠交易與相變風險：</strong>AI 硬體（半導體、GPU、ASIC、HBM）基本面無虞，但已成為「槓桿化擁擠交易」。Meta 傳售算力僅為觸發獲利了結的「外生催化劑（同步風險）」，股價進入均值回歸。</li>
+                <li><strong>AI 定價權轉移 (價格戰)：</strong>OpenAI 與 Anthropic 進入割喉戰，開源模型（如 DeepSeek）帶來龐大降價壓力，Token 成本即將大幅下降。</li>
+                <li><strong>軟體板塊毛利大解放：</strong>AI 軟體過去因推理成本高昂而受害，未來隨進貨成本（COGS）斷崖式下跌，且對外收費維持不變，將迎來史詩級「毛利擴張」與「自由現金流井噴」。</li>
+                <li><strong>企業端新架構 (Model Routing)：</strong>企業由「追求最強模型」轉為「動態混搭（Mix and Match）」，重點轉向控制 AI 任務成本 (Cost per task) 與追尋真實 ROI。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>📊 關鍵數據與歷史預測對比</h2>
+            
+            <div class="chart-wrapper">
+                <div class="chart-title">美銀經理人調查：做多半導體擁擠度 (Crowded Trade)</div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;"><span>5月</span><span>73%</span></div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 73%; background-color: #95a5a6;"></div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;"><span>6月 (創歷史新高)</span><span>80%</span></div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 80%; background-color: #e74c3c;"></div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-title">大模型 vs 開源模型 每 Token 成本差距</div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;"><span>DeepSeek V4 Pro</span><span>1x 基準</span></div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 2%; background-color: #2ecc71; color: #333; padding-left: 5px;">1x</div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px;"><span>Anthropic Fable 5</span><span>貴 50 倍</span></div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: 100%; background-color: #e67e22;">50x</div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-title">企業導入 Model Routing (動態混搭) 成本下降預測</div>
+                <div class="bar-container" style="height: 30px;">
+                    <div style="display: flex; height: 100%;">
+                        <div style="width: 5%; background-color: #27ae60; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: bold;">5% 剩餘成本</div>
+                        <div style="width: 95%; background-color: #bdc3c7; display: flex; align-items: center; justify-content: center; color: #333; font-size: 11px;">砍掉 95% AI 營運成本</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-full-width">
+            <h2>🎯 個股操作策略與標的監控</h2>
+            
+            <div class="stock-section">
+                <div class="stock-header">
+                    <div class="stock-title">SNOW (Snowflake)</div>
+                    <div>
+                        <span style="display: inline-block; background-color: #3498db; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px;">AI 資料層</span>
+                        <span style="display: inline-block; background-color: #2ecc71; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-left: 5px;">建議：分批佈局 (不宜追高)</span>
+                    </div>
+                </div>
+                <p style="font-size: 14px; margin: 0;"><strong>核心邏輯：</strong>模型商品化後，資料治理與資料管線成為企業剛需。SNOW 作為穩定的 AI data layer，受惠於模型路由與資料存取的合規需求。</p>
+                <div class="price-levels">
+                    <span><strong>目標價：</strong>原文未明示</span> | 
+                    <span><strong>支撐位：</strong>原文未明示</span> | 
+                    <span><strong>壓力位：</strong>原文未明示</span>
+                </div>
+            </div>
+
+            <div class="stock-section">
+                <div class="stock-header">
+                    <div class="stock-title">DDOG (Datadog)</div>
+                    <div>
+                        <span style="display: inline-block; background-color: #9b59b6; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px;">AI 監控層</span>
+                        <span style="display: inline-block; background-color: #f1c40f; color: #333; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-left: 5px;">建議：短線動能交易 (波段)</span>
+                    </div>
+                </div>
+                <p style="font-size: 14px; margin: 0;"><strong>核心邏輯：</strong>AI 進入 production 後的必要監控工具。解決 AI 成本失控與流程失敗的黑箱問題。注意：估值偏高，波動大，易受軟體板塊去風險化影響。</p>
+                <div class="price-levels">
+                    <span><strong>目標價：</strong>原文未明示</span> | 
+                    <span><strong>支撐位：</strong>原文未明示</span> | 
+                    <span><strong>壓力位：</strong>原文未明示</span>
+                </div>
+            </div>
+
+            <div class="stock-section">
+                <div class="stock-header">
+                    <div class="stock-title">NOW (ServiceNow)</div>
+                    <div>
+                        <span style="display: inline-block; background-color: #e67e22; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px;">AI 工作流層</span>
+                        <span style="display: inline-block; background-color: #27ae60; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-left: 5px;">建議：波段佈局 (最穩健)</span>
+                    </div>
+                </div>
+                <p style="font-size: 14px; margin: 0;"><strong>核心邏輯：</strong>掌握企業 Workflow 入口。AI 真正落地需跨系統、跨部門協作。NOW 企業黏著度極高，AI 對其為增強功能而非取代威脅，具備最強防禦性。</p>
+                <div class="price-levels">
+                    <span><strong>目標價：</strong>原文未明示</span> | 
+                    <span><strong>支撐位：</strong>原文未明示</span> | 
+                    <span><strong>壓力位：</strong>原文未明示</span>
+                </div>
+            </div>
+
+            <div class="stock-section" style="background: #fcf3cf; border-color: #f1c40f;">
+                <div class="stock-header">
+                    <div class="stock-title">半導體硬體板塊 (NVDA, ASML, TSM, ASIC, HBM)</div>
+                    <div>
+                        <span style="display: inline-block; background-color: #7f8c8d; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px;">硬體基礎設施</span>
+                        <span style="display: inline-block; background-color: #e74c3c; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 12px; margin-left: 5px;">建議：暫時觀望 / 弱反彈格局</span>
+                    </div>
+                </div>
+                <p style="font-size: 14px; margin: 0;"><strong>核心邏輯：</strong>長線基本面健康，但短線觸及「槓桿擁擠交易」警戒線（盈虧比轉差）。須等 7/15 ASML 與 7/16 台積電法說會，及科技巨頭財報給出資本支出反驗證後，方有明確方向。</p>
+            </div>
+        </div>
+
+        <div class="card card-full-width">
+            <h2>💡 分析師綜合評論 (Fact-Check & Review)</h2>
+            <div style="background: #f8f9fa; border-left: 4px solid #34495e; padding: 15px; font-size: 15px;">
+                <p><strong>論述合理性查證：</strong>作者之市場觀察具備深度量化與財務邏輯支撐。</p>
+                <ol style="margin-bottom: 0;">
+                    <li><strong>擁擠交易觸發相變 (Momentum Crash)：</strong>引用 Didier Sornette 臨界點理論與槓桿 ETF 助跌效應，解釋近期半導體殺盤，此觀點在實務量化交易中極具說服力，點出「金融面風險不等於產業面風險」。</li>
+                    <li><strong>成本結構重塑 (COGS 下降)：</strong>指出 AI 大模型進入價格戰（OpenAI vs Anthropic vs 開源模型）將使下游 SaaS 軟體商進貨成本巨幅下降，從而引發毛利率擴張，此推論符合現階段企業追求 ROI 的商業趨勢。</li>
+                    <li><strong>選股防禦性：</strong>避開單一功能型 SaaS，精選具備底層黏著度之資料(SNOW)、監控(DDOG)與工作流(NOW)，有效規避了 AI Agent 反向吞噬軟體護城河的鬼故事風險。</li>
+                    <li><strong>客觀風險提示：</strong>該報告未給出具體目標價位與停損點，屬於「趨勢與籌碼流向」之戰略型分析。實務操作上，SaaS 板塊目前的相對低基期確實提供較佳的風險報酬比 (Risk-Reward Ratio)，但建倉仍需輔以技術面設定防守點。</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
