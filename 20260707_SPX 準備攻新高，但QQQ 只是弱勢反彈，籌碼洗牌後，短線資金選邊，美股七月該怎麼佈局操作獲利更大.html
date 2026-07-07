@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 | 2026-07-07</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+            --border: #eaedf1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--text-main);
+        }
+
+        .dashboard-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            color: white;
+        }
+        .tag-buy { background-color: var(--success); }
+        .tag-sell { background-color: var(--danger); }
+        .tag-hold { background-color: var(--warning); color: #333; }
+        .tag-ticker { background-color: #34495e; }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: #f1f4f6;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Pure HTML Bar Chart */
+        .chart-row {
+            margin-bottom: 15px;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .chart-bar-bg {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: 6px;
+            height: 14px;
+            overflow: hidden;
+        }
+        .chart-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+        }
+
+        .review-box {
+            background-color: #fdfbf7;
+            border-left: 5px solid #d4af37;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>華爾街科技與投資研究儀表板</h1>
+        <p>報告日期：2026-07-07 | 市場動態萃取與策略分析</p>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card">
+            <h2>核心邏輯與趨勢分析</h2>
+            <ul>
+                <li><strong>資金輪動與籌碼清洗：</strong> 市場資金正從過度擁擠的 AI 硬體/半導體板塊流出。機構利用「小作文 (市場噪音)」打壓高檔股價，進行流動性獵殺與洗盤。</li>
+                <li><strong>板塊分化：</strong> 大盤 <strong>SPX</strong> 準備攻堅新高，但科技權值 <strong>QQQ / SOXX</strong> 陷入弱勢反彈與技術面破位風險。</li>
+                <li><strong>財報季不確定性：</strong> 市場高度關注 M4 (大型科技股) 財報會議中對「資本支出 (Capex)」的暗示性前瞻指引，資金在財報前傾向觀望或轉入避險板塊。</li>
+            </ul>
+            <div class="review-box">
+                <strong>💡 分析師綜合評論與查證：</strong><br>
+                作者的「擁擠交易 (Crowded Trade)」與「機構洗盤」邏輯符合華爾街實務操作。半導體板塊在高位時，機構確實常利用利空消息測試支撐並出清槓桿籌碼。此外，針對 TSM 提出的「賣出選擇權賺取 IV Crush (隱含波動率回落)」策略，在財報前夕極具量化交易的合理性與高勝率特徵。對軟體板塊的回補佈局亦符合目前的板塊輪動 (Sector Rotation) 週期。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>板塊與指標股動能對比</h2>
+            <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: -10px;">基於均線排列與籌碼強度評估 (100為滿分)</p>
+            
+            <div class="chart-row">
+                <div class="chart-labels"><span>SPX (標普500)</span> <span>持續攻高 (90)</span></div>
+                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 90%; background-color: #2ecc71;"></div></div>
+            </div>
+            
+            <div class="chart-row">
+                <div class="chart-labels"><span>TSM (台積電)</span> <span>動能極強/均線之上 (95)</span></div>
+                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 95%; background-color: #27ae60;"></div></div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-labels"><span>AMD (超微)</span> <span>動能轉強/優於Intel (75)</span></div>
+                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 75%; background-color: #3498db;"></div></div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-labels"><span>QQQ (納指100)</span> <span>跌破20MA/弱勢反彈 (40)</span></div>
+                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 40%; background-color: #f39c12;"></div></div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-labels"><span>SOXX (半導體ETF)</span> <span>均線死亡交叉前兆 (25)</span></div>
+                <div class="chart-bar-bg"><div class="chart-bar-fill" style="width: 25%; background-color: #e74c3c;"></div></div>
+            </div>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2>核心個股與操作策略</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>投資標的</th>
+                        <th>操作方向</th>
+                        <th>支撐/壓力/目標價</th>
+                        <th>操作策略與邏輯說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-ticker">TSM</span> <br> 台積電</td>
+                        <td><span class="tag tag-buy">短線/波段作多</span></td>
+                        <td>回測 20MA 買進<br>布林帶(BB)上緣賣出</td>
+                        <td>短線最強勢。正股高拋低吸；可善用 TSMX 槓桿；或於財報前做選擇權賣方賺取 IV Crush 價值。大漲不追高。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">AMD</span> <br> 超微</td>
+                        <td><span class="tag tag-buy">短線作多</span></td>
+                        <td>M4財報前逢高獲利</td>
+                        <td>CPU主線動能強於INTC，適合作為短線操作標的。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">INTC</span> <br> 英特爾</td>
+                        <td><span class="tag tag-hold">逢低佈局</span></td>
+                        <td>目標價: $120<br>等待長陽K線進場</td>
+                        <td>兼具 CPU 與代工題材，目前處於初升段整理，長線有末波段上漲空間。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">PANW</span> <br> 派洛阿爾托</td>
+                        <td><span class="tag tag-buy">優先買進</span></td>
+                        <td>-</td>
+                        <td>資安軟體優選標的，籌碼面顯示機構資金持續買進建倉。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">RBRK</span> <br> Rubrik</td>
+                        <td><span class="tag tag-buy">逢低買進</span></td>
+                        <td>前波高點 141<br>低點錯殺區 85</td>
+                        <td>軟體股錯殺反彈題材，今日機構買盤進駐，具備估值修復空間。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">IMOS</span> <br> 奇景光電</td>
+                        <td><span class="tag tag-buy">高拋低吸</span></td>
+                        <td>突破布林上緣賣 1/3<br>回測 20MA 買回</td>
+                        <td>突破歷史新高，沿著 20MA 支撐與布林上緣操作，需保留基本底倉。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">AXTI</span> / <span class="tag tag-ticker">LITE</span></td>
+                        <td><span class="tag tag-hold">觀望追蹤</span></td>
+                        <td>-</td>
+                        <td>光通訊板塊 (光進銅退題材)。受分析師報告打壓洗盤中，等待籌碼洗淨後再度進場。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-ticker">CRWD</span> / <span class="tag tag-ticker">SOXX</span></td>
+                        <td><span class="tag tag-sell">避開/賣出</span></td>
+                        <td>跌破 20MA 支撐</td>
+                        <td>CRWD 技術面轉差且無機構買盤；SOXX 硬體面臨流動性獵殺與均線下彎風險。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
