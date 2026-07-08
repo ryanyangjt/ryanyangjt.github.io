@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-08</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-blue: #3498db;
+            --tag-buy-bg: #d4edda;
+            --tag-buy-text: #155724;
+            --tag-sell-bg: #f8d7da;
+            --tag-sell-text: #721c24;
+            --tag-hold-bg: #fff3cd;
+            --tag-hold-text: #856404;
+            --tag-tech-bg: #cce5ff;
+            --tag-tech-text: #004085;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--accent-blue);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .card-full {
+            grid-column: 1 / -1;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f1f4f8;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            margin-bottom: 25px;
+        }
+
+        .chart-label-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .bar-wrap {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 24px;
+            display: flex;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 0.85em;
+            font-weight: bold;
+            transition: width 0.3s ease;
+        }
+
+        .commentary-box {
+            background-color: #f8fbff;
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>投資研究儀表板 | AI 產業與美股操作分析策略</h1>
+        <p style="color: #7f8c8d; font-weight: bold;">生成日期：2026-07-08</p>
+    </header>
+
+    <main class="dashboard-grid">
+
+        <div class="card">
+            <h2>宏觀與產業核心邏輯</h2>
+            <ul style="padding-left: 20px;">
+                <li><strong>下跌主因：</strong> 屬情緒影響與流動性獵殺，受海力士 ADR 掛牌前波動及半導體板塊（SOXX）過度擁擠交易影響。</li>
+                <li><strong>AI 趨勢研判：</strong> 趨勢<strong style="color:#27ae60;">未反轉</strong>。真正的產業風險僅在於「CSP 大廠縮減資本支出」，目前尚未發生。下半年 AI 硬體股 Alpha 空間收斂，轉向 Beta 行情。</li>
+                <li><strong>配置策略：</strong> 呼籲採用<span class="tag" style="background-color: #e2e3e5; color: #383d41;">槓鈴投資法</span>，硬體強軟體弱，兩者呈蹺蹺板。切勿單押 AI 硬體，需納入軟體、非 AI 傳產及醫療板塊。</li>
+                <li><strong>風險控管：</strong> 波段操作嚴禁重倉死抱。跌至均線支撐可分批買，但需承受籌碼沉澱的時間成本。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>策略數據視覺化 (純靜態 HTML 渲染)</h2>
+            
+            <div class="chart-container">
+                <div class="chart-label-row">
+                    <span>建議資金板塊配置 (槓鈴策略)</span>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 45%; background-color: #3498db;" title="AI硬體/半導體">AI硬體 45%</div>
+                    <div class="bar-fill" style="width: 35%; background-color: #9b59b6;" title="軟體板塊(IGV)">軟體 35%</div>
+                    <div class="bar-fill" style="width: 20%; background-color: #f1c40f; color: #333;" title="動能短線/醫療/量子">其他動能 20%</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label-row">
+                    <span>龍頭股回檔位階估算 (相對於年線)</span>
+                </div>
+                <div class="chart-label-row" style="font-weight: normal; font-size: 0.8em; color:#7f8c8d;">
+                    <span>高點/季線</span>
+                    <span>半年線</span>
+                    <span>年線(建倉區)</span>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 95%; background-color: #e74c3c;">AVGO / NVDA 目前位階 (貼近/守住年線)</div>
+                </div>
+                <div class="bar-wrap" style="margin-top: 8px;">
+                    <div class="bar-fill" style="width: 60%; background-color: #f39c12;">SOXX 指數預期下探 (半年線以下)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-full">
+            <h2>個股與指數操作建議</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的代號 / 名稱</th>
+                            <th>操作方向</th>
+                            <th>關鍵位階 (支撐/壓力)</th>
+                            <th>策略詳情</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>NVDA</strong> (輝達)</td>
+                            <td><span class="tag" style="background-color: var(--tag-buy-bg); color: var(--tag-buy-text);">逢低佈局</span></td>
+                            <td>支撐位：<strong>年線</strong></td>
+                            <td>已殺至年線附近。建議利用 Sell Put 或 Sell Put Spread 策略分批建倉接籌碼。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AVGO</strong> (博通)</td>
+                            <td><span class="tag" style="background-color: var(--tag-buy-bg); color: var(--tag-buy-text);">分批建倉</span></td>
+                            <td>支撐位：<strong>年線</strong> (具強支撐)</td>
+                            <td>利空不跌破年線且 MACD 柱狀體縮小（量縮極致）。建議 Naked Sell Put 策略進場等待。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TSM</strong> (台積電)</td>
+                            <td><span class="tag" style="background-color: var(--tag-hold-bg); color: var(--tag-hold-text);">財報前觀望</span></td>
+                            <td>支撐位：<strong>相關均線</strong></td>
+                            <td>財報前後反彈契機。若財報後短線拉高<strong style="color:red;">千萬不要追</strong>。本週可利用 Sell Put Option 收取高 IV 權利金，但需嚴控倉位。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IBM</strong> (國際商業機器)</td>
+                            <td><span class="tag" style="background-color: var(--tag-sell-bg); color: var(--tag-sell-text);">獲利了結</span></td>
+                            <td>壓力位：<strong>日線高 9</strong></td>
+                            <td>技術指標出現日線高 9，短線建議跑一趟，至少賣出一半部位落袋為安。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AEHR</strong> (Aehr Test)</td>
+                            <td><span class="tag" style="background-color: var(--tag-tech-bg); color: var(--tag-tech-text);">波段續抱</span></td>
+                            <td>-</td>
+                            <td>若成本極低且屬波段操作者，追蹤基本面趨勢即可，不需恐慌，前提為控好倉位。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MU</strong> (美光)</td>
+                            <td><span class="tag" style="background-color: var(--tag-hold-bg); color: var(--tag-hold-text);">避開財報賭博</span></td>
+                            <td>-</td>
+                            <td>短線行情多已反映，強烈建議不要賭財報，作者重申過去已建議逢高提醒風險。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IGV</strong> (軟體 ETF)</td>
+                            <td><span class="tag" style="background-color: var(--tag-hold-bg); color: var(--tag-hold-text);">謹慎試倉</span></td>
+                            <td>壓力位：<strong>年線</strong></td>
+                            <td>站上年線前須小心，因接近年線壓力。欲買進須分批並先小量試倉。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>道瓊指數</strong> (Dow)</td>
+                            <td><span class="tag" style="background-color: var(--tag-sell-bg); color: var(--tag-sell-text);">多看少動</span></td>
+                            <td>壓力位：<strong>日線高 9</strong></td>
+                            <td>指數出現日線高 9，非 AI 板塊且漲多的道指成分股需警戒，暫不建議買進傳產。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card card-full">
+            <h2>首席分析師查證與綜合評論</h2>
+            <div class="commentary-box">
+                <p><strong>論述合理性查核：</strong></p>
+                <ol>
+                    <li><strong>「流動性獵殺」與半導體擁擠交易：</strong> 邏輯完全合理。Wall Street 近期數據亦顯示科技巨頭淨多單過度擁擠，SOXX (半導體 ETF) 出現均值回歸與降槓桿（De-leveraging）現象，符合機構「洗浮額」之行為特徵。</li>
+                    <li><strong>「CSP 資本支出」為核心指標：</strong> 洞察精準。AI 伺服器供應鏈的護城河建立在微軟、Google、Meta 等巨頭持續擴增 CapEx。在下一次財報季（尤其是 2026 Q1/Q2 指引）確認下修前，硬體長線基本面並未破壞。</li>
+                    <li><strong>技術面「日線高 9」與「選擇權策略」：</strong> 作者使用 Tom DeMark 的 TD Sequential 指標（高 9）作為短線超買警告（如 IBM、道瓊），具備量化統計學意義。針對 NVDA、AVGO 等高隱含波動率（IV）個股，在年線強力支撐處採用 <strong>Sell Put</strong> 賣出賣權，是避險基金常用的「收租（Volatility Premium）」策略，優勢在於賺取時間價值並降低接盤成本；但需注意跌破年線的尾部風險（Tail Risk）。</li>
+                    <li><strong>總結評級：</strong> 作者的防禦性「槓鈴策略」與「紀律停損/獲利了結」建議高度貼合機構在市場波動期（VIX 擴張）的標準風險控管守則。論點務實，值得投資人作為資產重新平衡（Rebalancing）之參考。</li>
+                </ol>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
