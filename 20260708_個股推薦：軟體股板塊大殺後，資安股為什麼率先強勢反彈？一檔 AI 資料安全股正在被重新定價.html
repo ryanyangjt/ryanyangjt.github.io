@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 | AI 資安產業分析 - 2026-07-08</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --primary-text: #2c3e50;
+            --secondary-text: #596a7a;
+            --accent-blue: #2980b9;
+            --accent-green: #27ae60;
+            --accent-red: #c0392b;
+            --accent-warning: #f39c12;
+            --border-radius: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            margin: 0;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: left;
+            margin-bottom: 30px;
+            padding: 20px 30px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-left: 6px solid var(--accent-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        .date-badge {
+            background-color: #eef2f5;
+            color: var(--secondary-text);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-6 { grid-column: span 6; }
+
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4, .col-span-6 { grid-column: span 12; }
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-text);
+            border-bottom: 2px solid #eef2f5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 14px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eef2f5;
+            font-size: 14px;
+        }
+
+        th {
+            color: var(--secondary-text);
+            font-weight: 600;
+            background-color: #fbfcff;
+        }
+
+        /* Pure CSS Bar Charts */
+        .chart-row {
+            margin-bottom: 18px;
+        }
+        
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+
+        .chart-track {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            height: 20px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .chart-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* Content Lists */
+        ul {
+            padding-left: 20px;
+            margin: 0;
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+
+        ul li {
+            margin-bottom: 12px;
+        }
+
+        strong {
+            color: var(--primary-text);
+        }
+
+        .analyst-comment {
+            background-color: #f4f9f7;
+            border-left: 4px solid var(--accent-green);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+            color: var(--primary-text);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <h1>投資研究儀表板 | AI 資安產業與軟體板塊重估分析</h1>
+        <div class="date-badge">報告日期：2026-07-08</div>
+    </header>
+
+    <main class="dashboard-grid">
+
+        <div class="card col-span-8">
+            <h2>宏觀與產業核心邏輯</h2>
+            <ul>
+                <li><strong>軟體板塊分化與重新定價：</strong> 傳統 SaaS 應用軟體因面臨 AI Agent 取代「席位 (Seats)」計費模式的威脅而遭到市場拋售；但<strong>資安與資料安全板塊</strong>反而因 AI 的普及而成為剛需基礎設施，出現強勢反彈與均值回歸。</li>
+                <li><strong>AI 放大資安需求：</strong> Claude Mythos / Fable 事件證實，AI 大模型已具備自動化攻擊與漏洞搜尋能力。企業不僅需要 AI，更迫切需要防範資料外洩、監控 AI Agent 行為以及確保攻擊後的資料復原能力。</li>
+                <li><strong>資安龍頭不受 AI 席位減少影響：</strong> 龍頭資安公司（如 CRWD, PANW, RBRK）的商業模式不按人頭收費，而是按端點、模組、平台或受保護的資料容量收費，完美避開 AI 裁員/減少座席的負面衝擊。</li>
+                <li><strong>板塊輪動訊號：</strong> JPM 預估 2026 全球資安支出達 2400 億美元，且 AI 相關資安支出增速為整體產業 3-4 倍。防禦端的資金已在 CRWD/PANW 輪動過，目前正轉向「善後/資料復原端」的重估。</li>
+            </ul>
+        </div>
+
+        <div class="card col-span-4">
+            <h2>關鍵風險提示</h2>
+            <ul>
+                <li><strong>財報波動風險：</strong> 軟體成長股目前估值已高，若後續 ARR 成長放緩或自由現金流回落，極易面臨殺估值風險。切忌在財報前重倉賭博。</li>
+                <li><strong>潛在股權稀釋 (RBRK)：</strong> Q1 股權薪酬 (SBC) 達 7337 萬美元，潛在稀釋 4153 萬股。</li>
+                <li><strong>可轉債轉換風險 (RBRK)：</strong> 擁有 11.5 億美元 0% 可轉債。當股價突破轉換價 <strong>$124.76</strong> 至上限 $175.10 區間時，將對現有股東造成實質股權稀釋。</li>
+            </ul>
+        </div>
+
+        <div class="card col-span-12">
+            <h2>投資標的與操作策略</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號 (名稱)</th>
+                        <th>板塊定位</th>
+                        <th>操作建議</th>
+                        <th>關鍵位階 (支撐/壓力)</th>
+                        <th>策略詳情與催化劑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>RBRK</strong> (Rubrik)</td>
+                        <td>資料安全 / AI 復原</td>
+                        <td>
+                            <span class="tag" style="background-color: #d1e7dd; color: #0f5132;">波段佈局</span>
+                            <span class="tag" style="background-color: #fff3cd; color: #664d03;">逢回佈局</span>
+                        </td>
+                        <td>支撐位：<strong>$75 (20MA)</strong><br>壓力位：<strong>$103 (前高)</strong></td>
+                        <td>從傳統備份轉型 AI 資料安全平台。自由現金流轉正為關鍵拐點。不適合短線追高，建議等待回測 20MA 支撐後分批建倉。財報前若拉高應逢高調節一半獲利了結。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRWD</strong> (CrowdStrike)</td>
+                        <td>端點與模組防禦</td>
+                        <td>
+                            <span class="tag" style="background-color: #f8d7da; color: #842029;">觀望 (估值偏高)</span>
+                        </td>
+                        <td>-</td>
+                        <td>年初至今漲幅過大，動能風險高。市盈率高達 93 倍，EV/營收 18.8 倍。防禦端利多已充分反應，短線不建議追價。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PANW</strong> (Palo Alto)</td>
+                        <td>平台化防禦與雲端</td>
+                        <td>
+                            <span class="tag" style="background-color: #f8d7da; color: #842029;">觀望 (留意稀釋)</span>
+                        </td>
+                        <td>-</td>
+                        <td>併購 CyberArk (250億美元) 並發行 1.12 億新股導致 EPS 遭稀釋。下一代網路安全 ARR 年增 60% 動能雖強，但需等待籌碼沉澱。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card col-span-6">
+            <h2>財務數據與趨勢比較 (純靜態渲染)</h2>
+            
+            <div class="chart-row">
+                <div class="chart-labels">
+                    <span>資安龍頭 ARR (年度經常性收入) 成長率 YoY</span>
+                </div>
+                <div class="chart-track">
+                    <div class="chart-fill" style="width: 60%; background-color: var(--accent-blue);" title="PANW: 60%">PANW 60%</div>
+                    <div class="chart-fill" style="width: 32%; background-color: var(--accent-green);" title="RBRK: 32%">RBRK 32%</div>
+                    <div class="chart-fill" style="width: 24%; background-color: var(--accent-warning);" title="CRWD: 24%">CRWD 24%</div>
+                </div>
+            </div>
+
+            <div class="chart-row" style="margin-top: 25px;">
+                <div class="chart-labels">
+                    <span>RBRK 關鍵營運指標健康度</span>
+                </div>
+                <div class="chart-labels" style="font-weight: normal; font-size: 11px; color: var(--secondary-text); margin-bottom: 2px;">
+                    <span>毛利率 (Gross Margin)</span>
+                    <span>82.9%</span>
+                </div>
+                <div class="chart-track" style="height: 16px; margin-bottom: 12px;">
+                    <div class="chart-fill" style="width: 82.9%; background-color: #8e44ad;">82.9%</div>
+                </div>
+                
+                <div class="chart-labels" style="font-weight: normal; font-size: 11px; color: var(--secondary-text); margin-bottom: 2px;">
+                    <span>淨收入留存率 (NRR)</span>
+                    <span>120% (高黏著度)</span>
+                </div>
+                <div class="chart-track" style="height: 16px;">
+                    <div class="chart-fill" style="width: 100%; background-color: #16a085;">120%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-span-6">
+            <h2>分析師查證與綜合評論</h2>
+            <div class="analyst-comment">
+                <p><strong>論述合理性驗證：高度合理</strong></p>
+                <ol style="padding-left: 15px; margin-top: 10px;">
+                    <li><strong>SaaS 與資安脫鉤邏輯：</strong> 華爾街主流機構（如 Morgan Stanley, JPM）近期報告確實指出 AI Agent 對傳統按「席位 (Seat)」計費的 SaaS 帶來估值壓力，而資安預算被視為 AI 時代的「非自由裁量支出 (剛需)」。作者對於軟體板塊內部分化的觀察精準。</li>
+                    <li><strong>RBRK 評價拐點：</strong> 軟體股（SaaS）的核心估值錨點在於「Rule of 40」與「自由現金流轉正」。RBRK Q1 財報顯示 FCF 達 7360 萬美元，從「燒錢換成長」過渡到「自給自足」，這確實是機構資金進場重新定價（Re-rating）的硬體指標。</li>
+                    <li><strong>操作策略務實：</strong> 作者並未因 RBRK 身處熱點而無腦喊買，精確指出 $124.76 的可轉債 (Capped Call) 轉換稀釋區間，並建議利用 20MA ($75) 作為波段建倉點，以及財報前逢高減碼的紀律，符合專業法人的風險控管思維。</li>
+                </ol>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
