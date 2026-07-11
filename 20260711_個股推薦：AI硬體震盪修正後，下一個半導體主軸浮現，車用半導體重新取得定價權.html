@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-11</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'LiHei Pro', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3b82f6;
+            letter-spacing: 1px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border-top: 5px solid #e5e7eb;
+        }
+        .card-title {
+            font-size: 1.4rem;
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        .card.logic { border-top-color: #8b5cf6; }
+        .card.strategy { border-top-color: #3b82f6; }
+        .card.data { border-top-color: #10b981; }
+        .card.review { border-top-color: #f59e0b; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f9fafb;
+            color: #4b5563;
+            font-weight: 600;
+        }
+        .data-section {
+            margin-bottom: 25px;
+        }
+        .data-title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        .bar-bg {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 24px;
+        }
+        .content-list {
+            padding-left: 20px;
+        }
+        .content-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <h1>投資研究儀表板 - 2026-07-11</h1>
+
+        <div class="card logic">
+            <h2 class="card-title">核心總經觀點與產業趨勢邏輯</h2>
+            <ul class="content-list">
+                <li><strong>供需雙重轉折交叉：</strong> 車用半導體歷經三年去庫存已觸底，需求端從「停止砍單」轉向「恢復正常採購與建立安全庫存」。</li>
+                <li><strong>AI 產能排擠效應 (供給端關鍵)：</strong> AI 資料中心大量消耗中壓功率 MOSFET、記憶體 (DDR4, LPDDR4, NOR Flash) 與特殊成熟製程，與車用產能高度重疊。</li>
+                <li><strong>定價權重回晶片廠：</strong> 儘管全球輕型車銷量未顯著增長（甚至微幅下修），但在 8 吋晶圓與成熟製程吃緊下，晶圓代工廠調漲報價，帶動車用晶片三巨頭同步向客戶調漲 (漲幅 15% - 85% 不等)。</li>
+                <li><strong>市場差異化定價：</strong> 資金並非無差別買入車用半導體，而是優先挑選能將「補庫存 + 漲價效應」最快轉化為 EPS 與毛利率上修的企業。高壓電動車 (EV) 與 SiC 需求則仍處於修復期。</li>
+            </ul>
+        </div>
+
+        <div class="card strategy">
+            <h2 class="card-title">個股操作策略與標的解析</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>投資標的</th>
+                        <th>操作建議</th>
+                        <th>目標價 / 關鍵價位</th>
+                        <th>核心催化劑與投資邏輯</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>STM</strong> (意法半導體)</td>
+                        <td>
+                            <span style="display:inline-block; background-color:#10b981; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold; margin-right:5px;">買進</span>
+                            <span style="display:inline-block; background-color:#3b82f6; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold;">短線波段</span>
+                        </td>
+                        <td>待財報指引突破</td>
+                        <td>通用 MCU 獲利處於低基期，具備極高 EPS 復甦彈性。同步受惠車用、工業電子復甦與 AI 資料中心新增需求，未受高壓 EV 疲弱嚴重拖累。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NXPI</strong> (恩智浦)</td>
+                        <td>
+                            <span style="display:inline-block; background-color:#10b981; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold; margin-right:5px;">買進</span>
+                            <span style="display:inline-block; background-color:#3b82f6; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold;">短線波段</span>
+                        </td>
+                        <td>待財報指引突破</td>
+                        <td>避開功率元件拖累，核心受惠於「每輛車半導體含量提升」(軟體定義汽車、ADAS、雷達)。率先於 1 月發動漲價，擁有高毛利率與優質自由現金流。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IFNNY</strong> (英飛凌)</td>
+                        <td>
+                            <span style="display:inline-block; background-color:#f59e0b; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold; margin-right:5px;">觀望</span>
+                            <span style="display:inline-block; background-color:#8b5cf6; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold;">長線落後補漲</span>
+                        </td>
+                        <td>2026 年底佈局</td>
+                        <td>產業定價風向球。雖吃到 AI 功率漲價，但嚴重被「高壓電動車」業務疲弱抵銷；且因擴產 AI 電源需高資本支出，短期承壓，2027 年爆發力較強。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ON</strong> (安森美)</td>
+                        <td>
+                            <span style="display:inline-block; background-color:#f59e0b; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold; margin-right:5px;">觀望</span>
+                            <span style="display:inline-block; background-color:#8b5cf6; color:#fff; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:bold;">長線落後補漲</span>
+                        </td>
+                        <td>2026 年底佈局</td>
+                        <td>最純中壓 MOSFET 標的，AI 資料中心營收翻倍。但高壓電動車驅動與 SiC 曝險過高，復甦緩慢，短期需視市場資金炒作主軸 (AI轉型 vs 實際業績)。</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size: 0.9rem; color: #6b7280; margin-top: 15px;">* 註：作者未提供具體目標價位與支撐/壓力位，建議依據下週企業發布的 Q2 財報指引進行點位調整，操作節奏以「買黑不買紅」為原則。</p>
+        </div>
+
+        <div class="card data">
+            <h2 class="card-title">產業核心關鍵數據變化 (Bar Charts)</h2>
+            
+            <div class="data-section">
+                <div class="data-title">
+                    <span>全球車用半導體市場營收 YoY (年增率)</span>
+                    <span>2026 Q1</span>
+                </div>
+                <div class="bar-bg">
+                    <div style="width: 11%; background-color: #10b981; height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.85rem;">+11%</div>
+                </div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-top: 5px;">(歷經連六季衰退後，於 2025 Q4 翻正，2026 Q1 加速成長)</p>
+            </div>
+
+            <div class="data-section">
+                <div class="data-title">
+                    <span>全球 8 吋晶圓代工產能利用率預估 (TrendForce) - 2025 年</span>
+                    <span>75% - 80%</span>
+                </div>
+                <div class="bar-bg">
+                    <div style="width: 77.5%; background-color: #9ca3af; height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.85rem;">~77.5%</div>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <div class="data-title">
+                    <span>全球 8 吋晶圓代工產能利用率預估 (TrendForce) - 2026 年</span>
+                    <span>85% - 90%</span>
+                </div>
+                <div class="bar-bg">
+                    <div style="width: 87.5%; background-color: #ef4444; height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.85rem;">~87.5% (緊繃)</div>
+                </div>
+            </div>
+
+            <div class="data-section">
+                <div class="data-title">
+                    <span>部分車用記憶體產品 (DDR4, LPDDR4) 2026 年初漲幅</span>
+                    <span>約 70%</span>
+                </div>
+                <div class="bar-bg">
+                    <div style="width: 70%; background-color: #3b82f6; height: 100%; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; color: white; font-weight: bold; font-size: 0.85rem;">+70%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card review">
+            <h2 class="card-title">分析師綜合評論與查證</h2>
+            <p><strong>論述合理性：高度合理且具備實戰價值。</strong></p>
+            <p>作者準確抓住了半導體週期中<strong>「結構性錯位」</strong>的套利空間。市場普遍認為汽車銷量不佳將壓抑車用半導體，但作者透過「AI 伺服器對成熟製程 (MOSFET/PMIC) 的排擠效應」成功解釋了為何在終端需求平淡下，供應商仍能奪回定價權。這與過往因供應鏈斷鏈造成的「短暫缺貨」不同，AI 資本支出的剛性將使其成為長期的「結構性產能分配」。</p>
+            <p>在選股邏輯上，區分「短線動能 (STM/NXPI)」與「長線落後補漲 (IFNNY/ON)」非常精準。過濾掉受高壓 EV 逆風與高資本支出拖累的標的，專注於低基期與受惠「單車矽含量提升」的企業，能有效避開價值陷阱。整體而言，將操作重心錨定在即將到來的財報前瞻指引 (Guidance)，是一套成熟的華爾街 Event-Driven (事件驅動) 交易策略。</p>
+        </div>
+
+    </div>
+
+</body>
+</html>
