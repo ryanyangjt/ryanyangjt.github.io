@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-14</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+
+        .dashboard-header p {
+            margin: 10px 0 0 0;
+            color: #bdc3c7;
+            font-size: 1.1em;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .grid-full {
+            grid-column: 1 / -1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card.danger-border { border-top-color: var(--danger); }
+        .card.success-border { border-top-color: var(--success); }
+        .card.warning-border { border-top-color: var(--warning); }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.5em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Tags CSS */
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85em;
+            margin: 2px;
+            white-space: nowrap;
+        }
+        .tag.ticker { background: #ebf5fb; color: #2980b9; border: 1px solid #a9cce3; }
+        .tag.buy { background: #e8f8f5; color: #27ae60; border: 1px solid #a3e4d7; }
+        .tag.sell { background: #fdedec; color: #e74c3c; border: 1px solid #f5b7b1; }
+        .tag.hold { background: #fef9e7; color: #f39c12; border: 1px solid #f1c40f; }
+
+        /* Table CSS */
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        th, td {
+            text-align: left;
+            padding: 14px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        tbody tr:hover { background-color: #fcfcfc; }
+
+        /* Pure HTML/CSS Bar Chart */
+        .chart-section {
+            margin-bottom: 30px;
+        }
+        .chart-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        .bar-container {
+            margin-bottom: 12px;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        .bar-track {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 20px;
+            height: 24px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.85em;
+            transition: width 1s ease-out;
+        }
+        .bar-blue { background: linear-gradient(90deg, #3498db, #2980b9); }
+        .bar-red { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+
+        .commentary-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .commentary-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+        .commentary-list li::before {
+            content: '📌';
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>華爾街投資研究儀表板</h1>
+        <p>Market Analysis & Strategic Execution ｜ 更新日期：2026-07-14</p>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="card warning-border">
+            <h2>🌍 核心總經與產業趨勢邏輯</h2>
+            <ul class="commentary-list">
+                <li><strong>大盤格局：</strong>SPX 維持在 20MA 之上，目前為典型的「政治盤/期中選舉盤」，資金在 AI 硬體與軟體/非 AI 板塊間輪動，呈現上有壓、下有撐的區間震盪。</li>
+                <li><strong>通膨與利率 (CPI & Fed)：</strong>預期 6 月名目 CPI 降溫 (估 3.9%)，但核心 CPI 具僵固性。Fed 官員沃許 (Waller) 聽證會預計維持「表鷹實鴿」基調，市場可能隨言論劇烈波動。</li>
+                <li><strong>能源地緣政治：</strong>伊朗封鎖荷莫茲海峽傳聞使油價 (WTI/Brent) 重返 $80-$85 壓力區。這將抵銷 CPI 降溫利多，推升升息交易預期，對長久期科技股估值造成壓力。</li>
+                <li><strong>半導體微觀結構破壞：</strong>韓國兩倍槓桿 ETF 遭強制平倉引發 SK海力士 熔斷，流動性抽水與 ADR 套利賣壓傳導至美股，拖累整體記憶體板塊，此為籌碼面因素而非基本面轉壞。</li>
+                <li><strong>AI 供應鏈分化：</strong>NVDA Vera Rubin 散熱觸及物理極限導致遞延，硬體投資邏輯從「無腦買進」轉向「尋找遞延受惠者」與「等待錯殺帶血籌碼」。</li>
+            </ul>
+        </div>
+
+        <div class="card success-border">
+            <h2>📊 關鍵數據與財務預期可視化</h2>
+            
+            <div class="chart-section">
+                <div class="chart-title">NVDA 大摩 (Morgan Stanley) 營收成長預估</div>
+                
+                <div class="bar-container">
+                    <div class="bar-label"><span>2026 財年預估年增率</span><span>82.0%</span></div>
+                    <div class="bar-track">
+                        <div class="bar-fill bar-blue" style="width: 82%;">82%</div>
+                    </div>
+                </div>
+                
+                <div class="bar-container">
+                    <div class="bar-label"><span>2027 財年預估年增率</span><span>52.4%</span></div>
+                    <div class="bar-track">
+                        <div class="bar-fill bar-blue" style="width: 52.4%;">52.4%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section">
+                <div class="chart-title">美國 2026 年名目 CPI 趨勢走勢 (基準線: 0-5%)</div>
+                
+                <div class="bar-container">
+                    <div class="bar-label"><span>3月實際值</span><span>3.3%</span></div>
+                    <div class="bar-track"><div class="bar-fill bar-red" style="width: 66%;">3.3%</div></div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-label"><span>4月實際值</span><span>3.8%</span></div>
+                    <div class="bar-track"><div class="bar-fill bar-red" style="width: 76%;">3.8%</div></div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-label"><span>5月實際值</span><span>4.2%</span></div>
+                    <div class="bar-track"><div class="bar-fill bar-red" style="width: 84%;">4.2%</div></div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar-label"><span>6月預測共識 (通膨短暫降溫)</span><span>3.9%</span></div>
+                    <div class="bar-track"><div class="bar-fill bar-red" style="width: 78%; background: linear-gradient(90deg, #f39c12, #e67e22);">3.9%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card grid-full">
+            <h2>🎯 個股標的與操作策略矩陣</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的 / 代號</th>
+                            <th>產業板塊</th>
+                            <th>關鍵價位 / 技術面</th>
+                            <th>操作建議</th>
+                            <th>核心投資邏輯</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag ticker">NVDA</span></td>
+                            <td>AI 晶片</td>
+                            <td>支撐: 201 (7/10低點) / 20MA<br>大摩目標價: 288</td>
+                            <td><span class="tag hold">觀望 / 區間操作</span></td>
+                            <td>VR200 (機架) 延遲兩個月為短期噪音。Kyber 架構難產雖衝擊部分供應鏈，但長期基本面無虞。跌破支撐前視為正常拉回。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag ticker">TSM</span> (台積電)</td>
+                            <td>晶圓代工</td>
+                            <td>資本支出預測: 560億美元+</td>
+                            <td><span class="tag buy">長線持有</span></td>
+                            <td>法說會重點在 2奈米量產進度與 CoWoS 產能擴充。預期 2027 年將漲價 5-10%，毛利率穩佔 65% 以上，長線保護短線。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag ticker">MU</span> / <span class="tag ticker">SNDK</span> / <span class="tag ticker">WDC</span></td>
+                            <td>記憶體</td>
+                            <td>觀察 SKHY 熔斷止跌訊號</td>
+                            <td><span class="tag hold">靜待帶血籌碼 / 搶反彈</span></td>
+                            <td>基本面需求強勁，下跌純屬「韓國槓桿ETF清算」與「海力士ADR套利抽水」造成的流動性錯殺。等待外資殺完散戶後進場佈局反彈。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag ticker">AMD</span> / <span class="tag ticker">GOOGL</span></td>
+                            <td>晶片 / 雲端</td>
+                            <td>-</td>
+                            <td><span class="tag buy">波段做多</span></td>
+                            <td>受惠於 NVDA Kyber 高階架構延遲 (超過一年)，競爭對手因此獲得技術切入的真空期與市佔擴張機會。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag ticker">VRT</span> / 奇鋐 / 雙鴻</td>
+                            <td>散熱零組件</td>
+                            <td>-</td>
+                            <td><span class="tag hold">短空長多</span></td>
+                            <td>短線受 VR200 延遲與液冷認證困難拖累股價疲弱；但過渡方案 NVL72 延壽，將嘉惠既有散熱與電源供應鏈。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag ticker">ONTO</span> / <span class="tag ticker">CAMT</span> / <span class="tag ticker">ACMR</span></td>
+                            <td>封裝檢測設備</td>
+                            <td>-</td>
+                            <td><span class="tag buy">長線佈局</span></td>
+                            <td>台積電 CoWoS 供不應求且赴美建置先進封裝廠，為 2027 年資本支出大幅上修的實質受惠族群。</td>
+                        </tr>
+                        <tr>
+                            <td>高層數 PCB / 光通訊 (CPO)</td>
+                            <td>PCB / 光學</td>
+                            <td>-</td>
+                            <td><span class="tag sell">避開 / 觀望</span></td>
+                            <td>受 NVDA Kyber 原版設計生變、NVL576 遞延影響，技術商轉速度不如預期，面臨實質性利空，需等籌碼沉澱。</td>
+                        </tr>
+                        <tr>
+                            <td>油商 / 能源股</td>
+                            <td>能源</td>
+                            <td>油價目標: 80 - 85美元</td>
+                            <td><span class="tag buy">波段受惠</span></td>
+                            <td>伊朗封鎖海峽收取過路費將推升原油期貨，傳統能源股將直接受惠。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card grid-full danger-border">
+            <h2>💡 分析師合理性查證與綜合評論</h2>
+            <div style="background-color: #f9fbfd; padding: 20px; border-radius: 8px; border-left: 5px solid var(--accent);">
+                <p><strong>1. 供應鏈邏輯驗證（高度合理）：</strong>作者對於 NVDA 產品線遞延的技術細節分析準確。VR200 單一機櫃功耗達 110kW 確實已突破傳統氣冷物理極限，液冷 (DLC) 零組件的良率與漏水防護認證極度嚴苛，遞延 2 個月符合工程實務。Kyber 架構 78層 PCB 的量產難度極高，轉向更依賴 CPO 或更改機架拓撲是合理的技術折衷。</p>
+                
+                <p><strong>2. 記憶體暴跌歸因（洞察精準）：</strong>準確點出美光 (MU) 等美股記憶體暴跌並非 HBM 基本面反轉，而是受韓國市場微觀結構（Market Microstructure）破壞所致。SK海力士槓桿 ETF 規模過大，下跌觸發每日再平衡 (Daily Rebalancing) 的強制平倉機制，加上 ADR 溢價套利資金平倉，引發跨市場流動性踩踏。此類「資金流驅動 (Flow-driven)」的錯殺，確實是極佳的左側交易/搶反彈機會。</p>
+
+                <p><strong>3. 總經與通膨推演（邏輯連貫但需防偏誤）：</strong>作者將市場區間震盪歸因於「選舉政治盤」雖略顯主觀臆測，但其對通膨與利率的推演極具實戰價值：精準預判 6 月 CPI 下降會被油價上漲（地緣政治）在未來數據中逆轉，進而警告市場對於「通膨降溫」的定價過於樂觀。長久期資產（科技股）確實面臨殖利率回升的估值壓力。</p>
+
+                <p><strong>綜合結論：</strong>此報告具備極高的實操價值。其核心價值在於區分了「短線噪音（如 VR200 延遲）」與「實質結構性影響（如高層 PCB 難產、油價反彈）」，並利用微觀流動性危機（韓國 ETF 爆倉）來規劃帶血籌碼的佈局。操作上，台積電財報與 Fed 聽證會將是本週資金重新分配的分水嶺。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
