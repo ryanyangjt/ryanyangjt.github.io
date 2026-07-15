@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>華爾街科技與投資研究儀表板 - 2026-07-15</title>
+<style>
+:root {
+--bg-color: #f4f7f6;
+--card-bg: #ffffff;
+--text-main: #1f2937;
+--text-muted: #6b7280;
+--primary: #2563eb;
+--success: #059669;
+--success-bg: #d1fae5;
+--danger: #dc2626;
+--danger-bg: #fee2e2;
+--warning: #d97706;
+--warning-bg: #fef3c7;
+--info: #4f46e5;
+--info-bg: #e0e7ff;
+--border: #e5e7eb;
+}
+
+```
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.6;
+        padding: 20px;
+    }
+
+    .dashboard-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 20px;
+    }
+
+    .header {
+        grid-column: span 12;
+        background-color: var(--card-bg);
+        padding: 24px 32px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-left: 6px solid var(--primary);
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+        color: var(--text-main);
+    }
+
+    .header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--border);
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--bg-color);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+    }
+
+    /* Grid specific placement */
+    .card-macro { grid-column: span 12; }
+    .card-charts { grid-column: span 5; }
+    .card-strategy { grid-column: span 7; }
+    .card-review { grid-column: span 12; }
+
+    /* Tags */
+    .tag-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .tag-ticker { background-color: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+    .tag-buy { background-color: var(--success-bg); color: var(--success); }
+    .tag-hold { background-color: var(--info-bg); color: var(--info); }
+    .tag-watch { background-color: var(--warning-bg); color: var(--warning); }
+
+    /* Strategy Table */
+    .strategy-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .strategy-table th, .strategy-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.95rem;
+    }
+
+    .strategy-table th {
+        color: var(--text-muted);
+        font-weight: 600;
+        background-color: #f9fafb;
+    }
+
+    .strategy-table tr:hover {
+        background-color: #f9fafb;
+    }
+
+    .highlight-price {
+        font-family: monospace;
+        font-size: 1.05rem;
+        font-weight: bold;
+        color: var(--primary);
+    }
+
+    /* Pure HTML/CSS Charts */
+    .chart-section {
+        margin-bottom: 24px;
+    }
+
+    .chart-title {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .bar-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .bar-label {
+        width: 140px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-main);
+    }
+
+    .bar-track {
+        flex: 1;
+        height: 28px;
+        background-color: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .bar-fill {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: white;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .color-blue { background-color: #3b82f6; }
+    .color-green { background-color: #10b981; }
+    .color-purple { background-color: #8b5cf6; }
+    .color-gray { background-color: #9ca3af; }
+
+    .list-disc {
+        padding-left: 20px;
+        margin-top: 10px;
+    }
+    
+    .list-disc li {
+        margin-bottom: 8px;
+    }
+</style>
+
+```
+
+</head>
+<body>
+
+<div class="dashboard-container">
+
+```
+<header class="header">
+    <h1>投資研究儀表板</h1>
+    <p>更新日期：2026-07-15 | 機密分析報告</p>
+</header>
+
+<div class="card card-macro">
+    <h2 class="card-title">💡 核心觀點與產業趨勢邏輯</h2>
+    <div class="tag-container">
+        <span class="tag tag-ticker">AI 測試基建</span>
+        <span class="tag tag-ticker">矽光子 (CPO)</span>
+        <span class="tag tag-ticker">SiC / GaN 車用復甦</span>
+    </div>
+    <ul class="list-disc">
+        <li><strong>AI 晶片測試剛需爆發：</strong> AI 處理器（如 NVDA 加速器）的封裝成本極高，促使「晶圓級老化測試 (Wafer-level Burn-in)」成為確保良率的關鍵剛需。相關測試設備板塊正迎來估值重估。</li>
+        <li><strong>矽光子基礎設施加速：</strong> 隨著資料中心對光學 I/O 與 CPO 架構需求提升，矽光子量產前的測試設備需求率先浮現，網通龍頭大廠已開始大規模佈局。</li>
+        <li><strong>車用半導體見底訊號：</strong> 歷經庫存調整與法律訴訟噪音後，SiC（碳化矽）與 GaN（氮化鎵）板塊出現復甦跡象，全球最大車廠重啟下單回補庫存。</li>
+        <li><strong>記憶體下一波浪潮：</strong> HBM 與 NAND 的測試需求預計將在 2027 財年開始發酵，成為測試設備商 2028 財年的全新敘事增長點。</li>
+    </ul>
+</div>
+
+<div class="card card-charts">
+    <h2 class="card-title">📊 關鍵財務與營運數據追蹤</h2>
+    
+    <div class="chart-section">
+        <div class="chart-title">AEHR 營收預期成長對比 (百萬美元)</div>
+        <div class="bar-row">
+            <div class="bar-label">FY 2026 (實際)</div>
+            <div class="bar-track">
+                <div class="bar-fill color-gray" style="width: 33%;">50M</div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <div class="bar-label">市場最樂觀預期</div>
+            <div class="bar-track">
+                <div class="bar-fill color-blue" style="width: 46%;">70M</div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <div class="bar-label">FY 2027 (公司指引)</div>
+            <div class="bar-track">
+                <div class="bar-fill color-green" style="width: 93%;">140M (中位數 130M-150M)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <div class="chart-title">AEHR 營收結構轉型 (FY 2026)</div>
+        <div class="bar-row">
+            <div class="bar-label">AI 處理器 Burn-in</div>
+            <div class="bar-track">
+                <div class="bar-fill color-purple" style="width: 71%;">71%</div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <div class="bar-label">矽光子 / 光學元件</div>
+            <div class="bar-track">
+                <div class="bar-fill color-blue" style="width: 20%;">20%</div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <div class="bar-label">EV 等其他市場</div>
+            <div class="bar-track">
+                <div class="bar-fill color-gray" style="width: 9%;">9%</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-section">
+        <div class="chart-title">AEHR 毛利率變化 YoY</div>
+        <div class="bar-row">
+            <div class="bar-label">去年同期</div>
+            <div class="bar-track">
+                <div class="bar-fill color-gray" style="width: 35%;">35%</div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <div class="bar-label">本季最新</div>
+            <div class="bar-track">
+                <div class="bar-fill color-green" style="width: 45%;">45% (+1000 bps)</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-strategy">
+    <h2 class="card-title">🎯 個股操作建議與目標價</h2>
+    <table class="strategy-table">
+        <thead>
+            <tr>
+                <th>標的代號</th>
+                <th>操作建議</th>
+                <th>目標價 / 支撐位</th>
+                <th>核心邏輯 / 觸發條件</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>AEHR</strong><br><span style="font-size: 0.8rem; color: #6b7280;">Aehr Test Systems</span></td>
+                <td><span class="tag tag-buy">短線波段/逢低買進</span></td>
+                <td>支撐：20MA (約 <span class="highlight-price">$72</span>)<br>目標1：<span class="highlight-price">$126</span><br>目標2：<span class="highlight-price">$150</span></td>
+                <td>勿盤後追高，等待拉回且 20 日均線走平後分批進場。由虧轉盈，FY27 指引暴增 160-200%，AI 與矽光子測試轉型成功。</td>
+            </tr>
+            <tr>
+                <td><strong>LITE</strong><br><span style="font-size: 0.8rem; color: #6b7280;">Lumentum / 矽光子概念</span></td>
+                <td><span class="tag tag-buy">等待進場信號</span></td>
+                <td>支撐：半年線</td>
+                <td>矽光子量產需求隨網通龍頭訂單浮現。策略：等待日 K 線正式站穩半年線後買回。</td>
+            </tr>
+            <tr>
+                <td><strong>AXTI</strong><br><span style="font-size: 0.8rem; color: #6b7280;">AXT Inc.</span></td>
+                <td><span class="tag tag-watch">觀望 / 當作指標</span></td>
+                <td>-</td>
+                <td>作為光通訊板塊的落底觀察指標，見底時可作為加碼 LITE 的確認信號。</td>
+            </tr>
+            <tr>
+                <td><strong>ONTO, KLIC, ACMR, FORM</strong><br><span style="font-size: 0.8rem; color: #6b7280;">半導體測試設備</span></td>
+                <td><span class="tag tag-hold">長線持有</span></td>
+                <td>-</td>
+                <td>產業趨勢確立，直接受惠於 AI 晶片測試剛需（尤其是 FORM 探針卡與 ONTO 檢測）。</td>
+            </tr>
+            <tr>
+                <td><strong>TRT</strong><br><span style="font-size: 0.8rem; color: #6b7280;">Trio-Tech Int.</span></td>
+                <td><span class="tag tag-buy">落後補漲佈局</span></td>
+                <td>-</td>
+                <td>具備 Burn-in 業務的小型股，具有相對低基期落後補漲的投機潛力。</td>
+            </tr>
+            <tr>
+                <td><strong>NVTS, WOLF, STM</strong><br><span style="font-size: 0.8rem; color: #6b7280;">GaN / SiC 功率元件</span></td>
+                <td><span class="tag tag-watch">尋找落底信號</span></td>
+                <td>-</td>
+                <td>股價已大幅修正，Q4 將迎來產業東風，AEHR 的車廠訂單已提供先期驗證，需忽略短期法律噪音。</td>
+            </tr>
+            <tr>
+                <td><strong>2449 京元電</strong><br><span style="font-size: 0.8rem; color: #6b7280;">台股 / 測試代工</span></td>
+                <td><span class="tag tag-hold">潛在受惠</span></td>
+                <td>-</td>
+                <td>推測為 NVDA 晶圓測試 Burn-in 的台灣代工廠，與 AEHR 有連帶受惠關係。</td>
+            </tr>
+            <tr>
+                <td><strong>8255 朋程</strong><br><span style="font-size: 0.8rem; color: #6b7280;">台股 / 車用二極體</span></td>
+                <td><span class="tag tag-watch">傳聞查證中</span></td>
+                <td>-</td>
+                <td>市場傳聞為 AEHR 在台灣拿下的第一家 SiC 客戶，需進一步追蹤基本面兌現情況。</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card card-review">
+    <h2 class="card-title">🔍 分析師綜合評論 (Fact-check & Assessment)</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="background: #f9fafb; padding: 16px; border-radius: 8px; border-left: 4px solid #10b981;">
+            <h3 style="font-size: 1rem; color: #1f2937; margin-bottom: 8px;">✅ 論述合理性與亮點</h3>
+            <p style="font-size: 0.95rem; color: #4b5563;">
+                作者對於 <strong>AEHR 轉型 AI 測試的邏輯具備高度可信度</strong>。隨著 AI 晶片（如 NVDA GPU）進入 CoWoS 等高階複雜封裝，為避免封裝後才發現裸晶損壞導致巨大成本損失，100% 晶圓級 Burn-in 已成為必備流程。此外，AEHR 高達 $1.06 億的有效訂單池與 FY27 激進指引相互印證，支撐了短中期估值重估的合理性。操作建議上提倡「不追盤後暴漲、等 20MA 走平買進」，符合這類高 Beta 轉機股的量價技術面紀律。
+            </p>
+        </div>
+        <div style="background: #f9fafb; padding: 16px; border-radius: 8px; border-left: 4px solid #ef4444;">
+            <h3 style="font-size: 1rem; color: #1f2937; margin-bottom: 8px;">⚠️ 風險提示與盲點糾正</h3>
+            <p style="font-size: 0.95rem; color: #4b5563;">
+                儘管 AEHR 車廠訂單回流，但作者對 <strong>WOLF, NVTS 等 SiC/GaN 個股過於樂觀</strong>，將其法律訴訟與財報暴雷視為「噪音」可能低估了全球 EV 需求放緩的系統性宏觀風險。此外，所謂「十倍營收」敘事帶有強烈主觀宣傳色彩，投資人應嚴格將 $126 與 $150 視為階段性停利壓力區。台股連動部分（如 8255 朋程）純屬傳聞，缺乏實質財報數據支撐，需防範過度聯想炒作。
+            </p>
+        </div>
+    </div>
+</div>
+
+```
+
+</div>
+
+</body>
+</html>
