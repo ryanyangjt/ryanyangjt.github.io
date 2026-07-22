@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-22</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .full-width {
+                grid-column: 1 / -1;
+            }
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 4px solid #3498db;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #2980b9;
+            font-size: 1.4em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-ticker { background-color: #e1f5fe; color: #0277bd; border: 1px solid #b3e5fc; }
+        .tag-buy { background-color: #d1e7dd; color: #0f5132; border: 1px solid #badbcc; }
+        .tag-wait { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .tag-risk { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+        }
+        
+        /* Bar Charts */
+        .chart-container {
+            margin-bottom: 20px;
+        }
+        .chart-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        .bar-wrap {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            height: 24px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 0.85em;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        .review-section {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #0277bd;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>投資研究儀表板 - 2026-07-22</h1>
+
+    <div class="card-grid">
+        <!-- 核心邏輯區 -->
+        <div class="card full-width">
+            <h2>核心總經觀點與產業趨勢邏輯</h2>
+            <ul>
+                <li><strong>資金面與市場情緒：</strong>亞洲股市去槓桿與去融資已達第一階段尾聲，市場開始進入「反彈」波段，負向傳導暫告結束。</li>
+                <li><strong>財報季護航：</strong>正值財報季，機構法人不敢隨意拋售或獵殺流動性，有利於已大幅修正的半導體板塊進行反彈。</li>
+                <li><strong>AI 資本支出為核心關鍵：</strong>全市場緊盯 Mag 4 (尤其是 GOOG) 的資本支出。市場預期小幅增加約 5%，若財報與電話會議確認未縮減資本支出，近期 AI 硬體股的下跌將是「黃金坑」。</li>
+                <li><strong>競爭格局轉換：</strong>AI 伺服器競爭已從單顆 GPU 升級為「整合系統級」競爭（如機櫃級 AI 系統），軟硬體生態系（如 ROCm）與大客戶（微軟、Meta、OpenAI）的導入為下一階段勝負關鍵。</li>
+            </ul>
+        </div>
+
+        <!-- 個股策略區 -->
+        <div class="card full-width">
+            <h2>個股與板塊操作策略</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的/代號</th>
+                            <th>操作方向</th>
+                            <th>目標價/支撐/壓力</th>
+                            <th>核心邏輯與建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-ticker">SOXX 半導體ETF</span></td>
+                            <td><span class="tag tag-risk">短線波段操作</span></td>
+                            <td>
+                                <strong>壓力位：</strong>573~575 (20MA)<br>
+                                <strong>停損位：</strong>收盤跌破 495
+                            </td>
+                            <td>僅以「反彈」視之。到達短線壓力點應先獲利了結；若跌破 495 短線倉位必須離場。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">GOOG 谷歌</span></td>
+                            <td><span class="tag tag-buy">長線逢低買進</span></td>
+                            <td>N/A</td>
+                            <td>財報業績必定亮眼，重點在電話會議對資本支出的展望。不建議在財報前「賭」單，但若因韓國去槓桿事件錯殺，長線皆為黃金坑買點。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">VICR 懷格</span></td>
+                            <td><span class="tag tag-wait">觀望/年線接刀</span></td>
+                            <td><strong>支撐位：</strong>179~180 (年線)</td>
+                            <td>財報大幅擊敗預期，但市場挑剔其「獲利品質」（毛利受一次性授權推升、新廠折舊將拖累未來毛利）。建議等待 GOOG 財報後，回測年線止穩再進場。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">AMD 超微</span></td>
+                            <td><span class="tag tag-buy">長線持有</span></td>
+                            <td><strong>目標價：</strong>> 600 元</td>
+                            <td>具備 CPU+GPU+DPU 完整系統整合能力 (Helios機櫃)。短線受惠 Advancing AI 大會與大客戶部署題材；長線競爭潛力大於 NVDA，跌下來就是買點。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">LITE</span> / <span class="tag tag-ticker">AAOI</span></td>
+                            <td><span class="tag tag-buy">搶反彈首選</span></td>
+                            <td>N/A</td>
+                            <td>屬光通訊板塊。基本面長線不變且跌幅已深，為搶反彈可優先佈局之標的。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 財務數據視覺化區 -->
+        <div class="card">
+            <h2>財報亮點與趨勢視覺化 (純靜態渲染)</h2>
+            
+            <div class="chart-container">
+                <div class="chart-label">VICR 未出貨訂單 (Backlog) 年增率對比 (單位: 億美元)</div>
+                <!-- Base width is relative to 3.8 to show scale. 1.55 / 3.8 = ~40% -->
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 40%; background-color: #6c757d;">去年同期: 1.55 億</div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 100%; background-color: #0d6efd;">本季: 3.80 億 (+145%)</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label">VICR 毛利率 (Gross Margin) 季增對比</div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 55.2%; background-color: #6c757d;">Q1: 55.2%</div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 58%; background-color: #198754;">Q2: 58.0%</div>
+                </div>
+            </div>
+            
+             <div class="chart-container">
+                <div class="chart-label">VICR 營收指引變化 (單位: 億美元)</div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 88%; background-color: #6c757d;">原 Q2 指引: 1.26 億</div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 99%; background-color: #0dcaf0; color: #333;">上修 Q2 指引: 1.42 億</div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-fill" style="width: 100%; background-color: #198754;">實際 Q2 營收: 1.43 億</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 綜合評論與風險提示區 -->
+        <div class="card">
+            <h2>風險提示與分析師綜合評論</h2>
+            <ul>
+                <li><strong>嚴控倉位：</strong>強烈警告投資人不要過度集中於 AI 硬體板塊，避免板塊連鎖下殺風險。</li>
+                <li><strong>長短線思維分離：</strong>短線操作必須嚴格設立停損（如 SOXX 破 495），不可因套牢而被迫轉為長線投資。長線投資（如 VICR 建廠陣痛期、AMD 系統轉換期）則需忍受短期的毛利拖累與資本支出壓力。</li>
+            </ul>
+            
+            <div class="review-section">
+                <strong>💡 分析師論述查證與點評：</strong><br>
+                作者的邏輯建立在<b>「CSP (雲端服務供應商) 的資本支出決定硬體股命運」</b>的正確基礎上。將 GOOG 的財報與電話會議視為 AI 硬體股的先行指標，非常符合華爾街當前的交易邏輯。此外，作者準確點出了優質財報公佈後卻下跌的「獲利品質」問題（如 VICR 靠一次性授權推升毛利、未來擴產折舊將壓抑利潤），顯示其具備深度的財報解讀能力。<br><br>
+                然而，將 AMD 的期權目標價設定在 $600 元，屬於極度樂觀的長線預期，投資人需密切關注其 MI450 量產良率與軟體生態 (ROCm) 的實際落地情況是否能如期威脅 NVDA 的主導地位。
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
