@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 - 2026-07-23</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary: #2980b9;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --info: #8e44ad;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1em;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.4em;
+            color: var(--text-main);
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* 標籤樣式 */
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 3px;
+        }
+        .tag-ticker { background-color: #e2e8f0; color: #475569; }
+        .tag-buy { background-color: #dcfce7; color: #166534; }
+        .tag-watch { background-color: #fef08a; color: #854d0e; }
+        .tag-avoid { background-color: #fee2e2; color: #991b1b; }
+        .tag-hold { background-color: #e0e7ff; color: #3730a3; }
+
+        /* 原生 CSS 長條圖 */
+        .chart-wrapper {
+            margin-bottom: 20px;
+        }
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+        .bar-bg {
+            background-color: #e2e8f0;
+            border-radius: 8px;
+            height: 22px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .stock-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .stock-item:last-child {
+            border-bottom: none;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .price-levels {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+        }
+        .level {
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .analyst-comment {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Wall Street 投資研究儀表板</h1>
+        <div class="subtitle">分析日期：2026-07-23 | 焦點：科技巨頭財報與 AI 資本支出</div>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <!-- 卡片 1：核心總經與產業邏輯 -->
+        <div class="card" style="border-top-color: var(--info);">
+            <h2>核心總經與產業邏輯</h2>
+            <p><strong>趨勢定調：</strong>Q3 短線主軸為「Vera Rubin」相關概念股，以 NVDA 及 AI 組裝代工為主。後續資金將輪動至 AI 硬體（特別是光通訊）。</p>
+            <p><strong>財報現象解讀：</strong></p>
+            <ul>
+                <li>科技巨頭（Google, TSLA, TSM, ASML）財報後下跌為「籌碼修正」，非基本面惡化。</li>
+                <li><strong>短期逆風：</strong>AI 資本支出大增吃掉自由現金流 (FCF轉負)，造成短線股價承壓。</li>
+                <li><strong>長期利多：</strong>資本支出(CapEx)指引上調，確立 AI 硬體供應鏈下半年至明年的業績支撐。</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 2：關鍵數據視覺化 (純 HTML/CSS) -->
+        <div class="card" style="border-top-color: var(--primary);">
+            <h2>關鍵資本支出數據變化</h2>
+            
+            <div class="chart-wrapper">
+                <div class="chart-label">
+                    <span>Google 2026 全年資本支出中位數預測 (億美元)</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 85%; background-color: #94a3b8;">Q1指引: 1,850 億</div>
+                </div>
+                <div class="bar-bg" style="margin-top: 5px;">
+                    <div class="bar-fill" style="width: 95%; background-color: var(--primary);">Q2上調: 2,000 億 (+8.1%)</div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-label">
+                    <span>Google AI 技術基礎設施預算分配</span>
+                </div>
+                <div class="bar-bg" style="display: flex;">
+                    <div class="bar-fill" style="width: 60%; background-color: #3b82f6; border-radius: 8px 0 0 8px; justify-content: center; padding: 0;">伺服器 (60%)</div>
+                    <div class="bar-fill" style="width: 40%; background-color: #0ea5e9; border-radius: 0 8px 8px 0; justify-content: center; padding: 0;">機房/電力/網路 (40%)</div>
+                </div>
+            </div>
+
+            <div class="chart-wrapper">
+                <div class="chart-label">
+                    <span>NVDA 股價潛在推演路徑 (USD)</span>
+                </div>
+                <div class="bar-bg">
+                    <div class="bar-fill" style="width: 69%; background-color: #64748b;">現價基準 (~$212)</div>
+                </div>
+                <div class="bar-bg" style="margin-top: 5px;">
+                    <div class="bar-fill" style="width: 81%; background-color: var(--warning);">短線目標 ($250)</div>
+                </div>
+                <div class="bar-bg" style="margin-top: 5px;">
+                    <div class="bar-fill" style="width: 100%; background-color: var(--success);">波段目標 ($280 - $305)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片 3：個股操作策略 -->
+        <div class="card" style="border-top-color: var(--success); grid-column: 1 / -1;">
+            <h2>投資標的與操作策略</h2>
+            
+            <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+                
+                <!-- NVDA -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">NVDA</span>
+                            <strong>輝達</strong>
+                        </div>
+                        <span class="tag tag-buy">買進正股</span>
+                    </div>
+                    <p>突破下降趨勢線，Q3短線核心。建議空手者先買正股，站穩 $222 後再考慮槓桿。</p>
+                    <div class="price-levels">
+                        <span class="level">突破/支撐: $222</span>
+                        <span class="level">目標一: $250</span>
+                        <span class="level">波段目標: $280-$305</span>
+                    </div>
+                </div>
+
+                <!-- SMCI -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">SMCI</span>
+                            <strong>美超微</strong>
+                        </div>
+                        <span class="tag tag-avoid">避開不操作</span>
+                    </div>
+                    <p>視為 NVDA 的「槓桿放大器」與領先指標。用其財測數據來輔助判斷 NVDA 走勢，但不建議直接交易此標的。</p>
+                </div>
+
+                <!-- 光通訊 -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">LITE</span>
+                            <span class="tag tag-ticker">AAOI</span>
+                            <strong>光通訊網通</strong>
+                        </div>
+                        <span class="tag tag-buy">逢低佈局</span>
+                    </div>
+                    <p>受惠 TPU 超級電腦對光學交換與高速互連架構的強烈需求。</p>
+                </div>
+
+                <!-- AI 硬體零組件 -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">AEHR</span>
+                            <span class="tag tag-ticker">TTMI</span>
+                            <span class="tag tag-ticker">FORM</span>
+                            <span class="tag tag-ticker">VSH</span>
+                            <span class="tag tag-ticker">AMKR</span>
+                        </div>
+                        <span class="tag tag-buy">黃金坑買點</span>
+                    </div>
+                    <p>近期回檔為主力的槓桿清洗，因基礎設施資本支出未減，下跌即是加碼良機。</p>
+                </div>
+
+                <!-- Google 供應鏈 -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">AVGO</span>
+                            <span class="tag tag-ticker">TSM</span>
+                            <strong>ASIC/晶圓封裝</strong>
+                        </div>
+                        <span class="tag tag-hold">長線持有</span>
+                    </div>
+                    <p>Google 資本支出最大受惠者。AVGO 負責客製化 ASIC 與 SerDes；TSM 掌握先進製程與封裝。</p>
+                </div>
+
+                <!-- 科技巨頭 -->
+                <div class="stock-item">
+                    <div class="stock-header">
+                        <div>
+                            <span class="tag tag-ticker">GOOG</span>
+                            <span class="tag tag-ticker">TSLA</span>
+                            <strong>科技巨頭</strong>
+                        </div>
+                        <span class="tag tag-watch">短線觀望承壓</span>
+                    </div>
+                    <p>財報佳但現金流因資本支出轉負。TSLA 的 Optimus 機器人量產遞延，短期估值受壓。</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 卡片 4：分析師綜合評論 -->
+        <div class="card" style="border-top-color: var(--warning); grid-column: 1 / -1;">
+            <h2>分析師綜合查證與評論</h2>
+            <div class="analyst-comment">
+                <p><strong>邏輯查證結果：高度合理</strong></p>
+                <p>作者透過追蹤 Hyperscaler（超大型雲端服務商，如 Google、Tesla）的「資本支出 (CapEx)」來推導 AI 硬體基礎設施的訂單能見度，這是華爾街極為正統且高勝率的總經/產業分析框架。只要 CapEx 增長趨勢未破，AI 伺服器與半導體供應鏈的回檔確實多為估值修正與籌碼換手。</p>
+                <p><strong>風險提示：</strong>作者精準指出了「現金流轉負」對軟體/終端巨頭短線股價的殺傷力，以及 TSLA 機器人(Optimus) 概念變現期遞延的現實。針對 NVDA 的股價預估，融入了權重佔比 (SPX 7.32%) 的考量，顯示非盲目喊盤，而是結合了指數連動空間的理性估算。整體策略具備實操價值，嚴控槓桿優先買正股的建議極為中肯。</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
