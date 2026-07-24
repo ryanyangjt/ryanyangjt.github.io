@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華爾街投資研究儀表板 - 2026-07-24</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Microsoft JhengHei', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #34495e;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #3498db;
+        }
+        .card-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        /* Tag Colors */
+        .tag-buy { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .tag-sell { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .tag-hold { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .tag-ticker { background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db; }
+        .tag-sector { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+        
+        /* Bar Chart Styles */
+        .chart-container {
+            margin: 15px 0 25px 0;
+        }
+        .chart-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #495057;
+            font-size: 0.95em;
+        }
+        .bar-wrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .bar-label {
+            width: 150px;
+            font-size: 0.9em;
+            color: #555;
+            text-align: right;
+            padding-right: 15px;
+        }
+        .bar-bg {
+            flex-grow: 1;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-sizing: border-box;
+            transition: width 0.5s ease;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        .stock-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .levels {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .commentary {
+            font-style: italic;
+            color: #495057;
+            border-left: 3px solid #6c757d;
+            padding-left: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📊 華爾街投資研究儀表板 (2026-07-24)</h1>
+
+    <div class="grid-2">
+        <!-- Core Macro Logic -->
+        <div class="card" style="border-left-color: #9b59b6;">
+            <h2 class="card-title">🌍 總經觀點與產業趨勢邏輯</h2>
+            <p><strong>核心痛點：</strong> 七月美股難做源於「系統性總經風險」發酵，而非單一個股基本面轉壞。AI 硬體股多頭趨勢受制於籌碼混亂與去槓桿。</p>
+            <p><strong>通膨與利率回歸：</strong> 地緣政治衝突推升油價（布蘭特原油突破 $100，WTI 突破 $92），導致通膨預期死灰復燃。強勁的就業數據（初領失業金降至 1969 年來新低）削弱了降息理由，市場重新定價「重啟升息循環」。</p>
+            <p><strong>板塊輪動現象：</strong> 高估值成長股、重資產高資本支出（Capex）科技股面臨折現率上升壓力；資金明顯避險並流入受惠高油價的能源煉油廠，以及國防、醫療、公用事業等防禦型板塊。</p>
+            
+            <div class="chart-container">
+                <div class="chart-title">Fed 貨幣政策預期 (至2027年1月)</div>
+                <div class="bar-wrap">
+                    <div class="bar-label">升息兩次 (基準劇本)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 37.3%; background-color: #e74c3c;">37.3%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">升息三次以上 (尾部風險)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 28.8%; background-color: #c0392b;">28.8%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">按兵不動</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 6.4%; background-color: #f39c12;">6.4%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">降息</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 0%; background-color: #27ae60; color: #333; padding-left: 5px;">0%</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Operation Strategies -->
+        <div class="card" style="border-left-color: #f1c40f;">
+            <h2 class="card-title">🎯 核心操作策略指引</h2>
+            <ul>
+                <li><span class="tag tag-buy">短線策略</span> <strong>逢低短打：</strong> 不賭財報。遇到大跌的「黃金坑」才進場控制倉位買入，遇大漲噴出即獲利了結。</li>
+                <li><span class="tag tag-hold">長線策略</span> <strong>耐心等候：</strong> 大盤用「時間換取空間」洗籌碼，波段操作需極大耐心等待發動。</li>
+                <li><span class="tag tag-hold">資金控管</span> <strong>保留現金：</strong> 嚴格控管現金部位，保留子彈應對末段殺盤清籌碼時的更甜買點。</li>
+                <li><span class="tag tag-sell">避開板塊</span> <strong>遠離重資產/高燒錢：</strong> 升息環境下，避開資本支出過大且尚未止跌的公司（如 ORCL）。</li>
+                <li><span class="tag tag-hold">中小股策略</span> <strong>多看少做：</strong> 只要市場仍在交易「升息預期」，對中小型股進場不宜過於積極。</li>
+            </ul>
+
+            <div class="chart-container">
+                <div class="chart-title">七月以來板塊績效對比 (避險資金輪動)</div>
+                <div class="bar-wrap">
+                    <div class="bar-label">MPC (馬拉松原油)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 22%; background-color: #27ae60;">+22.0%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">VLO (瓦萊羅能源)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 17.2%; background-color: #2ecc71;">+17.2%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">XLE (能源類股ETF)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 12%; background-color: #2ecc71;">+12.0%</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">SPY (標普500)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 5%; background-color: #95a5a6; color: #333; padding-left: 5px;">~0% (持平)</div></div>
+                </div>
+                <div class="bar-wrap">
+                    <div class="bar-label">QQQ (納斯達克)</div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 8%; background-color: #e74c3c; margin-left: auto;">-2.0%</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Specifics -->
+    <div class="card" style="border-left-color: #e67e22;">
+        <h2 class="card-title">📈 投資標的與個股解析</h2>
+        
+        <div class="grid-2">
+            <!-- INTC -->
+            <div class="stock-item">
+                <div class="stock-header">
+                    <div>
+                        <span class="tag tag-ticker">INTC</span>
+                        <span class="tag tag-buy">拉回找買點 (觀察1-2天)</span>
+                    </div>
+                </div>
+                <p><strong>核心邏輯：</strong> Q2財報大勝，創15年最快營收增速。Q3指引上修，化解AI硬體股疑慮。18A製程達標並獲大型雲端訂單，晶圓代工成功拿下 Tesla 14A 訂單，將受惠於台積電產能外溢。</p>
+                <div class="chart-container" style="margin-bottom: 5px;">
+                    <div class="chart-title">INTC Q2 營收表現 (億美元)</div>
+                    <div class="bar-wrap">
+                        <div class="bar-label">實際營收 (Actual)</div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 85%; background-color: #3498db;">161.3</div></div>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar-label">市場預期 (Est)</div>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 75%; background-color: #bdc3c7; color: #333;">144.2</div></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9em; color: #e74c3c; margin-top: 5px;">⚠️ <strong>風險提示：</strong> 盤後大漲易引發震盪，上方籌碼待清，切勿 FOMO 追價。</p>
+            </div>
+
+            <!-- AMKR -->
+            <div class="stock-item">
+                <div class="stock-header">
+                    <div>
+                        <span class="tag tag-ticker">AMKR</span>
+                        <span class="tag tag-hold">財報前觀望</span>
+                    </div>
+                </div>
+                <p><strong>核心邏輯：</strong> 受惠 INTC 財報與 NVDA 15億美元先進封裝預付款合作案（綁定亞利桑那廠產能）。複製 HBM 模式，由客戶分攤資本支出風險。</p>
+                <p style="font-size: 0.9em; color: #e74c3c;">⚠️ <strong>風險提示：</strong> 財報在即 (7/27)，盤後資金提前卡位可能導致「利多出盡」下車效應，大盤壓盤時切勿追高。</p>
+            </div>
+
+            <!-- ORCL, GOOGL, TSLA -->
+            <div class="stock-item">
+                <div class="stock-header">
+                    <div>
+                        <span class="tag tag-ticker">ORCL</span> <span class="tag tag-ticker">GOOGL</span> <span class="tag tag-ticker">TSLA</span>
+                        <span class="tag tag-sell">保守看待 / 避開</span>
+                    </div>
+                </div>
+                <p><strong>核心邏輯：</strong> AI 資本支出（燒錢）在「升息環境與折現率上升」下極其脆弱。ORCL 未見止跌前不宜樂觀介入；Google 財報不差但仍重挫，顯示市場對重資產板塊容忍度降低。</p>
+            </div>
+
+            <!-- Defense / Industrials -->
+            <div class="stock-item">
+                <div class="stock-header">
+                    <div>
+                        <span class="tag tag-ticker">RTX</span> <span class="tag tag-ticker">LMT</span> <span class="tag tag-ticker">HON</span>
+                        <span class="tag tag-buy">防禦型強勢股</span>
+                    </div>
+                </div>
+                <p><strong>核心邏輯：</strong> 資金避險首選。受惠中東地緣政治局勢，軍工股 (RTX, LMT) 彈藥需求大增，上調財測。HON 自動化業務強勁，積壓訂單達 200 億美元。</p>
+            </div>
+            
+            <!-- Indices -->
+            <div class="stock-item">
+                <div class="stock-header">
+                    <div>
+                        <span class="tag tag-sector">大盤指數關鍵位</span>
+                        <span class="tag tag-hold">區間震盪</span>
+                    </div>
+                </div>
+                <p><strong>SPX (標普500)：</strong> <span class="levels">目標價: 8000</span> | <span class="levels">壓力位: 8200+ (需保守)</span></p>
+                <p><strong>SOXX (費半)：</strong> <span class="levels">日線壓力位: 30MA</span> (反彈至此遇壓，受制於台韓股市去槓桿與匯率貶值外資賣超)</p>
+                <p><strong>IWM (羅素2000)：</strong> 面臨 10年期美債殖利率逼近 4.7% 的估值定價壓力，尚未完全反映風險。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analyst Verification -->
+    <div class="card" style="border-left-color: #27ae60;">
+        <h2 class="card-title">🔬 分析師邏輯查證與綜合評論</h2>
+        <p><strong>邏輯一致性檢驗：高度合理。</strong></p>
+        <p>作者將「地緣政治推升油價 ➜ 牽動通膨預期 ➜ 推升美債殖利率 (2Y達4.35%) ➜ 壓抑高估值科技股並引發資金輪動」的傳導路徑刻畫得非常精準。這完全符合華爾街在滯脹或升息重啟預期下的典型交易行為（Long Energy/Defensive, Short High-Duration Tech/Small Caps）。</p>
+        <div class="commentary">
+            <p><strong>綜合點評：</strong> 在當前總經逆風下，作者建議不盲目做多大盤，而是利用「財報錯殺/超預期」的個股（如 INTC 轉機題材、AMKR 綁定 NVDA 產能）進行嚴格的左側資金控管與右側短線交易，是非常務實的策略。特別指出「初領失業金創新低」反而成為 Fed 偏鷹的藉口（Good news is bad news），顯示其具備深厚的市場微觀結構與聯準會定價（CME FedWatch）解讀能力。建議投資人嚴格執行其「保留現金、不 FOMO 追價」的紀律。</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
