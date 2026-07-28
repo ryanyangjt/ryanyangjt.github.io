@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美股投資研究儀表板 - 2026-07-28</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary: #2c3e50;
+            --buy-color: #2ecc71;
+            --sell-color: #e74c3c;
+            --hold-color: #f39c12;
+            --info-color: #3498db;
+            --text-main: #333333;
+            --text-muted: #7f8c8d;
+            --border-color: #e0e6ed;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, '微軟正黑體', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .dashboard-header h1 {
+            color: var(--primary);
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .dashboard-header p {
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 20px;
+            border-top: 4px solid var(--primary);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-buy { background-color: var(--buy-color); }
+        .tag-hold { background-color: var(--hold-color); }
+        .tag-danger { background-color: var(--sell-color); }
+        .tag-info { background-color: var(--info-color); }
+        .tag-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Stock Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px 5px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+        th {
+            color: var(--text-muted);
+            font-weight: normal;
+        }
+        .ticker {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Native HTML Bar Charts */
+        .chart-container {
+            margin-top: 15px;
+        }
+        .chart-row {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .chart-label {
+            width: 120px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .bar-bg {
+            flex-grow: 1;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            height: 18px;
+            overflow: hidden;
+            position: relative;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .insight-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .insight-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .insight-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--info-color);
+            font-weight: bold;
+        }
+        
+        .analyst-review {
+            background-color: #f8fcfb;
+            border-left: 4px solid var(--info-color);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 14px;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-header">
+        <h1>美股投資研究儀表板</h1>
+        <p>報告日期：2026-07-28 | 華爾街科技與投資分析部</p>
+    </div>
+
+    <div class="grid-container">
+        
+        <!-- 卡片 1: 核心總經與產業邏輯 -->
+        <div class="card">
+            <h2>宏觀經濟與核心邏輯</h2>
+            <ul class="insight-list">
+                <li><strong>地緣政治鈍化：</strong>中東局勢暫緩、油價回落至 $81，但未能有效激勵美股大盤。</li>
+                <li><strong>大選提前定價：</strong>華爾街機構已開始交易期中選舉的不利預期，長線資金正在進行兩年期的板塊重分配。</li>
+                <li><strong>AI資本支出疑慮：</strong>市場預期本週科技巨頭(M4)財報將維持高額資本支出，引發估值擔憂與獲利了結。</li>
+                <li><strong>籌碼「連環套」：</strong>AI 半導體硬體股散戶接盤嚴重，機構不回補，形成層層套牢，短線V型反轉機率極低。</li>
+                <li><strong>板塊輪動加速：</strong>資金明顯從擁擠的硬體交易，轉向修正已深、估值壓力較低且籌碼乾淨的「軟體板塊」。</li>
+            </ul>
+        </div>
+
+        <!-- 卡片 2: 資金輪動與倉位配置可視化 -->
+        <div class="card" style="border-top-color: var(--info-color);">
+            <h2>資金動能與建議倉位配置</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">根據當前市場風險，建議保持高現金水位，並將多頭部位向軟體傾斜。</p>
+            
+            <div class="chart-container">
+                <div class="chart-row">
+                    <div class="chart-label">現金部位 (防禦)</div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 50%; background-color: var(--hold-color);">建議配置 50%</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">軟體板塊 (流入)</div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 40%; background-color: var(--buy-color);">動能強勁</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">AI 硬體 (流出)</div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 10%; background-color: var(--sell-color);">迴避加倉</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container" style="margin-top: 30px;">
+                <h3 style="font-size: 14px; margin-bottom: 10px;">原油價格劇本 (Brent)</h3>
+                <div class="chart-row">
+                    <div class="chart-label">買進區間</div>
+                    <div class="bar-bg" style="background-color: #eee;">
+                        <div class="bar-fill" style="width: 70%; background-color: var(--buy-color);">~$70</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">當前報價</div>
+                    <div class="bar-bg" style="background-color: #eee;">
+                        <div class="bar-fill" style="width: 81%; background-color: var(--info-color);">$81</div>
+                    </div>
+                </div>
+                <div class="chart-row">
+                    <div class="chart-label">獲利了結區間</div>
+                    <div class="bar-bg" style="background-color: #eee;">
+                        <div class="bar-fill" style="width: 100%; background-color: var(--sell-color);">~$85 - $100</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片 3: 個股點位與操作策略 (軟體板塊) -->
+        <div class="card" style="border-top-color: var(--buy-color); grid-column: 1 / -1;">
+            <h2>推薦做多板塊：軟體股 (Software)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號</th>
+                        <th>操作建議</th>
+                        <th>關鍵點位 (支撐/壓力/突破)</th>
+                        <th>策略說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ticker">WDAY</td>
+                        <td><span class="tag tag-buy">突破買進</span></td>
+                        <td>突破 $149.88 (進場) / $158.64 (加碼)</td>
+                        <td>底部形態確認中，站穩 150 開小倉，突破 159 加碼。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">ADBE</td>
+                        <td><span class="tag tag-hold">等待突破</span></td>
+                        <td>半年線壓力位 $238.5</td>
+                        <td>反彈至半年線遇壓，需等待站穩 238.5 才能進場。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">FDS</td>
+                        <td><span class="tag tag-buy">逢低佈局</span></td>
+                        <td>等待技術面底部訊號</td>
+                        <td>業績佳、護城河深，遭市場恐慌錯殺，等待打底完成。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">SNOW / DDOG</td>
+                        <td><span class="tag tag-buy">逢低佈局</span></td>
+                        <td>半年線支撐</td>
+                        <td>7/4 推薦標的，近期抗跌且已重新站上半年線，洗盤接近尾聲。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">CRM / NOW / PLTR / INTU</td>
+                        <td><span class="tag tag-info">趨勢偏多</span></td>
+                        <td>-</td>
+                        <td>資金明顯流入受惠族群，長線邏輯正確。買黑不買紅。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 卡片 4: 個股點位與操作策略 (大盤與硬體) -->
+        <div class="card" style="border-top-color: var(--sell-color); grid-column: 1 / -1;">
+            <h2>避開/觀望板塊：大盤指數與 AI 半導體硬體</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>標的代號</th>
+                        <th>操作建議</th>
+                        <th>關鍵點位 (支撐/壓力)</th>
+                        <th>策略說明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ticker">QQQ (那斯達克)</td>
+                        <td><span class="tag tag-danger">破位警示</span></td>
+                        <td>支撐一: 671~678 (周線20MA)<br>支撐二: 622 (年線平台)</td>
+                        <td>跌破半年線機率高，671-678 區間勿殺低，但極短線外不搶反彈。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">SOXX / 半導體</td>
+                        <td><span class="tag tag-hold">套牢觀望</span></td>
+                        <td>周線 20MA (支撐)</td>
+                        <td>勿盲目抄底，資金換手頻繁，需時間化解套牢賣壓。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">NVDA</td>
+                        <td><span class="tag tag-hold">持倉不動</span></td>
+                        <td>日線 20MA (波段防守)</td>
+                        <td>投資 AI 新創加重市場對資本支出的恐懼，勿逢低攤平。</td>
+                    </tr>
+                    <tr>
+                        <td class="ticker">TSM</td>
+                        <td><span class="tag tag-danger">探底尋撐</span></td>
+                        <td>跌破半年線邊緣</td>
+                        <td>MACD 倒鴨嘴，績優股亦遭提款，顯示大盤系統性修正壓力大。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 卡片 5: 分析師綜合查證與評論 -->
+        <div class="card" style="border-top-color: var(--primary); grid-column: 1 / -1;">
+            <h2>分析師綜合評論 (Analyst Review)</h2>
+            <div class="analyst-review">
+                <strong>邏輯查證：</strong>作者指出的「硬體籌碼連環套」與「資金轉向軟體板塊」邏輯在當前財報季前夕的市場避險情緒中非常合理。科技巨頭高額資本支出確實短期會對硬體股估值產生壓力，而軟體股經歷半年修正後，估值修復空間顯著。<br><br>
+                <strong>策略評價：</strong>其提出的「不搶硬體反彈、買黑不買紅、保留50%現金」是極具紀律的防禦型策略。WDAY 與 ADBE 的進場條件設定精確（需等待突破壓力位而非盲目接刀），有效降低假突破風險。關於「期中選舉定價」的觀點屬於市場深度預期，雖難以量化，但與近期避險資金撤出大型權值股的行為吻合。整體而言，此策略具備高度可操作性與風險控制意識。
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
