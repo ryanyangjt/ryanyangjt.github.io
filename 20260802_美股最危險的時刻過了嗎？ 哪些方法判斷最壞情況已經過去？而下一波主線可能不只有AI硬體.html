@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投資研究儀表板 2026-08-02</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+            --text-main: #333333;
+            --text-light: #7f8c8d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 20px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+        }
+
+        .card-header {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-header::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            background-color: var(--accent);
+            margin-right: 10px;
+            border-radius: 2px;
+        }
+
+        /* Tags CSS */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 2px;
+        }
+        .tag-ticker { background-color: #e1f5fe; color: #0288d1; }
+        .tag-buy { background-color: #e8f5e9; color: #2e7d32; }
+        .tag-watch { background-color: #fff3e0; color: #ef6c00; }
+        .tag-risk { background-color: #ffebee; color: #c62828; }
+        .tag-price { background-color: #f5f5f5; color: #424242; border: 1px solid #e0e0e0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Pure HTML/CSS Bar Charts */
+        .chart-container {
+            margin-bottom: 15px;
+        }
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+        .bar-bg {
+            width: 100%;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+            height: 20px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+        .fill-hw { background-color: #e74c3c; }
+        .fill-sw { background-color: #3498db; }
+        .fill-m4 { background-color: #9b59b6; }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .commentary-box {
+            background-color: #fdfbf7;
+            border-left: 4px solid #d4af37;
+            padding: 15px;
+            font-size: 15px;
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard-container">
+    <h1>華爾街投資研究儀表板 - 2026-08-02</h1>
+
+    <div class="grid-layout">
+        
+        <!-- 核心邏輯區 -->
+        <div class="card">
+            <div class="card-header">核心總經觀點與產業趨勢邏輯</div>
+            <ul>
+                <li><strong>資金輪動改變：</strong>資金僅有一套，受限於聯準會未降息，資金正從過度擁擠的 AI 硬體板塊撤出，轉移至軟體股及 M4 大科技股。</li>
+                <li><strong>打破慣性：</strong>上半年「殺軟體、買硬體」的蹺蹺板效應已被打破。軟體股 (如 IGV) 開始展現相對抗跌及底部支撐力道。</li>
+                <li><strong>技術面底部特徵：</strong>大盤 (QQQ) 測試週線 20MA，出現長下影線與爆量換手，MACD 動能收斂，此為初步止跌訊號，但仍需下週一確認量能與日線支撐。</li>
+                <li><strong>市場心理：</strong>經歷回檔後市場情緒脆弱（蛇咬效應），多頭拉抬阻力增加，預期底部將震盪整理一段時間，不宜 FOMO 追高。</li>
+            </ul>
+        </div>
+
+        <!-- 板塊資金熱度與趨勢變化圖表 (Pure HTML/CSS) -->
+        <div class="card">
+            <div class="card-header">板塊資金動能與市場偏好趨勢變化</div>
+            
+            <div class="chart-container">
+                <div class="chart-label"><span>2026 上半年資金集中度 (回顧)</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill fill-hw" style="width: 85%;">AI硬體 (85%)</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-label"><span>當前機構資金回補意願 (軟體股 IGV)</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill fill-sw" style="width: 65%;">軟體板塊 (65%)</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-label"><span>當前機構資金回補意願 (M4/大科技)</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill fill-m4" style="width: 70%;">大科技 (70%)</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-label"><span>當前資金偏好 (AI硬體反彈力道預期)</span></div>
+                <div class="bar-bg">
+                    <div class="bar-fill fill-hw" style="width: 40%; background-color: #e08283;">動能減弱 (40%)</div>
+                </div>
+            </div>
+            <p style="font-size: 12px; color: var(--text-light);">*圖表說明：反映文章中「資金只有一套，硬體籌碼凌亂且資金被軟體與M4吸走，期望值需降低」之邏輯對比。</p>
+        </div>
+
+        <!-- 綜合評論與查證 -->
+        <div class="card full-width">
+            <div class="card-header">分析師綜合評論與邏輯查證</div>
+            <div class="commentary-box">
+                <strong>查證與點評：</strong> 該作者的交易邏輯高度符合華爾街近期的「板塊輪動 (Sector Rotation)」現象。當 AI 硬體股（如 NVDA, AMD 等）估值推升至極端，且籌碼高度集中時，任何總經不確定性（如利率維持高位）都會引發獲利了結。資金回流至財報明朗、現金流穩健的大型科技股 (GOOG, META, MSFT) 以及超跌的 SaaS 軟體股，是標準的防禦性成長策略。<br><br>
+                技術面分析引用週線 20MA 作為中長期趨勢分水嶺，並輔以 MACD 柱狀體縮減作為動能轉折依據，屬於合理且穩健的左側/右側過渡期判斷策略。建議利用 Call Spread 限制下行風險來搶反彈，反映了對隱含波動率 (IV) 擴大時段的優異風險控管意識。整體觀點客觀，值得實務交易者參考。
+            </div>
+        </div>
+
+        <!-- 個股策略區 -->
+        <div class="card full-width">
+            <div class="card-header">個股建議與關鍵價位操作策略</div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>標的 / 模塊</th>
+                            <th>操作建議</th>
+                            <th>關鍵價位 (支撐/壓力/目標)</th>
+                            <th>核心策略說明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-ticker">QQQ</span> (納斯達克)</td>
+                            <td><span class="tag tag-buy">分批建倉</span></td>
+                            <td><span class="tag tag-price">支撐: 週線20MA</span> <span class="tag tag-price">壓力: 日線20MA</span></td>
+                            <td>左側激進者可先建倉 15%，待下週一確認收盤站上半年線與量能放大，再補足剩餘 15%。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">SPX</span> (標普500)</td>
+                            <td><span class="tag tag-buy">多頭波段</span></td>
+                            <td><span class="tag tag-price">目前: 約 7500點</span> <span class="tag tag-price">目標: 8000點</span></td>
+                            <td>多頭格局未變。由 M7 輪流控盤，後續仍有機會挑戰 8000 點整數大關。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">NVDA</span> (輝達)</td>
+                            <td><span class="tag tag-watch">觀望等待突破</span></td>
+                            <td><span class="tag tag-price">頸線壓力: $215</span></td>
+                            <td>需達成三部曲：1. 站上日線20MA 2. 突破下降趨勢線 3. 突破並站穩 7/22 前高 $215，下跌趨勢才會反轉。目前權值過大淪為控盤工具。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">DELL</span> (戴爾)</td>
+                            <td><span class="tag tag-buy">強勢關注</span></td>
+                            <td>-</td>
+                            <td>Rubin 架構出貨受惠者，股價相對抗跌。但<span class="tag tag-risk">需避開 9/3 財報風險</span>。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="tag tag-ticker">DDOG</span> <span class="tag tag-ticker">SNOW</span><br>
+                                <span class="tag tag-ticker">NOW</span> <span class="tag tag-ticker">WDAY</span> <span class="tag tag-ticker">FDS</span>
+                            </td>
+                            <td><span class="tag tag-buy">偏多佈局</span></td>
+                            <td><span class="tag tag-price">支撐: 日線20MA已走平</span></td>
+                            <td>軟體股資金未撤出，大盤殺跌時收陽線，上方套牢籌碼較輕，機構資金進駐中。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">PANW</span> <span class="tag tag-ticker">CRWD</span></td>
+                            <td><span class="tag tag-buy">低接小倉佈局</span></td>
+                            <td><span class="tag tag-price">停損位: 區間低點下方</span></td>
+                            <td>資安板塊整理中。以嚴格的前低停損換取高盈虧比。</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-ticker">GOOG</span> <span class="tag tag-ticker">META</span> <br><span class="tag tag-ticker">MSFT</span> <span class="tag tag-ticker">AMZN</span></td>
+                            <td><span class="tag tag-buy">搶反彈</span></td>
+                            <td>-</td>
+                            <td>財報不確定性解除，機構 (包含 CTA) 開始大力回補。具備比價效應 (如 GOOG 財報不差卻遭錯殺)。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 風險與衍生品策略 -->
+        <div class="card full-width">
+            <div class="card-header">風險提示與選擇權 (Options) 策略</div>
+            <ul>
+                <li><span class="tag tag-risk">嚴格控管總損失</span>：市場仍在療傷階段，不適合使用兩倍槓桿產品 (2x ETFs)。</li>
+                <li><strong>買權多頭價差 (Call Spread) 策略：</strong>
+                    <ul>
+                        <li><strong>建倉方式：</strong>買入深度價內 (ITM) 且距離到期日 90~120 天的 Call，同時賣出較寬的價外 (OTM) Call。</li>
+                        <li><strong>優勢：</strong>降低資金成本與時間價值耗損 (Theta)。</li>
+                        <li><strong>資金控管紀律：</strong>必須將策略的最大損失 (Max Loss) 視為停損金額（例如：可承受 $5,000 損失，則依此反推口數，結算歸零即為預設停損）。若不懂計算最大損失，則強烈建議不操作選擇權。</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
